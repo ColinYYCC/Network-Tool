@@ -213,7 +213,7 @@ proxy-groups:
 # Apple
   - {name: Apple Service, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡, 香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点], 台湾节点, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png}
 # Ai
-  - {name: AI, type: select, proxies: [🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡, 香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点], icon: https://github.com/ColinYYCC/Network-Tools/raw/main/Logo/DeepSeek.png}
+  - {name: AI, type: select, proxies: [🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡, 香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/DeepSeek.png}
 # > 媒体策略组
 # Netflix
   - {name: Netflix, type: select, proxies: [狮城节点, 香港节点, 台湾节点, 日本节点, 美国节点, 韩国节点], icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/lige47/netflix(red).png}
