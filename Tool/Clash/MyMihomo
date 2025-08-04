@@ -123,13 +123,16 @@ dns:
   # fake-ip-filter end
   respect-rules: true
   nameserver:
+    - system
     - 2620:fe::11
     - 2620:fe::fe:11
     - https://dns11.quad9.net/dns-query
     - tls://dns11.quad9.net
+    - https://223.5.5.5/dns-query
     - https://doh.pub/dns-query
   proxy-server-nameserver:
     - https://dns11.quad9.net/dns-query
+    - https://223.5.5.5/dns-query
     - https://doh.pub/dns-query
 
 profile:
