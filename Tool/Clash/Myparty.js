@@ -623,7 +623,7 @@ function overwriteProxyGroups (params) {
         },
         {
             name: "🔮 负载均衡",
-            type: "load-balancet",
+            type: "load-balance",
             url: "http://latency-test.skk.moe/endpoint",
             interval: 300,
             lazy: true,
