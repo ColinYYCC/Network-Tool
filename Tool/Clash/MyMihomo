@@ -11,27 +11,29 @@ redir-port: 7893
 tproxy-port: 7894
 experimental:
   ignore-resolve-fail: true
-
-unified-delay: true
-geodata-mode: false
-geodata-loader: standard
-geo-auto-update: true
-geo-update-interval: 24
-tcp-concurrent: true
-find-process-mode: strict
-global-client-fingerprint: chrome
-
 allow-lan: true
 mode: rule
 log-level: warning
 ipv6: true
 udp: true
+find-process-mode: strict
+unified-delay: true
+tcp-concurrent: true
+global-client-fingerprint: chrome
 
 ### 如果使用的是裸核，需要将下面的注释去掉，方便ui界面的使用
 # external-controller: 0.0.0.0:9988
 # external-ui: ui
 # external-ui-url: "https://mirror.ghproxy.com/https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip"
 
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+geodata-mode: true
+geodata-loader: standard
+geo-auto-update: true
+geo-update-interval: 24
 geox-url:
   geoip: "https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat"
   geosite: "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
@@ -41,7 +43,6 @@ geox-url:
 ### DNS配置
 dns:
   enable: true
-  listen: 0.0.0.0:1053
   prefer-h3: true
   ipv6: true
   enhanced-mode: fake-ip
@@ -119,9 +120,8 @@ dns:
     - "PDC._msDCS.*.*"
     - "DC._msDCS.*.*"
     - "GC._msDCS.*.*"
-
   # fake-ip-filter end
-  respect-rules: true
+
   nameserver:
     - system
     - 2620:fe::11
@@ -135,10 +135,6 @@ dns:
     - https://223.5.5.5/dns-query
     - https://doh.pub/dns-query
 
-profile:
-  store-selected: true
-  store-fake-ip: true
-
 ### 域名嗅探
 sniffer:
   enable: true
@@ -150,8 +146,6 @@ sniffer:
       ports: [443, 8443]
     QUIC:
       ports: [443, 8443]
-  force-domain:
-    - +.v2ex.com
   skip-domain:
     - "Mijia Cloud"
     - "+.push.apple.com"
