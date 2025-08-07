@@ -41,14 +41,14 @@ proxy-test-url = http://latency-test.skk.moe/endpoint
 # > 互联网联通性测试
 internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
 # > 节点测速时的超时秒数
-test-timeout = 3
+test-timeout = 2
 # ------
 
 # ---(高级)---
 # 高级设置
 
 # > 一个节点连续失败几次后进行节点切换
-switch-node-after-failure-times = 3
+switch-node-after-failure-times = 2
 # 策略切换时关闭连接
 disconnect-on-policy-change = true
 # SNI辅助规则匹配
