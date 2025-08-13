@@ -21,7 +21,7 @@ real-ip = dns.msftncsi.com,*.srv.nintendo.net,*.stun.playstation.net,xbox.*.micr
 # 传统 DNS 服务器设置
 dns-server = 9.9.9.9, 149.112.112.112, 2620:fe::fe, 2620:fe::9
 # 加密 DNS 服务器设置
-doh-server = https://dns11.quad9.net/dns-query
+doh-server = https://dns.quad9.net/dns-query
 # ip-mode 支持（默认dual: IPv4&IPv6）
 ip-mode = dual
 ipv6-vif = auto
