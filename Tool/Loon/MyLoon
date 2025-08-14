@@ -125,7 +125,7 @@ Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,�
 游戏 = select,DIRECT,🎲 自动选择,🔯 故障转移,url = http://latency-test.skk.moe/endpoint,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/steam(1).png
 
 # > 白名单模式 PROXY, 黑名单模式 DIRECT
-漏网之鱼 = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,DIRECT,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,url = http://latency-test.skk.moe/endpoint,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png
+漏网之鱼 = select,🔯 故障转移,🎲 自动选择,🔮 负载均衡,DIRECT,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,url = http://latency-test.skk.moe/endpoint,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png
 # ------
 
 # > 节点分流
