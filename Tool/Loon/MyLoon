@@ -13,12 +13,12 @@ skip-proxy = localhost, *.local, captive.apple.com, sequoia.apple.com, seed-sequ
 bypass-tun = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.88.99.0/24, 192.168.0.0/16, 198.18.0.0/15, 224.0.0.0/4, 240.0.0.0/4, 255.255.255.255/32, fc00::/7, fd00::/8, fe80::/10
 
 # > 以下配置的域名不会使用fakeip进行映射 
-real-ip = dns.msftncsi.com,*.srv.nintendo.net,*.stun.playstation.net,xbox.*.microsoft.com,*.xboxlive.com,*.turn.twilio.com,*.stun.twilio.com,stun.syncthing.net,stun.*,*.sslip.io,*.nip.io
+real-ip = dns.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.turn.twilio.com, *.stun.twilio.com, stun.syncthing.net, stun.*, *.sslip.io, *.nip.io
 
 # ---(DNS 服务器)---
 # DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
 # 传统 DNS 服务器设置
-dns-server = 9.9.9.9, 149.112.112.112, 119.29.29.29, 223.5.5.5, 2620:fe::fe, 2620:fe::9, 2402:4e00::, 2400:3200::1
+dns-server = 9.9.9.9, 149.112.112.112, 119.29.29.29, 223.5.5.5, 2620:fe::fe, 2620:fe::9,2402:4e00::, 2400:3200::1
 # 加密 DNS 服务器设置
 doh-server = https://dns.quad9.net/dns-query, https://doh.pub/dns-query, https://dns.alidns.com
 # ip-mode 支持（默认dual: IPv4&IPv6）
@@ -39,6 +39,8 @@ allow-wifi-access = true
 wifi-access-http-port = 7222
 # wifi共享开启时socks5服务的端口
 wifi-access-socks5-port = 7221
+# wifi共享开启时socks5服务的端口
+mitm-on-wifi-access = true
 
 # > 节点延迟测试
 proxy-test-url = http://latency-test.skk.moe/endpoint
@@ -273,7 +275,7 @@ https://ruleset.skk.moe/List/non_ip/stream.conf, policy=国外网站, tag=Stream
 https://ruleset.skk.moe/List/ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体服务(IP), enabled=true
 
 # 国外网站
-https://ruleset.skk.moe/List/non_ip/global.conf, policy=🥡 节点选择, tag=国外网站, enabled=false
+https://ruleset.skk.moe/List/non_ip/global.conf, policy=🥡 节点选择, tag=国外网站, enabled=true
 
 # Telegram 电报
 https://github.com/LucaLin233/Luca_Conf/raw/main/Surge/Rule/Telegram.list?raw = true, policy=Telegram, tag=Telegram 电报, enabled=true
