@@ -152,10 +152,10 @@ LoadBalance: &LoadBalance {type: load-balance, url: "http://latency-test.skk.moe
 
 # 节点组
 proxy-groups:
-  # > 手动切換
+  # 手动切換
   - {name: 手动切换, type: select, proxies: [🛰️ 自动选择, 🔮 负载均衡, 🔯 故障转移, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点, DIRECT], icon: https://github.com/chen08209/FlClash/raw/main/assets/images/icon.png}
 
-  # > 分流策略组
+  # 分流策略组
   - {name: 国外网站, type: select, proxies: [🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡, 香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png}
   # Telegram
   - {name: Telegram, type: select, proxies: [🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡, 香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点], icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/telegram(blue1).png}
@@ -180,7 +180,6 @@ proxy-groups:
 
   # > 白名单模式 PROXY, 黑名单模式 DIRECT
   - {name: 漏网之鱼, type: select, proxies: [🔯 故障转移, 🛰️ 自动选择, 🔮 负载均衡, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点, DIRECT], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
-  # ------
 
   # 自动选择
   - {name: 香港节点, <<: *UrlTest, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png}
@@ -193,12 +192,10 @@ proxy-groups:
   - {name: 德国节点, <<: *UrlTest, filter: *FilterDE, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Germany.png}
   - {name: 台湾节点, <<: *UrlTest, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png}
 
-
   # 全部节点
   - {name: 🛰️ 自动选择, <<: *UrlTest, filter: *FilterAll, icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(3).png}
   - {name: 🔯 故障转移, <<: *FallBack, filter: *FilterAll, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png}
   - {name: 🔮 负载均衡, <<: *LoadBalance, filter: *FilterAll, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
-
 
 ### 规则配置
 RuleSet_classicalT: &RuleSet_classicalT {type: http, behavior: classical, interval: 43200, format: text, proxy: 手动切换}
