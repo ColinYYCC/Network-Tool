@@ -18,9 +18,9 @@ real-ip = dns.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.m
 # ---(DNS 服务器)---
 # DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
 # 传统 DNS 服务器设置
-dns-server = 9.9.9.9, 149.112.112.112, 119.29.29.29, 223.5.5.5, 2620:fe::fe, 2620:fe::9,2402:4e00::, 2400:3200::1
+dns-server = 9.9.9.9, 149.112.112.112, 2620:fe::fe, 2620:fe::9
 # 加密 DNS 服务器设置
-doh-server = https://dns.quad9.net/dns-query, https://doh.pub/dns-query, https://dns.alidns.com
+doh-server = https://dns.quad9.net/dns-query, https://1.12.12.12/dns-query, https://120.53.53.53/dns-query
 # ip-mode 支持（默认dual: IPv4&IPv6）
 ip-mode = dual
 ipv6-vif = auto
@@ -72,7 +72,7 @@ interface-mode = auto
 
 # > hijack-dns
 # 有些app会自己使用自定义的DNS over UDP来解析IP, 可以配置相关IP:端口来劫持这些查询, 并返回fakeip的响应
-hijack-dns = 9.9.9.9:53, 1.1.1.1:53
+hijack-dns = 9.9.9.9:53, any:53
 # > disable-stun
 # 禁用stun是否禁用stun协议的udp数据, 禁用后可以有效解决webrtc的ip泄露
 disable-stun = true
