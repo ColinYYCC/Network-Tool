@@ -104,17 +104,17 @@ US = NameRegex, FilterKey = "^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄�
 
 [Proxy Group]
 # > 配置分流
-🥡 节点选择 = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,url = http://latency-test.skk.moe/endpoint,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png
+🥡 节点选择 = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png
 # ------
 
 # > 分流策略组
-国外网站 = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,url = http://latency-test.skk.moe/endpoint,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png
+国外网站 = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png
 # Telegram
-Telegram = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,url = http://latency-test.skk.moe/endpoint,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/telegram(blue1).png
+Telegram = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/telegram(blue1).png
 # Apple
-Apple Service = select,DIRECT,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,url = http://latency-test.skk.moe/endpoint,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png
+Apple Service = select,DIRECT,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png
 # Ai
-AI = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,url = http://latency-test.skk.moe/endpoint,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/DeepSeek.png
+AI = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/DeepSeek.png
 # Netflix
 Netflix = select,狮城节点,香港节点,台湾节点,日本节点,美国节点,韩国节点,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/lige47/netflix(red).png
 # YouTube
@@ -122,13 +122,15 @@ YouTube = select,香港节点,台湾节点,狮城节点,日本节点,美国节�
 # Disney+
 Disney+ = select,狮城节点,香港节点,台湾节点,日本节点,美国节点,韩国节点,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/lige47/disney(blue).png
 # Spotify
-Spotify = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,🎲 自动选择,🔯 故障转移,🔮 负载均衡,url = http://latency-test.skk.moe/endpoint,img-url = https://github.com/tugepaopao/Image-Storage/raw/master/cartoon/Cute/spotify.png
+Spotify = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,🎲 自动选择,🔯 故障转移,🔮 负载均衡,img-url = https://github.com/tugepaopao/Image-Storage/raw/master/cartoon/Cute/spotify.png
 # Emby
-Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,🎲 自动选择,🔯 故障转移,🔮 负载均衡,url = http://latency-test.skk.moe/endpoint,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/emby.png
-游戏 = select,DIRECT,🎲 自动选择,🔯 故障转移,url = http://latency-test.skk.moe/endpoint,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/steam(1).png
+Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,🎲 自动选择,🔯 故障转移,🔮 负载均衡,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/emby.png
+游戏 = select,DIRECT,🎲 自动选择,🔯 故障转移,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/steam(1).png
+# 广告拦截
+广告拦截 = select,REJECT,DIRECT,🎲 自动选择
 
 # > 白名单模式 PROXY, 黑名单模式 DIRECT
-漏网之鱼 = select,🔯 故障转移,🎲 自动选择,🔮 负载均衡,DIRECT,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,url = http://latency-test.skk.moe/endpoint,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png
+漏网之鱼 = select,🔯 故障转移,🎲 自动选择,🔮 负载均衡,DIRECT,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png
 # ------
 
 # > 节点分流
