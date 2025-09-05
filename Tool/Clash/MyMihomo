@@ -214,6 +214,11 @@ rule-providers:
     <<: *RuleSet_classicalT
     url: "https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt"
     path: "./Rules/sukkaw_ruleset/reject_non_ip_no_drop.txt"
+ 
+  reject_non_ip_no_drop:
+    <<: *RuleSet_classical
+    url: 'https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt'
+    path: './rule_set/sukkaw_ruleset/reject_non_ip_no_drop.txt'
 
   reject_non_ip_drop:
     <<: *RuleSet_classicalT
@@ -224,11 +229,11 @@ rule-providers:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/non_ip/reject.txt
     path: ./Rules/sukkaw_ruleset/reject_non_ip.txt
-
-  adrules:
+  
+  reject_domainset:
     <<: *RuleSet_domain
-    url: https://adrules.top/adrules_domainset.txt
-    path: ./Rules/adrules.top/adrules_domainset.txt
+    url: https://ruleset.skk.moe/Clash/domainset/reject.txt
+    path: ./rule_set/sukkaw_ruleset/reject_domainset.txt
 
   reject_ip:
     <<: *RuleSet_classicalT
@@ -417,10 +422,11 @@ rules:
   ### 非 IP 类规则
   # 直连和广告拦截
   - RULE-SET,sogouinput,REJECT
-  - RULE-SET,reject_non_ip,REJECT
-  - RULE-SET,adrules,REJECT
-  - RULE-SET,reject_non_ip_drop,REJECT-DROP
   - RULE-SET,RejectPCDN,REJECT
+  - RULE-SET,reject_non_ip,REJECT
+  - RULE-SET,reject_domainset,REJECT
+  - RULE-SET,reject_non_ip_drop,REJECT-DROP
+  - RULE-SET,reject_non_ip_no_drop,REJECT
   - RULE-SET,cdn_domainset,手动切换
   - RULE-SET,cdn_non_ip,手动切换
   - RULE-SET,Netflix,Netflix
