@@ -414,6 +414,8 @@ rules:
   - DOMAIN-SUFFIX, home, DIRECT
   - DOMAIN-SUFFIX, corp, DIRECT
 
+  - DOMAIN,analysis.google.com,美国节点
+
   ### 非 IP 类规则
   # 直连和广告拦截
   - RULE-SET,sogouinput,REJECT
