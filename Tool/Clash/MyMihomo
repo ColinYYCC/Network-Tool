@@ -207,12 +207,12 @@ RuleSet_ipcidr: &RuleSet_ipcidr {type: http, behavior: ipcidr, interval: 43200, 
 rule-providers:
   sogouinput:
     <<: *RuleSet_classicalT
-    url: "https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt"
+    url: https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt
     path: "./sukkaw_ruleset/sogouinput.txt"
 
   RejectPCDN:
     <<: *RuleSet_classicalT
-    url: "https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt"
+    url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt
     path: "./Rules/sukkaw_ruleset/reject_non_ip_no_drop.txt"
 
   reject_non_ip_drop:
@@ -225,10 +225,10 @@ rule-providers:
     url: https://ruleset.skk.moe/Clash/non_ip/reject.txt
     path: ./Rules/sukkaw_ruleset/reject_non_ip.txt
   
-  reject_domainset:
+  adrules:
     <<: *RuleSet_domain
-    url: https://ruleset.skk.moe/Clash/domainset/reject.txt
-    path: ./rule_set/sukkaw_ruleset/reject_domainset.txt
+    url: https://adrules.top/adrules_domainset.txt
+    path: ./rule_set/sukkaw_ruleset/adrules_domainset.txt
 
   reject_ip:
     <<: *RuleSet_classicalT
@@ -421,7 +421,7 @@ rules:
   - RULE-SET,sogouinput,REJECT
   - RULE-SET,RejectPCDN,REJECT
   - RULE-SET,reject_non_ip,REJECT
-  - RULE-SET,reject_domainset,REJECT
+  - RULE-SET,adrules,REJECT
   - RULE-SET,reject_non_ip_drop,REJECT-DROP
   - RULE-SET,cdn_domainset,手动切换
   - RULE-SET,cdn_non_ip,手动切换
