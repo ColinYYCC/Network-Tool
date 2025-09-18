@@ -223,8 +223,7 @@ FINAL,漏网之鱼
 
 [Remote Rule]
 # ADs
-# https://adrules.top/adrules.list, policy=REJECT, tag=广告拦截, enabled=true
-https://ruleset.skk.moe/List/domainset/reject.conf, policy=REJECT, tag=广告拦截, enabled=true
+https://adrules.top/adrules.list, policy=REJECT, tag=广告拦截, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject.conf, policy=REJECT, tag=广告拦截, enabled=true
 https://ruleset.skk.moe/List/domainset/reject_phishing.conf, policy=REJECT, tag=Phiishing 拦截, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf, policy=REJECT-NO-DROP, tag=防止PCDN, enabled=true
