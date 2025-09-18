@@ -76,6 +76,10 @@ RULE-SET,https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt,REJECT-DROP
 
 # 广告拦截
 RULE-SET,https://adrules.top/adrules.list,REJECT
+RULE-SET,https://ruleset.skk.moe/List/non_ip/reject.conf,REJECT
+RULE-SET,https://ruleset.skk.moe/List/domainset/reject_phishing.conf,REJECT
+RULE-SET,https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf,REJECT-NO-DROP
+RULE-SET,https://ruleset.skk.moe/List/non_ip/reject-drop.conf,REJECT-DROP
 
 # 静态CDN域名(強烈建議)
 DOMAIN-SET,https://ruleset.skk.moe/List/domainset/cdn.conf,🌏 国外网站
