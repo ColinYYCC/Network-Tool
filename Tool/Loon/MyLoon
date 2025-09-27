@@ -221,7 +221,10 @@ IP-CIDR6,2002::/16,DIRECT
 FINAL,漏网之鱼
 # ------
 
-[Remote Rule]
+[Remote Rule] 
+＃ 隐私
+https://ruleset.skk.moe/List/non_ip/sogouinput.conf, policy=REJECT, tag=搜狗输入法，enabled=true
+
 # ADs
 https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge.list, policy=REJECT, tag=秋风广告规则, enabled=true
 https://adrules.top/adrules.list, policy=REJECT, tag=广告拦截, enabled=true
