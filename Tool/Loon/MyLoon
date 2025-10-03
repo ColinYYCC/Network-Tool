@@ -1,4 +1,4 @@
-# 基于[@iKeLee]修改
+## 基于[@iKeLee]修改
 # Author:https://github.com/ColinYYCC
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
 #
@@ -18,7 +18,7 @@ real-ip = dns.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.m
 # ---(DNS 服务器)---
 # DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
 # 传统 DNS 服务器设置
-# dns-server = 9.9.9.9, 149.112.112.112, 2620:fe::fe, 2620:fe::9
+dns-server = 9.9.9.9, 149.112.112.112, 2620:fe::fe, 2620:fe::9
 # 加密 DNS 服务器设置
 doh-server = https://dns.quad9.net/dns-query, https://1.12.12.12/dns-query, https://120.53.53.53/dns-query
 doq-server = quic://223.5.5.5, quic://223.6.6.6
@@ -227,7 +227,7 @@ https://ruleset.skk.moe/List/non_ip/sogouinput.conf, policy=REJECT, tag=搜狗�
 
 # ADs
 https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge.list, policy=REJECT, tag=秋风广告规则, enabled=true
-https://adrules.top/adrules.list, policy=REJECT, tag=广告拦截, enabled=true
+# https://adrules.top/adrules.list, policy=REJECT, tag=广告拦截, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject.conf, policy=REJECT, tag=广告拦截, enabled=true
 https://ruleset.skk.moe/List/domainset/reject_phishing.conf, policy=REJECT, tag=Phiishing 拦截, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf, policy=REJECT-NO-DROP, tag=防止PCDN, enabled=true
