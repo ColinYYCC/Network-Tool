@@ -73,7 +73,7 @@ interface-mode = auto
 
 # > hijack-dns
 # 有些app会自己使用自定义的DNS over UDP来解析IP, 可以配置相关IP:端口来劫持这些查询, 并返回fakeip的响应
-hijack-dns = 9.9.9.9:53, any:53
+hijack-dns = 8.8.8.8:53, any:53
 # > disable-stun
 # 禁用stun是否禁用stun协议的udp数据, 禁用后可以有效解决webrtc的ip泄露
 disable-stun = true
@@ -82,7 +82,6 @@ disable-stun = true
 geoip-url = https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb
 # > 自定义ASN数据库的url
 ipasn-url = https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb
-# ipasn-url = https://raw.githubusercontent.com/P3TERX/GeoLite.mmdb/download/GeoLite2-ASN.mmdb
 # ------
 
 [Proxy]
