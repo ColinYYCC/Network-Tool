@@ -52,9 +52,9 @@ allow-wifi-access = true
 allow-hotspot-access = true
 # Surge iOS 供外网访问的服务端口
 # HTTP 服务端口 (默认值: 6152)
-wifi-access-http-port = 7221
+wifi-access-http-port = 7222
 # SOCKS5 服务端口 (默认值: 6153)
-wifi-access-socks5-port = 7222
+wifi-access-socks5-port = 7221
 
 # > 允许 Wi-Fi 访问 (仅 macOS，若允许远程访问将「127.0.0.1」改为「0.0.0.0」)
 # Surge Mac 供外网访问的服务端口
