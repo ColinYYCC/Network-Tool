@@ -75,7 +75,6 @@ dns:
 
   nameserver:
     - 9.9.9.9
-    - 149.112.112.112
     - 2620:fe::fe
     - 119.29.29.29
     - https://dns.quad9.net/dns-query
