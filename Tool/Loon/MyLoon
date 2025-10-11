@@ -1,4 +1,4 @@
-## 基于[@iKeLee]修改
+# 基于[@iKeLee]修改
 # Author:https://github.com/ColinYYCC
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
 #
@@ -7,21 +7,21 @@
 
 [General]
 # skip-proxy则和HTTP Proxy有关, 如果配置了该参数, 那么所配置的这些IP段、域名将不会转发到Loon, 而是由系统处理
-skip-proxy = localhost, *.local, captive.apple.com, sequoia.apple.com, seed-sequoia.siri.apple.com, *.gov.cn, *.12306.cn, *.ccb.com, *.icbc.com.cn, *.cmbchina.com, *.bankofchina.com, *.abchina.com.cn, *.psbc.com, *.bankcomm.com, *.cmbc.com.cn, *.citicbank.com, *.spdb.com.cn, *.cib.com.cn, *.cebbank.com, *.hxb.com.cn, *.cgbchina.com.cn, *.pingan.com.cn, *.alipay.com, *.weixin.qq.com, *.baidu.com, *.taobao.com, *.tmall.com, *.jd.com, *.163.com, *.sina.com.cn, *.bilibili.com, *.douyin.com, *.bytedance.com, *.chinaunicom.com, *.chinamobile.com, *.10086.cn, *.wo.cn, *.ctyun.cn, *.cnnic.cn, *.qq.com, *.miit.gov.cn, *.cae.cn, *.nsfc.gov.cn, passenger.t3go.cn, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, fc00::/7, fd00::/8, fe80::/10
+skip-proxy = localhost,*.local,captive.apple.com,sequoia.apple.com,seed-sequoia.siri.apple.com,*.gov.cn,*.12306.cn,*.ccb.com,*.icbc.com.cn,*.cmbchina.com,*.bankofchina.com,*.abchina.com.cn,*.psbc.com,*.bankcomm.com,*.cmbc.com.cn,*.citicbank.com,*.spdb.com.cn,*.cib.com.cn,*.cebbank.com,*.hxb.com.cn,*.cgbchina.com.cn,*.pingan.com.cn,*.alipay.com,*.weixin.qq.com,*.baidu.com,*.taobao.com,*.tmall.com,*.jd.com,*.163.com,*.sina.com.cn,*.bilibili.com,*.douyin.com,*.bytedance.com,*.chinaunicom.com,*.chinamobile.com,*.10086.cn,*.wo.cn,*.ctyun.cn,*.cnnic.cn,*.qq.com,*.miit.gov.cn,*.cae.cn,*.nsfc.gov.cn,passenger.t3go.cn,10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.168.0.0/16,fc00::/7,fd00::/8,fe80::/10
 
 # bypass-tun则和TUN有关, 如果配置了该参数, 那么所配置的这些IP段、域名就会不交给Loon来处理, 系统直接处理
-bypass-tun = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.88.99.0/24, 192.168.0.0/16, 198.18.0.0/15, 224.0.0.0/4, 240.0.0.0/4, 255.255.255.255/32, fc00::/7, fd00::/8, fe80::/10
+bypass-tun = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.0.0.0/24,192.88.99.0/24,192.168.0.0/16,198.18.0.0/15,224.0.0.0/4,240.0.0.0/4,255.255.255.255/32,fc00::/7,fd00::/8,fe80::/10
 
 # > 以下配置的域名不会使用fakeip进行映射 
-real-ip = dns.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.turn.twilio.com, *.stun.twilio.com, stun.syncthing.net, stun.*, *.sslip.io, *.nip.io
+real-ip = dns.msftncsi.com,*.srv.nintendo.net,*.stun.playstation.net,xbox.*.microsoft.com,*.xboxlive.com,*.turn.twilio.com,*.stun.twilio.com,stun.syncthing.net,stun.*,*.sslip.io,*.nip.io
 
 # ---(DNS 服务器)---
 # DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
 # 传统 DNS 服务器设置
-dns-server = 9.9.9.9, 2620:fe::fe, 223.5.5.5, 119.29.29.29
+dns-server = 9.9.9.9,2620:fe::fe,223.5.5.5,119.29.29.29
 # 加密 DNS 服务器设置
-doh-server = https://dns.quad9.net/dns-query, https://dns.alidns.com/dns-query, https://dns.pub/dns-query
-doq-server = quic://223.5.5.5, quic://223.6.6.6
+doh-server = https://dns.quad9.net/dns-query,https://dns.alidns.com/dns-query,https://dns.pub/dns-query
+doq-server = quic://223.5.5.5,quic://223.6.6.6
 # ip-mode 支持（默认dual: IPv4&IPv6）
 ip-mode = dual
 ipv6-vif = auto
@@ -73,7 +73,7 @@ interface-mode = auto
 
 # > hijack-dns
 # 有些app会自己使用自定义的DNS over UDP来解析IP, 可以配置相关IP:端口来劫持这些查询, 并返回fakeip的响应
-hijack-dns = 8.8.8.8:53, any:53
+hijack-dns = 9.9.9.9:53,any:53
 # > disable-stun
 # 禁用stun是否禁用stun协议的udp数据, 禁用后可以有效解决webrtc的ip泄露
 disable-stun = true
@@ -82,6 +82,7 @@ disable-stun = true
 geoip-url = https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb
 # > 自定义ASN数据库的url
 ipasn-url = https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb
+# ipasn-url = https://raw.githubusercontent.com/P3TERX/GeoLite.mmdb/download/GeoLite2-ASN.mmdb
 # ------
 
 [Proxy]
@@ -220,12 +221,8 @@ IP-CIDR6,2002::/16,DIRECT
 FINAL,漏网之鱼
 # ------
 
-[Remote Rule] 
-＃ 隐私
-https://ruleset.skk.moe/List/non_ip/sogouinput.conf, policy=REJECT, tag=搜狗输入法，enabled=true
-
+[Remote Rule]
 # ADs
-[Remote Rule] 
 https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge.list, policy=REJECT, tag=秋风广告规则, enabled=true
 https://ruleset.skk.moe/List/domainset/reject_phishing.conf, policy=REJECT, tag=Phiishing 拦截, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf, policy=REJECT-NO-DROP, tag=防止PCDN, enabled=true
@@ -343,9 +340,11 @@ https://kelee.one/Tool/Loon/Lsr/REGION_SPLITTER, policy=DIRECT, tag=CN REGION, e
 [Plugin]
 https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx, enabled=true
 https://github.com/VirgilClyne/GetSomeFries/raw/main/plugin/DNS.plugin, enabled=true
+https://kelee.one/Tool/Loon/Lpx/JD_Price.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx, enabled=true
-https://kelee.one/Tool/Loon/Lpx/JD_Price.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/Umetrip_remove_ads.lpx, enabled=true
+https://kelee.one/Tool/Loon/Lpx/iReaderDejian_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Taobao_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/JD_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/RedPaper_remove_ads.lpx, enabled=true
@@ -356,7 +355,6 @@ https://kelee.one/Tool/Loon/Lpx/BaiduSearchWebpage_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/12306_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Cainiao_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/DiDi_remove_ads.lpx, enabled=true
-https://kelee.one/Tool/Loon/Lpx/Umetrip_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/QQMusic_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/NeteaseCloudMusic_remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Zhihu_remove_ads.lpx, enabled=true
@@ -376,7 +374,7 @@ https://kelee.one/Tool/Loon/Lpx/WexinMiniPrograms_Remove_ads.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Weixin_external_links_unlock.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Node_detection_tool.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Fileball_mount.lpx, enabled=false
-https://raw.githubusercontent.com/fmz200/wool_scripts/main/Loon/plugin/Auto_Join_TF.plugin, policy=漏网之鱼, tag=自动[加入/监控]TestFlight, enabled=true
+https://raw.githubusercontent.com/fmz200/wool_scripts/main/Loon/plugin/Auto_Join_TF.plugin, policy=漏网之鱼, tag=自动[加入/监控]TestFlight, enabled=false
 https://raw.githubusercontent.com/chavyleung/scripts/master/box/rewrite/boxjs.rewrite.loon.tf.plugin, policy=漏网之鱼, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Sub-Store.lpx, policy=漏网之鱼, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Script-Hub.lpx, policy=漏网之鱼, enabled=true
