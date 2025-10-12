@@ -378,7 +378,7 @@ DOMAIN-SUFFIX,vercel.app,PROXY
 RULE-SET,https://ruleset.skk.moe/List/non_ip/sogouinput.conf,REJECT // 搜狗输入法
 
 # Advertising 广告拦截 / Privacy 隐私保护 / Malware 拦截 / Phiishing 拦截
-RULE-SET,https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list,REJECT,extended-matching // 广告拦截
+RULE-SET,https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list,REJECT,extended-matching,pre-matching // 广告拦截
 # DOMAIN-SET,https://ruleset.skk.moe/List/domainset/reject.conf,REJECT,extended-matching // 广告拦截
 # RULE-SET,https://ruleset.skk.moe/List/non_ip/reject.conf,REJECT,extended-matching // 广告拦截
 RULE-SET,https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf,REJECT-NO-DROP,extended-matching // 防止 PCDN
