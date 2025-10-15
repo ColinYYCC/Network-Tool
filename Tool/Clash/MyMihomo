@@ -200,7 +200,8 @@ proxy-groups:
 ### 规则配置
 RuleSet_classicalT: &RuleSet_classicalT {type: http, behavior: classical, interval: 43200, format: text, proxy: 手动切换}
 RuleSet_classicalY: &RuleSet_classicalY {type: http, behavior: classical, interval: 43200, format: yaml, proxy: 手动切换}
-RuleSet_domain: &RuleSet_domain {type: http, behavior: domain, interval: 43200, format: text, proxy: 手动切换}
+RuleSet_domainT: &RuleSet_domain {type: http, behavior: domain, interval: 43200, format: text, proxy: 手动切换}
+RuleSet_domainY: &RuleSet_domain {type: http, behavior: domain, interval: 43200, format: yaml, proxy: 手动切换}
 RuleSet_ipcidr: &RuleSet_ipcidr {type: http, behavior: ipcidr, interval: 43200, format: text, proxy: 手动切换}
 
 # 订阅规则
@@ -211,7 +212,7 @@ rule-providers:
     path: ./sukkaw_ruleset/sogouinput.txt
 
   AWAvenue-Ads-Rule:
-    <<: *RuleSet_classicalY
+    <<: *RuleSet_domainY
     url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml
     path: ./Rules/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml
 
