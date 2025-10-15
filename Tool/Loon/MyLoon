@@ -1,9 +1,6 @@
-# 基于[@iKeLee]修改
-# Author:https://github.com/ColinYYCC
+# Loon 配置
+# 配置作者：Colin(@ColinYYCC)基于[@iKeLee]修改
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
-#
-# Loon Version ≥ 3.1.7
-# ================
 
 [General]
 # skip-proxy则和HTTP Proxy有关, 如果配置了该参数, 那么所配置的这些IP段、域名将不会转发到Loon, 而是由系统处理
