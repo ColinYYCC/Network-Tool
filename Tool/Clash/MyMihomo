@@ -215,12 +215,12 @@ rule-providers:
     url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt
     path: "./Rules/sukkaw_ruleset/reject_non_ip_no_drop.txt"
 
-  reject_non_ip_drop:
+  视频QUIC&PCDN:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt
     path: ./Rules/sukkaw_ruleset/reject_non_ip_drop.txt
  
-  reject_non_ip_no_drop:
+  Adobe跟踪&SDK打点:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt
     path: ./Rules/sukkaw_ruleset/reject-no-drop.txt
@@ -416,8 +416,8 @@ rules:
   - RULE-SET,sogouinput,REJECT
   - RULE-SET,RejectPCDN,REJECT
   - RULE-SET,AWAvenue-Ads-Rule,REJECT
-  - RULE-SET,reject_non_ip_drop,REJECT-DROP
-  - RULE-SET,reject_non_ip_no_drop,REJECT
+  - RULE-SET,Adobe跟踪&SDK打点,REJECT-DROP
+  - RULE-SET,视频QUIC&PCDN,REJECT
   - RULE-SET,cdn_domainset,手动切换
   - RULE-SET,cdn_non_ip,手动切换
   - RULE-SET,Netflix,Netflix
