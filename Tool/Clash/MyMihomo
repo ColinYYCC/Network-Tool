@@ -291,6 +291,7 @@ rule-providers:
     <<: *RuleSet_domain
     url: https://ruleset.skk.moe/Clash/domainset/download.txt
     path: ./Rules/sukkaw_ruleset/download_domainset.txt
+
   download_non_ip:
     <<: *RuleSet_domain
     url: https://ruleset.skk.moe/Clash/non_ip/download.txt
@@ -301,6 +302,7 @@ rule-providers:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/non_ip/lan.txt
     path: ./Rules/sukkaw_ruleset/lan_non_ip.txt
+
   lan_ip:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/ip/lan.txt
@@ -310,14 +312,17 @@ rule-providers:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/non_ip/domestic.txt
     path: ./Rules/sukkaw_ruleset/domestic_non_ip.txt
+
   direct_non_ip:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/non_ip/direct.txt
     path: ./Rules/sukkaw_ruleset/direct_non_ip.txt
+
   global_non_ip:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/non_ip/global.txt
     path: ./Rules/sukkaw_ruleset/global_non_ip.txt
+
   domestic_ip:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/ip/domestic.txt
