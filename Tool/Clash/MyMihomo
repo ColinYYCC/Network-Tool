@@ -1,7 +1,7 @@
 # mihomo 配置
-# 日期：2025-02-11 15:31:03
 # 配置作者：Colin(@ColinYYCC) & YY(@yyhhyyyyyy)
 # 适用版本：所有使用 mihomo 核心的程序
+# 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
 
 ### 全局配置
 port: 7890
@@ -77,7 +77,7 @@ dns:
     - 9.9.9.9
     - 2620:fe::fe
     - 119.29.29.29
-    - https://dns.quad9.net/dns-query
+    - 223.5.5.5
     - https://doh.pub/dns-query
     - https://dns.alidns.com
   proxy-server-nameserver:
@@ -219,21 +219,12 @@ rule-providers:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt
     path: ./Rules/sukkaw_ruleset/reject_non_ip_drop.txt
-
-  reject_non_ip:
-    <<: *RuleSet_classicalT
-    url: https://ruleset.skk.moe/Clash/non_ip/reject.txt
-    path: ./Rules/sukkaw_ruleset/reject_non_ip.txt
   
   AWAvenue-Ads-Rule:
     <<: *RuleSet_classicalY
     url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml
     path: ./rule_set/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml
 
-  reject_ip:
-    <<: *RuleSet_classicalT
-    url: https://ruleset.skk.moe/Clash/ip/reject.txt
-    path: ./Rules/sukkaw_ruleset/reject_ip.txt
 
   # 常见静态 CDN
   cdn_domainset:
@@ -420,7 +411,6 @@ rules:
   # 直连和广告拦截
   - RULE-SET,sogouinput,REJECT
   - RULE-SET,RejectPCDN,REJECT
-  - RULE-SET,reject_non_ip,REJECT
   - RULE-SET,AWAvenue-Ads-Rule,REJECT
   - RULE-SET,reject_non_ip_drop,REJECT-DROP
   - RULE-SET,cdn_domainset,手动切换
