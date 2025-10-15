@@ -75,8 +75,7 @@ RULE-SET,https://ruleset.skk.moe/Clash/non_ip/direct.txt,DIRECT
 RULE-SET,https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt,REJECT-DROP
 
 # 广告拦截
-RULE-SET,https://adrules.top/adrules.list,REJECT
-RULE-SET,https://ruleset.skk.moe/List/non_ip/reject.conf,REJECT
+RULE-SET,https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-module.sgmodule,REJECT
 RULE-SET,https://ruleset.skk.moe/List/domainset/reject_phishing.conf,REJECT
 RULE-SET,https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf,REJECT-NO-DROP
 RULE-SET,https://ruleset.skk.moe/List/non_ip/reject-drop.conf,REJECT-DROP
