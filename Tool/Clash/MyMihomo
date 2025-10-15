@@ -222,7 +222,7 @@ rule-providers:
   
   AWAvenue-Ads-Rule:
     <<: *RuleSet_classicalY
-    url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml
+    url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml
     path: ./rule_set/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml
 
 
