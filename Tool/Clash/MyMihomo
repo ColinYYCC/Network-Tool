@@ -228,12 +228,12 @@ rule-providers:
 
   # 常见静态 CDN
   cdn_domainset:
-    <<: *RuleSet_domain
+    <<: *RuleSet_domainT
     url: https://ruleset.skk.moe/Clash/domainset/cdn.txt
     path: ./Rules/sukkaw_ruleset/cdn_domainset.txt
 
   cdn_non_ip:
-    <<: *RuleSet_domain
+    <<: *RuleSet_domainT
     url: https://ruleset.skk.moe/Clash/non_ip/cdn.txt
     path: ./Rules/sukkaw_ruleset/cdn_non_ip.txt
 
@@ -263,7 +263,7 @@ rule-providers:
     path: ./Rules/Telegram.txt
 
   apple_cdn:
-    <<: *RuleSet_domain
+    <<: *RuleSet_domainT
     url: https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt
     path: ./Rules/sukkaw_ruleset/apple_cdn.txt
 
@@ -289,12 +289,12 @@ rule-providers:
   
   # 软件更新、操作系统等大文件下载
   download_domainset:
-    <<: *RuleSet_domain
+    <<: *RuleSet_domainT
     url: https://ruleset.skk.moe/Clash/domainset/download.txt
     path: ./Rules/sukkaw_ruleset/download_domainset.txt
 
   download_non_ip:
-    <<: *RuleSet_domain
+    <<: *RuleSet_domainT
     url: https://ruleset.skk.moe/Clash/non_ip/download.txt
     path: ./Rules/sukkaw_ruleset/download_non_ip.txt
 
