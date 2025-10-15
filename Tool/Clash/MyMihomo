@@ -208,27 +208,22 @@ rule-providers:
   sogouinput:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt
-    path: "./sukkaw_ruleset/sogouinput.txt"
+    path: ./sukkaw_ruleset/sogouinput.txt
 
-  RejectPCDN:
-    <<: *RuleSet_classicalT
-    url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt
-    path: "./Rules/sukkaw_ruleset/reject_non_ip_no_drop.txt"
-
-  视频QUIC&PCDN:
+  Adobe跟踪&SDK打点:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt
     path: ./Rules/sukkaw_ruleset/reject_non_ip_drop.txt
  
-  Adobe跟踪&SDK打点:
+  视频QUIC&PCDN:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt
-    path: ./Rules/sukkaw_ruleset/reject-no-drop.txt
+    path: ./Rules/sukkaw_ruleset/reject_non_ip_no_drop.txt
 
   AWAvenue-Ads-Rule:
     <<: *RuleSet_classicalY
     url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml
-    path: ./rule_set/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml
+    path: ./Rules/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml
 
   # 常见静态 CDN
   cdn_domainset:
@@ -414,7 +409,6 @@ rules:
   ### 非 IP 类规则
   # 直连和广告拦截
   - RULE-SET,sogouinput,REJECT
-  - RULE-SET,RejectPCDN,REJECT
   - RULE-SET,AWAvenue-Ads-Rule,REJECT
   - RULE-SET,Adobe跟踪&SDK打点,REJECT-DROP
   - RULE-SET,视频QUIC&PCDN,REJECT
