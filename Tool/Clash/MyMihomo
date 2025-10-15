@@ -219,12 +219,16 @@ rule-providers:
     <<: *RuleSet_classicalT
     url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt
     path: ./Rules/sukkaw_ruleset/reject_non_ip_drop.txt
-  
+ 
+  reject_non_ip_no_drop:
+    <<: *RuleSet_classicalT
+    url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt
+    path: ./Rules/sukkaw_ruleset/reject-no-drop.txt
+
   AWAvenue-Ads-Rule:
     <<: *RuleSet_classicalY
     url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml
     path: ./rule_set/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml
-
 
   # 常见静态 CDN
   cdn_domainset:
@@ -413,6 +417,7 @@ rules:
   - RULE-SET,RejectPCDN,REJECT
   - RULE-SET,AWAvenue-Ads-Rule,REJECT
   - RULE-SET,reject_non_ip_drop,REJECT-DROP
+  - RULE-SET,reject_non_ip_no_drop,REJECT
   - RULE-SET,cdn_domainset,手动切换
   - RULE-SET,cdn_non_ip,手动切换
   - RULE-SET,Netflix,Netflix
