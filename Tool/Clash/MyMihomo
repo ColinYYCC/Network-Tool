@@ -439,7 +439,6 @@ rules:
 
   ### IP 类规则
   # 直连和广告拦截
-  - RULE-SET,reject_ip,REJECT
   - RULE-SET,stream_ip,美国节点
   # 必须规则
   - RULE-SET,lan_ip,DIRECT
