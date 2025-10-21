@@ -343,6 +343,7 @@ rules:
   - DOMAIN-KEYWORD,todesk,DIRECT
   - DOMAIN-KEYWORD,AnyViewer,DIRECT
   - DOMAIN-KEYWORD,DeepL,DIRECT
+  - DOMAIN-KEYWORD,Qwen,DIRECT
 
 # Process 程序规则
 # > AdGuard
