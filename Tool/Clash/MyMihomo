@@ -422,18 +422,17 @@ rules:
   - RULE-SET,视频QUIC&PCDN,REJECT
   - RULE-SET,cdn_domainset,手动切换
   - RULE-SET,cdn_non_ip,手动切换
-  - RULE-SET,apple_cdn,DIRECT
-  - RULE-SET,apple_cn_non_ip,DIRECT  
-  - RULE-SET,microsoft_cdn_non_ip,DIRECT
-  - RULE-SET,microsoft_non_ip,DIRECT
   - RULE-SET,Netflix,Netflix
   - RULE-SET,stream_non_ip,美国节点
-  - RULE-SET,apple_services,Apple Service
   - RULE-SET,Telegram,Telegram
-  - RULE-SET,ai_non_ip,AI
+  - RULE-SET,apple_cdn,DIRECT
   - RULE-SET,download_domainset,手动切换
   - RULE-SET,download_non_ip,手动切换
-
+  - RULE-SET,microsoft_cdn_non_ip,DIRECT
+  - RULE-SET,apple_cn_non_ip,DIRECT  
+  - RULE-SET,apple_services,Apple Service
+  - RULE-SET,microsoft_non_ip,DIRECT
+  - RULE-SET,ai_non_ip,AI
   - RULE-SET,global_non_ip,手动切换
   # 必须规则
   - RULE-SET,domestic_non_ip,DIRECT
