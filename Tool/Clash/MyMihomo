@@ -343,7 +343,6 @@ rules:
   - DOMAIN-KEYWORD,todesk,DIRECT
   - DOMAIN-KEYWORD,AnyViewer,DIRECT
   - DOMAIN-KEYWORD,DeepL,DIRECT
-  - DOMAIN-KEYWORD,Qwen,DIRECT
 
 # Process 程序规则
 # > AdGuard
@@ -433,16 +432,13 @@ rules:
   - RULE-SET,apple_services,Apple Service
   - RULE-SET,microsoft_non_ip,DIRECT
   - RULE-SET,ai_non_ip,AI
-  - RULE-SET,global_non_ip,手动切换
-  # 必须规则
+  - RULE-SET,global_non_ip,国外网站
   - RULE-SET,domestic_non_ip,DIRECT
   - RULE-SET,direct_non_ip,DIRECT
   - RULE-SET,lan_non_ip,DIRECT
 
   ### IP 类规则
-  # 直连和广告拦截
   - RULE-SET,stream_ip,美国节点
-  # 必须规则
   - RULE-SET,lan_ip,DIRECT
   - RULE-SET,domestic_ip,DIRECT
   - RULE-SET,china_ip,DIRECT
