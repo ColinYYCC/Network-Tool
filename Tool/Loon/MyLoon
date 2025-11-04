@@ -387,6 +387,4 @@ skip-server-cert-verify = true
 
 [Script]
 cron "7 7 7 ? * *" script-path=https://raw.githubusercontent.com/deezertidal/private/main/oil.js, timeout=10, tag=油价提醒, argument="重庆"
-http-request ^https?://ios\.prod\.ftl\.netflix\.com/iosui/user/.+path=%5B%22videos%22%2C%\d+%22%2C%22summary%22%5D script-path=https://raw.githubusercontent.com/yichahucha/surge/master/nf_rating.js, timeout=20, tag=nf_rating.js
-http-response ^https?://ios\.prod\.ftl\.netflix\.com/iosui/user/.+path=%5B%22videos%22%2C%\d+%22%2C%22summary%22%5D script-path=https://raw.githubusercontent.com/yichahucha/surge/master/nf_rating.js, requires-body=true, timeout=20, tag=nf_rating.js
 # ------
