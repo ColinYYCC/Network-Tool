@@ -459,6 +459,9 @@ rules:
   - RULE-SET,lan_ip,DIRECT
   - RULE-SET,domestic_ip,DIRECT
   - RULE-SET,china_ip,DIRECT
+
+  ### 其他 类规则
+  - GEOIP,CN,DIRECT
   - MATCH,漏网之鱼
 
 url-rewrite:
