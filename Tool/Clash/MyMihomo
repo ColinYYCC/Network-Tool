@@ -4,18 +4,11 @@
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
 
 ### 全局配置
-port: 7890
-socks-port: 7891
-mixed-port: 7892
-redir-port: 7893
-tproxy-port: 7894
-experimental:
-  ignore-resolve-fail: true
+mixed-port: 7897
 allow-lan: true
 mode: rule
 log-level: warning
-ipv6: true
-udp: true
+ipv6: false
 find-process-mode: strict
 unified-delay: true
 tcp-concurrent: true
@@ -77,13 +70,15 @@ dns:
     - 127-*-*-*.nip.io
     - "*.127.*.*.*.nip.io"
     - "*-127-*-*-*.nip.io"
-  # fake-ip-filter end
-
-  nameserver:
+  default-nameserver:
     - 9.9.9.9
     - 2620:fe::fe
     - 119.29.29.29
     - 223.5.5.5
+    - https://dns.quad9.net/dns-query
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com
+  proxy-server-nameserver:
     - https://dns.quad9.net/dns-query
     - https://doh.pub/dns-query
     - https://dns.alidns.com
