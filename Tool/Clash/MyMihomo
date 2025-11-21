@@ -70,9 +70,7 @@ dns:
     - 127-*-*-*.nip.io
     - "*.127.*.*.*.nip.io"
     - "*-127-*-*-*.nip.io"
-  default-nameserver:
-    - 9.9.9.9
-    - 2620:fe::fe
+  nameserver:
     - 119.29.29.29
     - 223.5.5.5
     - https://dns.quad9.net/dns-query
