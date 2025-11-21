@@ -114,15 +114,10 @@ tun:
 ### 节点配置
 NodeParam: &NodeParam {type: http, interval: 86400, health-check: {enable: true, url: "http://latency-test.skk.moe/endpoint", interval: 300}}
 # 节点订阅
-# proxy-providers: 
-  Node-1:
+proxy-providers: 
+  Subscribe:
     url: "替换订阅链接"
     <<: *NodeParam
-    path: "./proxy_provider/providers.yaml"
-  # Node-2:
-  #   url: "替换订阅链接"
-  #   <<: *NodeParam
-  #   path: "./proxy_provider/providers.yaml"
 
 # 节点筛选
 FilterHK: &FilterHK "^(?=.*(香港|HK|Hong|🇭🇰))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$"
