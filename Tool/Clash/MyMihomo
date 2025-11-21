@@ -116,7 +116,7 @@ tun:
 ### 节点配置
 NodeParam: &NodeParam {type: http, interval: 86400, health-check: {enable: true, url: "http://latency-test.skk.moe/endpoint", interval: 300}}
 # 节点订阅
-proxy-providers: 
+# proxy-providers: 
   Node-1:
     url: "替换订阅链接"
     <<: *NodeParam
