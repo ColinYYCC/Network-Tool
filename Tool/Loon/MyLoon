@@ -4,14 +4,13 @@
 
 [General]
 # skip-proxy则和HTTP Proxy有关, 如果配置了该参数, 那么所配置的这些IP段、域名将不会转发到Loon, 而是由系统处理
-skip-proxy = # 核心本地网络直连
-localhost, *.local, 10.0.0.0/8, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, ::1/128, fc00::/7, fe80::/10, *.gov.cn, *.12306.cn, *.psbc.com, *.bankofchina.com, *.icbc.com.cn, *.ccb.com, *.cmbchina.com, captive.apple.com, sequoia.apple.com, seed-sequoia.siri.apple.com
+skip-proxy = localhost, *.local, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, ::1/128, fc00::/7, fe80::/10, ff00::/8, captive.apple.com, sequoia.apple.com, seed-sequoia.siri.apple.com, *.gov.cn, *.12306.cn, *.psbc.com, *.bankofchina.com, *.icbc.com.cn, *.ccb.com, *.cmbchina.com
 
 # bypass-tun则和TUN有关, 如果配置了该参数, 那么所配置的这些IP段、域名就会不交给Loon来处理, 系统直接处理
-bypass-tun = 10.0.0.0/8, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, 220.181.0.0/16, 111.13.0.0/16, 180.97.0.0/16, 115.239.0.0/16, fe80::/10
+bypass-tun = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, fe80::/10, 220.181.0.0/16, 111.13.0.0/16, 180.97.0.0/16, 115.239.0.0/16
 
 # > 以下配置的域名不会使用fakeip进行映射 
-real-ip = *.msftconnecttest.com, *.msftncsi.com, pool.ntp.org, *.ntp.org.cn, *.pool.ntp.org, *.srv.nintendo.net, *.stun.playstation.net, *.xboxlive.com, stun.*, global.turn.twilio.com
+real-ip = *.msftconnecttest.com, *.msftncsi.com, pool.ntp.org, *.pool.ntp.org, time.*.com, time.*.gov, time.*.edu.cn, *.srv.nintendo.net, *.stun.playstation.net, *.xboxlive.com, stun.*, global.turn.twilio.com, music.163.com, *.y.qq.com, *.music.tc.qq.com, *.mcdn.bilivideo.cn, *.logon.battlenet.com.cn, *.logon.battle.net, *.blzstatic.cn
 
 # ---(DNS 服务器)---
 # DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
