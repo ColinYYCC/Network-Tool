@@ -10,7 +10,7 @@ skip-proxy = localhost, *.local, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254
 bypass-tun = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, fe80::/10, 220.181.0.0/16, 111.13.0.0/16, 180.97.0.0/16, 115.239.0.0/16
 
 # > 以下配置的域名不会使用fakeip进行映射 
-real-ip = *.msftconnecttest.com, *.msftncsi.com, pool.ntp.org, *.pool.ntp.org, time.*.com, time.*.gov, time.*.edu.cn, *.srv.nintendo.net, *.stun.playstation.net, *.xboxlive.com, stun.*, global.turn.twilio.com, music.163.com, *.y.qq.com, *.music.tc.qq.com, *.mcdn.bilivideo.cn, *.logon.battlenet.com.cn, *.logon.battle.net, *.blzstatic.cn
+real-ip = *.msftconnecttest.com, *.msftncsi.com, pool.ntp.org, *.pool.ntp.org, time.*.com, time.*.gov, time.*.edu.cn, *.srv.nintendo.net, *.stun.playstation.net, *.xboxlive.com, stun.*, *.turn.twilio.com, *.stun.twilio.com, music.163.com, *.y.qq.com, *.music.tc.qq.com, *.mcdn.bilivideo.cn, *.logon.battlenet.com.cn, *.logon.battle.net, *.blzstatic.cn
 
 # ---(DNS 服务器)---
 # DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
@@ -260,11 +260,12 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Xbox/Xbox.list, policy=游戏, tag=Xbox, enabled=true
 
 # 中国直连
+https://ruleset.skk.moe/List/non_ip/lan.conf, policy=DIRECT, tag=局域网, enabled=true  
 https://ruleset.skk.moe/List/non_ip/domestic.conf, policy=DIRECT, tag=国內直连, enabled=true
 https://ruleset.skk.moe/List/non_ip/direct.conf, policy=DIRECT, tag=国內直连, enabled=true
 https://ruleset.skk.moe/List/ip/domestic.conf, policy=DIRECT, tag=China 中国直连 (IP), enabled=true
 https://ruleset.skk.moe/List/ip/china_ip.conf, policy=DIRECT, tag=China 中国直连 (IP), enabled=true
-https://kelee.one/Tool/Loon/Lsr/LAN_SPLITTER, policy=DIRECT, tag=LAN, enabled=true
+https://ruleset.skk.moe/List/ip/lan.conf, policy=DIRECT, tag=局域网 IP, enabled=true
 https://kelee.one/Tool/Loon/Lsr/REGION_SPLITTER, policy=DIRECT, tag=CN REGION, enabled=true
 # ------
 
