@@ -370,7 +370,6 @@ RULE-SET,https://ruleset.skk.moe/List/non_ip/stream.conf,国外网站,extended-m
 RULE-SET,https://ruleset.skk.moe/List/ip/stream.conf,国外网站 // Streaming 国际流媒体服务(IP)
 
 # 国外网站
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/GitHub/GitHub.list,自选节点,extended-matching // Github
 RULE-SET,https://ruleset.skk.moe/List/non_ip/global.conf,自选节点,extended-matching // 国外网站
 
 # Telegram 电报
@@ -404,14 +403,13 @@ RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/r
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/UBI/UBI.list,游戏 // UBI
 RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Xbox/Xbox.list,游戏 // Xbox
 
-# StreamingCN 中国流媒体服务
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMedia/ChinaMedia.list,国內流媒体,extended-matching // ChinaMedia 中国流媒体服务
-
-# > 国內直连
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WeChat/WeChat.list,DIRECT,extended-matching // WeChat 微信
+# > 局域网
+RULE-SET,https://ruleset.skk.moe/List/non_ip/lan.conf,DIRECT,extended-matching // 局域网
 # China 中国直连
 RULE-SET,https://ruleset.skk.moe/List/non_ip/domestic.conf,DIRECT,extended-matching // 国內直连
 RULE-SET,https://ruleset.skk.moe/List/non_ip/direct.conf,DIRECT,extended-matching // 国內直连
+# > 局域网 IP
+RULE-SET,https://ruleset.skk.moe/List/ip/lan.conf,DIRECT // 局域网 IP
 # China 中国直连 (IP)
 RULE-SET,https://ruleset.skk.moe/List/ip/domestic.conf,DIRECT // China 中国直连 (IP)
 RULE-SET,https://ruleset.skk.moe/List/ip/china_ip.conf,DIRECT,no-resolve // China 中国直连 (IP)
