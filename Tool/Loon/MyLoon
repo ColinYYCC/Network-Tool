@@ -10,7 +10,7 @@ skip-proxy = localhost, *.local, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254
 bypass-tun = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, fe80::/10, 220.181.0.0/16, 111.13.0.0/16, 180.97.0.0/16, 115.239.0.0/16
 
 # > 以下配置的域名不会使用fakeip进行映射 
-real-ip = *.msftconnecttest.com, *.msftncsi.com, pool.ntp.org, *.pool.ntp.org, time.*.com, time.*.gov, time.*.edu.cn, *.srv.nintendo.net, *.stun.playstation.net, *.xboxlive.com, stun.*, *.turn.twilio.com, *.stun.twilio.com, music.163.com, *.y.qq.com, *.music.tc.qq.com, *.mcdn.bilivideo.cn, *.logon.battlenet.com.cn, *.logon.battle.net, *.blzstatic.cn
+real-ip = dns.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.turn.twilio.com, *.stun.twilio.com, stun.syncthing.net, stun.*, 127.*.*.*.sslip.io, 127-*-*-*.sslip.io, *.127.*.*.*.sslip.io, *-127-*-*-*.sslip.io, 127.*.*.*.nip.io, 127-*-*-*.nip.io, *.127.*.*.*.nip.io, *-127-*-*-*.nip.io
 
 # ---(DNS 服务器)---
 # DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
