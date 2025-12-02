@@ -50,7 +50,7 @@ dns:
     - +.local
     - +.internal
     - +.localdomain
-fake-ip-filter:
+  fake-ip-filter:
     - +.m2m
     - injections.adguard.org
     - local.adguard.org
