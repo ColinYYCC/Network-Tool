@@ -368,5 +368,11 @@ rules:
   - MATCH,漏网之鱼
 
 url-rewrite:
+# Google Redirect
   - ^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 302
   - ^https?:\/\/(ditu|maps).google\.cn https://maps.google.com 302
+# AbeamTV Unlock
+  - ^https?://api\.abema\.io/v\d/ip/check - reject
+# JD Protection
+^https?://union\.click\.jd\.com/jda? http://union.click.jd.com/jda?adblock= header
+^https?://union\.click\.jd\.com/sem.php? http://union.click.jd.com/sem.php?adblock= header
