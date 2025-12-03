@@ -41,9 +41,9 @@ wifi-access-socks5-port = 7221
 mitm-on-wifi-access = true
 
 # > 节点延迟测试
-proxy-test-url = http://latency-test.skk.moe/endpoint
+proxy-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
 # > 互联网联通性测试
-internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
+internet-test-url = http://wifi.vivo.com.cn/generate_204
 # > 节点测速时的超时秒数
 test-timeout = 2
 # ------
