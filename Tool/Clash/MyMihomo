@@ -4,15 +4,22 @@
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
 
 ### 全局配置
-mixed-port: 7897
-allow-lan: true
 mode: rule
-log-level: warning
-ipv6: false
-find-process-mode: strict
+mixed-port: 7897
+allow-lan: 
+ipv6: true
 unified-delay: true
 tcp-concurrent: true
+log-level: warning
+bind-address: '*'
+find-process-mode: 'always'
 global-client-fingerprint: chrome
+keep-alive-interval: 15
+keep-alive-idle: 600
+
+# 实验性功能
+experimental:
+  quic-go-disable-gso: true 
 
 ### 如果使用的是裸核，需要将下面的注释去掉，方便ui界面的使用
 # external-controller: 0.0.0.0:9988
@@ -41,6 +48,14 @@ dns:
   enhanced-mode: fake-ip
   Listen: 1053
   fake-ip-range: 198.18.0.1/16
+  default-nameserver:
+    - 119.29.29.29
+    - 180.184.1.1
+    - 223.5.5.5
+  nameserver:
+    - https://dns.quad9.net/dns-query
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com
   fake-ip-filter:
     - +.m2m
     - injections.adguard.org
@@ -70,16 +85,6 @@ dns:
     - 127-*-*-*.nip.io
     - "*.127.*.*.*.nip.io"
     - "*-127-*-*-*.nip.io"
-  nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
-    - https://dns.quad9.net/dns-query
-    - https://doh.pub/dns-query
-    - https://dns.alidns.com
-  proxy-server-nameserver:
-    - https://dns.quad9.net/dns-query
-    - https://doh.pub/dns-query
-    - https://dns.alidns.com
 
 ### 域名嗅探
 sniffer:
@@ -99,13 +104,13 @@ sniffer:
 ### Tunnel配置
 tun:
   enable: true
-  stack: system
-  device: Ethernet 99
-  auto-route: true
-  auto-detect-interface: true
+  stack: mixed
   dns-hijack:
     - any:53
     - tcp://any:53
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
   strict-route: true
   mtu: 1500
   # 如果有使用zerotier或者headscale等，需要自己配置排除自己的网段
@@ -197,25 +202,10 @@ RuleSet_ipcidr: &RuleSet_ipcidr {type: http, behavior: ipcidr, interval: 43200, 
 
 # 订阅规则
 rule-providers:
-  sogouinput:
-    <<: *RuleSet_classicalT
-    url: https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt
-    path: ./sukkaw_ruleset/sogouinput.txt
-
-  AWAvenue-Ads-Rule:
-    <<: *RuleSet_domainY
-    url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml
-    path: ./Rules/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml
-
-  Adobe跟踪&SDK打点:
-    <<: *RuleSet_classicalT
-    url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt
-    path: ./Rules/sukkaw_ruleset/reject_non_ip_drop.txt
- 
-  视频QUIC&PCDN:
-    <<: *RuleSet_classicalT
-    url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt
-    path: ./Rules/sukkaw_ruleset/reject_non_ip_no_drop.txt
+  sogouinput: { <<: *RuleSet_classicalT, url: https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt}
+  AWAvenue-Ads-Rule: {<<: *RuleSet_domainY, url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml, path: ./Rules/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml}
+  Adobe跟踪&SDK打点: {<<: *RuleSet_classicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt, path: ./Rules/sukkaw_ruleset/reject_non_ip_drop.txt}
+  视频QUIC&PCDN: {<<: *RuleSet_classicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt, path: ./Rules/sukkaw_ruleset/reject_non_ip_no_drop.txt}
 
   # 常见静态 CDN
   cdn_domainset:
