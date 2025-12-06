@@ -6,7 +6,7 @@
 ### 全局配置
 mode: rule
 mixed-port: 7897
-allow-lan: 
+allow-lan: true
 ipv6: true
 unified-delay: true
 tcp-concurrent: true
