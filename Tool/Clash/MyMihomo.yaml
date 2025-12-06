@@ -113,11 +113,16 @@ tun:
   auto-detect-interface: true
   strict-route: true
   mtu: 1500
+  bypass:
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+    - 224.0.0.0/4 
   # 如果有使用zerotier或者headscale等，需要自己配置排除自己的网段
   # route-exclude-address: ["192.168.110.0/24"]
 
 ### 节点配置
-NodeParam: &NodeParam {type: http, interval: 86400, health-check: {enable: true, url: "http://latency-test.skk.moe/endpoint", interval: 300}}
+NodeParam: &NodeParam {type: http, interval: 86400, health-check: {enable: true, url: "https://wifi.vivo.com.cn/generate_204", interval: 300}}
 # 节点订阅
 proxy-providers: 
   Subscribe:
@@ -139,11 +144,11 @@ FilterAll: &FilterAll "^(?=.*)(?!.*(?:(?:群|邀请|返利|循环|官网|客服|
 
 # 节点组参数锚点
 # 锚点 - 时延优选参数 [每 300 秒一次惰性健康检查，容差 20ms，时延超过 2 秒判定为失败，失败 3 次则自动触发健康检查]
-UrlTest: &UrlTest {type: url-test, url: "http://connectivitycheck.platform.hicloud.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, disable-udp: false, max-failed-times: 3, hidden: true, include-all: true}
+UrlTest: &UrlTest {type: url-test, url: "https://wifi.vivo.com.cn/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, disable-udp: false, max-failed-times: 3, hidden: true, include-all: true}
 # 锚点 - 故障转移参数 [每 300 秒一次惰性健康检查，时延超过 2 秒判定为失败，失败 3 次则自动触发健康检查]
-FallBack: &FallBack {type: fallback, url: "http://connectivitycheck.platform.hicloud.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, disable-udp: false, max-failed-times: 2, hidden: true, include-all: true}
+FallBack: &FallBack {type: fallback, url: "https://wifi.vivo.com.cn/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, disable-udp: false, max-failed-times: 2, hidden: true, include-all: true}
 # 锚点 - 负载均衡参数 [每 300 秒一次惰性健康检查，时延超过 2 秒判定为失败，失败 3 次则自动触发健康检查]
-LoadBalance: &LoadBalance {type: load-balance, url: "http://connectivitycheck.platform.hicloud.com/generate_204", interval: 300, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 2000, max-failed-times: 2, hidden: true, include-all: true}
+LoadBalance: &LoadBalance {type: load-balance, url: "https://wifi.vivo.com.cn/generate_204", interval: 300, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 2000, max-failed-times: 2, hidden: true, include-all: true}
 
 # 节点组
 proxy-groups:
