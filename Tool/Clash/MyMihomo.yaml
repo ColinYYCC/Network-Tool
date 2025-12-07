@@ -160,9 +160,9 @@ SelectPY: &SelectUT {type: select, proxies: [🛰️ 自动选择, 🔮 负载�
 # 节点组
 proxy-groups:
   # 主要节点
-  - {name: 🛰️ 自动选择, <<: *UrlTest, filter: *FilterAll, icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(3).png}
-  - {name: 🔯 故障转移, <<: *FallBack, filter: *FilterAll, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png}
-  - {name: 🔮 负载均衡, <<: *LoadBalance, filter: *FilterAll, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
+  - {name: 🛰️ 自动选择, <<: *UrlTest, icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(3).png}
+  - {name: 🔯 故障转移, <<: *FallBack, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png}
+  - {name: 🔮 负载均衡, <<: *LoadBalance, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
   - {name: 手动切换, <<: *SelectUT, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png}
   - {name: 漏网之鱼, <<: *SelectFB, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
 
