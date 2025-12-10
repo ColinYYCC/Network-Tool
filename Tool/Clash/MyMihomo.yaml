@@ -180,9 +180,6 @@ proxy-groups:
   - {name: Emby, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/emby.png}
   # 游戏
   - {name: 游戏, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移], icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/steam(1).png}
-
-  # > 白名单模式 PROXY, 黑名单模式 DIRECT
- 
   # ------
 
   # 自动选择
