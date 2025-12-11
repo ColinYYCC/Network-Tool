@@ -120,14 +120,6 @@ tun:
   auto-detect-interface: true
   strict-route: true
   mtu: 1500
-  route-exclude-address:
-    - 100.64.0.0/10
-    - 127.0.0.0/8
-    - 169.254.0.0/16
-    - 172.16.0.0/12
-    - 192.168.0.0/16
-    - 224.0.0.0/4
-    - 255.255.255.255/32
   # 如果有使用zerotier或者headscale等，需要自己配置排除自己的网段
   # route-exclude-address: ['192.168.110.0/24']
 
@@ -165,23 +157,19 @@ proxy-groups:
   - {name: 🔮 负载均衡, <<: *LoadBalance, include-all: true, filter: *FilterAL, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
   - {name: 手动切换, <<: *SelectUT, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png}
   - {name: 漏网之鱼, <<: *SelectFB, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
-
 # 分流策略组
   - {name: 国外网站, <<: *SelectUT, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png}
   - {name: Telegram, <<: *SelectUT, icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/telegram(blue1).png}
   - {name: Apple Service, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡, 香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png}
   - {name: AI, <<: *SelectUT, icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/DeepSeek.png}
-
 # > 媒体策略组
   - {name: Netflix, type: select, proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/lige47/netflix(red).png}
   - {name: YouTube, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png}
   - {name: Disney+, type: select, proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/lige47/disney(blue).png}
   - {name: Spotify, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://github.com/tugepaopao/Image-Storage/raw/master/cartoon/Cute/spotify.png}
   - {name: Emby, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/emby.png}
-  # 游戏
+# 游戏
   - {name: 游戏, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移], icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/steam(1).png}
-  # ------
-
 # 自动选择
   - {name: 香港节点, <<: *UrlTest, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png}
   - {name: 日本节点, <<: *UrlTest, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png}
@@ -192,6 +180,7 @@ proxy-groups:
   - {name: 法国节点, <<: *UrlTest, include-all: true, filter: *FilterFR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/France.png}
   - {name: 德国节点, <<: *UrlTest, include-all: true, filter: *FilterDE, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Germany.png}
   - {name: 台湾节点, <<: *UrlTest, include-all: true, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png}
+# ------
 
 # 分流规则
 rules:
@@ -235,7 +224,7 @@ rules:
   - GEOIP,CN,DIRECT
   - MATCH,漏网之鱼
 
-### 规则配置
+# 规则配置
 ClassicalT: &ClassicalT {type: http, behavior: classical, interval: 43200, format: text, proxy: 手动切换}
 ClassicalY: &ClassicalY {type: http, behavior: classical, interval: 43200, format: yaml, proxy: 手动切换}
 DomainT: &DomainT {type: http, behavior: domain, interval: 43200, format: text, proxy: 手动切换}
