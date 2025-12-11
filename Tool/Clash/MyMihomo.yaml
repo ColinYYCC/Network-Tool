@@ -1,13 +1,13 @@
 # mihomo 配置
-# 配置作者：Colin(@ColinYYCC) & YY(@yyhhyyyyyy)
+# 配置作者：Colin(@ColinYYCC)
 # 适用版本：所有使用 mihomo 核心的程序
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
 
 ### 节点配置
-NodeParam: &NodeParam {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: https://detectportal.firefox.com/success.txt, interval: 300}, filter: "^(?=.*)(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b))).*$"}
+NodeParam: &NodeParam {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: https://detectportal.firefox.com/success.txt, interval: 300}, filter: '^(?=.*)(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b))).*$'}
 # 节点订阅
 proxy-providers: 
-  Subscribe: {<<: *NodeParam, url: "替换订阅链接"}
+  Subscribe: {<<: *NodeParam, url: '替换订阅链接'}
 
 ### 全局配置
 mode: rule
@@ -30,7 +30,7 @@ experimental:
 ### 如果使用的是裸核，需要将下面的注释去掉，方便ui界面的使用
 # external-controller: 0.0.0.0:9988
 # external-ui: ui
-# external-ui-url: "https://mirror.ghproxy.com/https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip"
+# external-ui-url: 'https://mirror.ghproxy.com/https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip'
 
 # 配置存储
 profile:
@@ -42,10 +42,10 @@ geodata-loader: standard
 geo-auto-update: true
 geo-update-interval: 24
 geox-url:
-  geoip: "https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat"
-  geosite: "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
-  mmdb: "https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb"
-  asn: "https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb"
+  geoip: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat'
+  geosite: 'https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat'
+  mmdb: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb'
+  asn: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb'
 
 ### DNS配置
 dns:
@@ -64,34 +64,34 @@ dns:
     - https://doh.pub/dns-query
     - https://dns.alidns.com
   fake-ip-filter:
-    - "*.127.*.*.*.nip.io"
-    - "*.127.*.*.*.sslip.io"
-    - "*.srv.nintendo.net"
-    - "*.stun.playstation.net"
-    - "*.stun.twilio.com"
-    - "*.turn.twilio.com"
-    - "*.xboxlive.com"
-    - "*-127-*-*-*.nip.io"
-    - "*-127-*-*-*.sslip.io"
-    - "+.bogon"
-    - "+.internal"
-    - "+.lan"
-    - "+.local"
-    - "+.localdomain"
-    - "+.m2m"
-    - "127-*-*-*.nip.io"
-    - "127-*-*-*.sslip.io"
-    - "127.*.*.*.nip.io"
-    - "127.*.*.*.sslip.io"
-    - "127.0.0.1.sslip.io"
-    - "127.atlas.skk.moe"
-    - "dns.msftncsi.com"
-    - "home.arpa"
-    - "injections.adguard.org"
-    - "local.adguard.org"
-    - "stun.*"
-    - "stun.syncthing.net"
-    - "xbox.*.microsoft.com"
+    - '*.127.*.*.*.nip.io'
+    - '*.127.*.*.*.sslip.io'
+    - '*.srv.nintendo.net'
+    - '*.stun.playstation.net'
+    - '*.stun.twilio.com'
+    - '*.turn.twilio.com'
+    - '*.xboxlive.com'
+    - '*-127-*-*-*.nip.io'
+    - '*-127-*-*-*.sslip.io'
+    - '+.bogon'
+    - '+.internal'
+    - '+.lan'
+    - '+.local'
+    - '+.localdomain'
+    - '+.m2m'
+    - '127-*-*-*.nip.io'
+    - '127-*-*-*.sslip.io'
+    - '127.*.*.*.nip.io'
+    - '127.*.*.*.sslip.io'
+    - '127.0.0.1.sslip.io'
+    - '127.atlas.skk.moe'
+    - 'dns.msftncsi.com'
+    - 'home.arpa'
+    - 'injections.adguard.org'
+    - 'local.adguard.org'
+    - 'stun.*'
+    - 'stun.syncthing.net'
+    - 'xbox.*.microsoft.com'
 
 ### 域名嗅探
 sniffer:
@@ -105,8 +105,8 @@ sniffer:
     QUIC:
       ports: [443, 8443]
   skip-domain:
-    - "Mijia Cloud"
-    - "+.push.apple.com"
+    - 'Mijia Cloud'
+    - '+.push.apple.com'
 
 ### TUN配置
 tun:
@@ -129,7 +129,7 @@ tun:
     - 224.0.0.0/4
     - 255.255.255.255/32
   # 如果有使用zerotier或者headscale等，需要自己配置排除自己的网段
-  # route-exclude-address: ["192.168.110.0/24"]
+  # route-exclude-address: ['192.168.110.0/24']
 
 #### 节点组参数锚点
 # 锚点 - 时延优选参数 [每 300 秒一次惰性健康检查，容差 20ms，时延超过 2 秒判定为失败，失败 3 次则自动触发健康检查]
@@ -140,17 +140,17 @@ FallBack: &FallBack {type: fallback, url: https://detectportal.firefox.com/succe
 LoadBalance: &LoadBalance {type: load-balance, url: https://detectportal.firefox.com/success.txt, interval: 300, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 2000, max-failed-times: 2, hidden: true}
 
 # 节点筛选正则表达式 - 基于地理位置和关键词过滤
-FilterHK: &FilterHK "^(?=.*(香港|HK|Hong|🇭🇰))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$"
-FilterJP: &FilterJP "^(?=.*(日本|JP|Japan|🇯🇵))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$"
-FilterKR: &FilterKR "^(?=.*(韩国|韓|KR|Korea|🇰🇷))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$"
-FilterSG: &FilterSG "^(?=.*(新加坡|狮城|SG|Singapore|🇸🇬))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$"
-FilterUS: &FilterUS "^(?=.*(美国|US|United States|America|🇺🇸))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$"
-FilterUK: &FilterUK "^(?=.*(英国|UK|United Kingdom|🇬🇧))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$"
-FilterFR: &FilterFR "^(?=.*(法国|FR|France|🇫🇷))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$"
-FilterDE: &FilterDE "^(?=.*(德国|DE|Germany|🇩🇪))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$"
-FilterTW: &FilterTW "^(?=.*(台湾|TW|Taiwan|Wan|🇹🇼|🇨🇳))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$"
-FilterOthers: &FilterOT "^(?!.*(🇭🇰|HK|Hong|香港|🇹🇼|TW|Taiwan|Wan|🇯🇵|JP|Japan|日本|🇸🇬|SG|Singapore|狮城|🇺🇸|US|United States|America|美国|🇩🇪|DE|Germany|德国|🇬🇧|UK|United Kingdom|英国|🇰🇷|KR|Korea|韩国|韓|🇫🇷|FR|France|法国)).*$"
-FilterAll: &FilterAL "^(?=.*)(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|COM|TOTAL|EXPIRE|EMAIL|Panel)\b))).*$"
+FilterHK: &FilterHK '^(?=.*(香港|HK|Hong|🇭🇰))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterJP: &FilterJP '^(?=.*(日本|JP|Japan|🇯🇵))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterKR: &FilterKR '^(?=.*(韩国|韓|KR|Korea|🇰🇷))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterSG: &FilterSG '^(?=.*(新加坡|狮城|SG|Singapore|🇸🇬))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterUS: &FilterUS '^(?=.*(美国|US|United States|America|🇺🇸))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterUK: &FilterUK '^(?=.*(英国|UK|United Kingdom|🇬🇧))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterFR: &FilterFR '^(?=.*(法国|FR|France|🇫🇷))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterDE: &FilterDE '^(?=.*(德国|DE|Germany|🇩🇪))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterTW: &FilterTW '^(?=.*(台湾|TW|Taiwan|Wan|🇹🇼|🇨🇳))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterOthers: &FilterOT '^(?!.*(🇭🇰|HK|Hong|香港|🇹🇼|TW|Taiwan|Wan|🇯🇵|JP|Japan|日本|🇸🇬|SG|Singapore|狮城|🇺🇸|US|United States|America|美国|🇩🇪|DE|Germany|德国|🇬🇧|UK|United Kingdom|英国|🇰🇷|KR|Korea|韩国|韓|🇫🇷|FR|France|法国)).*$'
+FilterAll: &FilterAL '^(?=.*)(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|COM|TOTAL|EXPIRE|EMAIL|Panel)\b))).*$'
 
 # 策略组代理列表模板 - 预定义的代理节点优先级排序
 SelectFB: &SelectFB {type: select, proxies: [🔯 故障转移, 🛰️ 自动选择, 🔮 负载均衡, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点, DIRECT]}
@@ -183,15 +183,15 @@ proxy-groups:
   # ------
 
 # 自动选择
-  - {name: 香港节点, <<: *UrlTest, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png, hidden: true}
-  - {name: 日本节点, <<: *UrlTest, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png, hidden: true}
-  - {name: 韩国节点, <<: *UrlTest, include-all: true, filter: *FilterKR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png, hidden: true}
-  - {name: 狮城节点, <<: *UrlTest, include-all: true, filter: *FilterSG, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png, hidden: true}
-  - {name: 美国节点, <<: *UrlTest, include-all: true, filter: *FilterUS, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png, hidden: true}
-  - {name: 英国节点, <<: *UrlTest, include-all: true, filter: *FilterUK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_Kingdom.png, hidden: true}
-  - {name: 法国节点, <<: *UrlTest, include-all: true, filter: *FilterFR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/France.png, hidden: true}
-  - {name: 德国节点, <<: *UrlTest, include-all: true, filter: *FilterDE, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Germany.png, hidden: true}
-  - {name: 台湾节点, <<: *UrlTest, include-all: true, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png, hidden: true}
+  - {name: 香港节点, <<: *UrlTest, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png}
+  - {name: 日本节点, <<: *UrlTest, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png}
+  - {name: 韩国节点, <<: *UrlTest, include-all: true, filter: *FilterKR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png}
+  - {name: 狮城节点, <<: *UrlTest, include-all: true, filter: *FilterSG, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png}
+  - {name: 美国节点, <<: *UrlTest, include-all: true, filter: *FilterUS, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png}
+  - {name: 英国节点, <<: *UrlTest, include-all: true, filter: *FilterUK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_Kingdom.png}
+  - {name: 法国节点, <<: *UrlTest, include-all: true, filter: *FilterFR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/France.png}
+  - {name: 德国节点, <<: *UrlTest, include-all: true, filter: *FilterDE, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Germany.png}
+  - {name: 台湾节点, <<: *UrlTest, include-all: true, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png}
 
 # 分流规则
 rules:
