@@ -4,7 +4,7 @@
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
 
 ### 节点配置
-NodeParam: &NodeParam {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: https://detectportal.firefox.com/success.txt, interval: 300}, filter: '^(?=.*)(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b))).*$'}
+NodeParam: &NodeParam {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: https://detectportal.firefox.com/success.txt, interval: 300}, filter: '^(?=.*)(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|COM|TOTAL|EXPIRE|EMAIL|Panel)\b))).*$'}
 # 节点订阅
 proxy-providers: 
   Subscribe: {<<: *NodeParam, url: '替换订阅链接'}
@@ -171,15 +171,15 @@ proxy-groups:
 # 游戏
   - {name: 游戏, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移], icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/steam(1).png}
 # 自动选择
-  - {name: 香港节点, <<: *UrlTest, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png}
-  - {name: 日本节点, <<: *UrlTest, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png}
-  - {name: 韩国节点, <<: *UrlTest, include-all: true, filter: *FilterKR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png}
-  - {name: 狮城节点, <<: *UrlTest, include-all: true, filter: *FilterSG, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png}
-  - {name: 美国节点, <<: *UrlTest, include-all: true, filter: *FilterUS, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png}
-  - {name: 英国节点, <<: *UrlTest, include-all: true, filter: *FilterUK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_Kingdom.png}
-  - {name: 法国节点, <<: *UrlTest, include-all: true, filter: *FilterFR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/France.png}
-  - {name: 德国节点, <<: *UrlTest, include-all: true, filter: *FilterDE, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Germany.png}
-  - {name: 台湾节点, <<: *UrlTest, include-all: true, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png}
+  - {name: 香港节点, <<: *UrlTest, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png, hidden: true}
+  - {name: 日本节点, <<: *UrlTest, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png, hidden: true}
+  - {name: 韩国节点, <<: *UrlTest, include-all: true, filter: *FilterKR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png, hidden: true}
+  - {name: 狮城节点, <<: *UrlTest, include-all: true, filter: *FilterSG, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png, hidden: true}
+  - {name: 美国节点, <<: *UrlTest, include-all: true, filter: *FilterUS, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png, hidden: true}
+  - {name: 英国节点, <<: *UrlTest, include-all: true, filter: *FilterUK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_Kingdom.png, hidden: true}
+  - {name: 法国节点, <<: *UrlTest, include-all: true, filter: *FilterFR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/France.png, hidden: true}
+  - {name: 德国节点, <<: *UrlTest, include-all: true, filter: *FilterDE, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Germany.png, hidden: true}
+  - {name: 台湾节点, <<: *UrlTest, include-all: true, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png, hidden: true}
 # ------
 
 # 分流规则
