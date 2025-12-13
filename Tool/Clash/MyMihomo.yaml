@@ -38,7 +38,7 @@ profile:
   store-fake-ip: true
 
 geodata-mode: true
-geodata-loader: standard
+geodata-loader: full
 geo-auto-update: true
 geo-update-interval: 24
 geox-url:
@@ -243,7 +243,7 @@ rule-providers:
   常见静态CDN非IP: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/cdn.txt, path: ./Rules/sukkaw_ruleset/cdn_non_ip.txt}
 
 # 流媒体服务
-  Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml, path: ./rules/Netflix.yaml}
+  Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml, path: ./Rules/Netflix.yaml}
   流媒体非IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream.txt, path: ./Rules/sukkaw_ruleset/stream_non_ip.txt}
 
 # 即时通讯
