@@ -61,7 +61,6 @@ geox-url:
 ### DNS配置
 dns:
   enable: true
-  prefer-h3: true
   ipv6: true
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
