@@ -271,7 +271,7 @@ https://ruleset.skk.moe/List/non_ip/direct.conf, policy=DIRECT, tag=国內直连
 https://ruleset.skk.moe/List/ip/domestic.conf, policy=DIRECT, tag=China 中国直连 (IP), enabled=true
 https://ruleset.skk.moe/List/ip/china_ip.conf, policy=DIRECT, tag=China 中国直连 (IP), enabled=true
 https://ruleset.skk.moe/List/ip/lan.conf, policy=DIRECT, tag=局域网 IP, enabled=true
-https://kelee.one/Tool/Loon/Lsr/REGION_SPLITTER, policy=DIRECT, tag=CN REGION, enabled=true
+https://kelee.one/Tool/Loon/Lsr/REGION_SPLITTER.lsr, policy=DIRECT, tag=CN REGION, enabled=true
 # ------
 
 [Rewrite]
