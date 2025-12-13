@@ -220,11 +220,11 @@ Apple Services = select, DIRECT, 🎲自动选择, 🔯故障转移, 🔮负载�
 Telegram = select, 🎲自动选择, 🔯故障转移, 🔮负载均衡, DIRECT, icon-url=https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/telegram(blue1).png
 
 # Netflix
-Netflix = select, 狮城, 香港, 台湾, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/erdongchanyo/Netflix.png
+Netflix = select, 狮城, 香港, 台湾, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/Netflix.png
 # YouTube
 YouTube = select, 香港, 台湾, 狮城, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png
 # Disney+
-Disney+ = select, 狮城, 香港, 台湾, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney.png
+Disney+ = select, 狮城, 香港, 台湾, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/disney(blue).png
 # Spotify
 Spotify = select, 香港, 台湾, 狮城, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Spotify.png
 # HBO GO ASIA
