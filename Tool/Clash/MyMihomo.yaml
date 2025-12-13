@@ -225,11 +225,11 @@ rules:
   - MATCH,漏网之鱼
 
 # 规则配置
-ClassicalT: &ClassicalT {type: http, behavior: classical, interval: 43200, format: text, proxy: 手动切换}
-ClassicalY: &ClassicalY {type: http, behavior: classical, interval: 43200, format: yaml, proxy: 手动切换}
-DomainT: &DomainT {type: http, behavior: domain, interval: 43200, format: text, proxy: 手动切换}
-DomainY: &DomainY {type: http, behavior: domain, interval: 43200, format: yaml, proxy: 手动切换}
-ipcidr: &ipcidr {type: http, behavior: ipcidr, interval: 43200, format: text, proxy: 手动切换}
+ClassicalT: &ClassicalT {type: http, behavior: classical, interval: 43200, format: text}
+ClassicalY: &ClassicalY {type: http, behavior: classical, interval: 43200, format: yaml}
+DomainT: &DomainT {type: http, behavior: domain, interval: 43200, format: text}
+DomainY: &DomainY {type: http, behavior: domain, interval: 43200, format: yaml}
+ipcidr: &ipcidr {type: http, behavior: ipcidr, interval: 43200, format: text}
 
 # 订阅规则
 rule-providers:
