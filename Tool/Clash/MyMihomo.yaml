@@ -27,10 +27,22 @@ keep-alive-idle: 600
 experimental:
   quic-go-disable-gso: true 
 
+# 认证配置
+authentication:
+  - mihomo:colinyycc
+skip-auth-prefixes:
+  - 192.168.1.0/24
+  - 192.168.31.0/24
+  - 192.168.100.0/24
+  - 127.0.0.1/8
+
 ### 如果使用的是裸核，需要将下面的注释去掉，方便ui界面的使用
-# external-controller: 0.0.0.0:9988
-# external-ui: ui
-# external-ui-url: 'https://mirror.ghproxy.com/https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip'
+# 管理面板配置
+external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
+external-ui-name: zashboard
+external-ui: ui
+external-controller: 127.0.0.1:9090
+secret: colinyycc
 
 # 配置存储
 profile:
