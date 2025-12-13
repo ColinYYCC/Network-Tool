@@ -38,7 +38,6 @@ profile:
   store-fake-ip: true
 
 geodata-mode: true
-geodata-loader: full
 geo-auto-update: true
 geo-update-interval: 24
 geox-url:
