@@ -9,7 +9,7 @@ NodeParam: &NodeParam {type: http, interval: 86400, proxy: DIRECT, health-check:
 proxy-providers: 
   Subscribe: {<<: *NodeParam, url: '替换订阅链接'}
 
-### 全局配置
+### 核心配置
 mode: rule
 mixed-port: 7897
 allow-lan: true
