@@ -4,7 +4,7 @@
 
 [General]
 # skip-proxy则和HTTP Proxy有关, 如果配置了该参数, 那么所配置的这些IP段、域名将不会转发到Loon, 而是由系统处理
-skip-proxy = localhost, *.local, e.crashlynatics.com, *.gov.cn, *.12306.cn, *.psbc.com, *.bankofchina.com, *.icbc.com.cn, *.ccb.com, *.cmbchina.com
+skip-proxy = localhost, *.local, e.crashlytics.com, *.gov.cn, *.12306.cn, *.psbc.com, *.bankofchina.com, *.icbc.com.cn, *.ccb.com, *.cmbchina.com, 0.0.0.0/8, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, 224.0.0.0/4, ::1/128, fc00::/7, fe80::/10
 
 # bypass-tun则和TUN有关, 如果配置了该参数, 那么所配置的这些IP段、域名就会不交给Loon来处理, 系统直接处理
 bypass-tun = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, 224.0.0.0/4, 255.255.255.255/32
