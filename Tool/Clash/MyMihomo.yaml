@@ -282,7 +282,7 @@ rule-providers:
   直连非IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/direct.txt, path: ./Rules/sukkaw_ruleset/direct_non_ip.txt}
   全球非IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/global.txt, path: ./Rules/sukkaw_ruleset/global_non_ip.txt} 
 
-### IP 类规则
+# IP 类规则
   流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream.txt, path: ./Rules/sukkaw_ruleset/stream_ip.txt}
   内网IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/lan.txt, path: ./Rules/sukkaw_ruleset/lan_ip.txt}
   国内IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/domestic.txt, path: ./Rules/sukkaw_ruleset/domestic_ip.txt}
