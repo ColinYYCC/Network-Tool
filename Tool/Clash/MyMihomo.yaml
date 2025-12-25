@@ -169,7 +169,7 @@ proxy-groups:
   - {name: 国外网站, <<: *SelectUT, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png}
   - {name: Telegram, <<: *SelectUT, icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/telegram(blue1).png}
   - {name: Apple Service, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡, 香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png}
-  - {name: AI, <<: *SelectUT, icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/DeepSeek.png}
+  - {name: AI, <<: *SelectUT, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/qwen-color.svg}
 # > 媒体策略组
   - {name: Netflix, type: select, proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/netflix(red).png}
   - {name: YouTube, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png}
