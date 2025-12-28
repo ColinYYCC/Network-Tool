@@ -107,21 +107,21 @@ Game = NameRegex, FilterKey = "^(?=.*((?i)游戏|🎮|(\b(GAME)\b)))(?!.*((?i)�
 # > 分流策略组
 国外网站 = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png
 # Telegram
-Telegram = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/telegram(blue1).png
+Telegram = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/telegram.svg
 # Apple
 Apple Service = select,DIRECT,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png
 # Ai
 AI = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/qwen-color.svg
 # Netflix
-Netflix = select,狮城节点,香港节点,台湾节点,日本节点,美国节点,韩国节点,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/netflix(red).png
+Netflix = select,狮城节点,香港节点,台湾节点,日本节点,美国节点,韩国节点,img-url = https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/netflix.svg
 # YouTube
 YouTube = select,香港节点,台湾节点,狮城节点,日本节点,美国节点,韩国节点,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png
 # Disney+
-Disney+ = select,狮城节点,香港节点,台湾节点,日本节点,美国节点,韩国节点,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/disney(blue).png
+Disney+ = select,狮城节点,香港节点,台湾节点,日本节点,美国节点,韩国节点,img-url = https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/disney%2B.svg
 # Spotify
 Spotify = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,🎲 自动选择,🔯 故障转移,🔮 负载均衡,img-url = https://github.com/tugepaopao/Image-Storage/raw/master/cartoon/Cute/spotify.png
 # Emby
-Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,🎲 自动选择,🔯 故障转移,🔮 负载均衡,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/emby.png
+Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,🎲 自动选择,🔯 故障转移,🔮 负载均衡,img-url = https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/emby.svg
 游戏 = select,DIRECT,🎲 自动选择,🔯 故障转移,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/steam(1).png
 
 # > 白名单模式 PROXY, 黑名单模式 DIRECT
