@@ -38,10 +38,10 @@ skip-auth-prefixes:
 
 ### 如果使用的是裸核，需要将下面的注释去掉，方便ui界面的使用
 # 管理面板配置
-# external-ui-url: https://mirror.ghproxy.com/https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
-# external-ui: ui
-# external-controller: 0.0.0.0:9988
-# secret: colinyycc
+external-ui-url: https://mirror.ghproxy.com/https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
+external-ui: ui
+external-controller: 0.0.0.0:9988
+secret: colinyycc
 
 # 配置存储
 profile:
