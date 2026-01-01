@@ -1,20 +1,27 @@
 // 使用方式
-// 1. 將您的 MyMihomo.yaml 放在與腳本相同的目錄下。
-// 2. 執行指令：Bash node converter.js
-// 3. 目錄下會生成 output.js，這就是完整的預處理腳本。
+// 1. 在您的資料夾中執行以下指令來安裝 YAML 解析庫: Bash npm install js-yaml
+// 2. 將您的 MyMihomo.yaml 放在與腳本相同的目錄下。
+// 3. 執行指令: Bash node converter.js
+// 4. 目錄下會生成 output.js，這就是完整的預處理腳本。
 
 const fs = require('fs');
 const yaml = require('js-yaml');
 
-// 讀取原始 YAML 檔案
+// 設定檔案名稱
 const yamlFile = 'MyMihomo.yaml';
 const outputFile = 'output.js';
 
 try {
-    const doc = yaml.load(fs.readFileSync(yamlFile, 'utf8'));
+    // 讀取並解析 YAML
+    const fileContents = fs.readFileSync(yamlFile, 'utf8');
+    const doc = yaml.load(fileContents);
 
     // 構建 JS 內容
-    const jsContent = `
+    const jsContent = `/**
+ * 自動生成的 Mihomo JS 預處理腳本
+ * 源文件: ${yamlFile}
+ */
+
 function main(params) {
     if (!params.proxies && !params["proxy-providers"]) return params;
 
@@ -28,6 +35,7 @@ function main(params) {
     return params;
 }
 
+// 基礎配置轉換
 function overwriteBasicOptions(params) {
     const config = {
         "mode": "${doc.mode || 'rule'}",
@@ -40,40 +48,53 @@ function overwriteBasicOptions(params) {
         "find-process-mode": "${doc['find-process-mode'] || 'always'}",
         "global-client-fingerprint": "${doc['global-client-fingerprint'] || 'chrome'}",
         "external-controller": "${doc['external-controller'] || '0.0.0.0:9988'}",
-        "secret": "${doc.secret || ''}",
-        "profile": ${JSON.stringify(doc.profile, null, 8)},
-        "sniffer": ${JSON.stringify(doc.sniffer, null, 8)}
+        "secret": "${doc.secret || 'colinyycc'}",
+        "profile": ${JSON.stringify(doc.profile, null, 4)},
+        "sniffer": ${JSON.stringify(doc.sniffer, null, 4)}
     };
     Object.assign(params, config);
 }
 
+// DNS 配置轉換
 function overwriteDns(params) {
-    params.dns = ${JSON.stringify(doc.dns, null, 8)};
+    params.dns = ${JSON.stringify(doc.dns, null, 4)};
 }
 
+// TUN 配置轉換
 function overwriteTunnel(params) {
-    params.tun = ${JSON.stringify(doc.tun, null, 8)};
+    params.tun = ${JSON.stringify(doc.tun, null, 4)};
 }
 
+// 代理組配置轉換
 function overwriteProxyGroups(params) {
-    // 這裡直接從 YAML 映射 Proxy Groups 結構
-    // 提示：實務中 JS 腳本通常需要根據當前訂閱動態過濾節點，此處採靜態映射
-    params["proxy-groups"] = ${JSON.stringify(doc['proxy-groups'], null, 8)};
+    // 從 YAML 自動提取代理組結構
+    const groups = ${JSON.stringify(doc['proxy-groups'], null, 4)};
+    
+    // 如果需要動態過濾節點，可以在此處針對 groups 進行 filter 處理
+    params["proxy-groups"] = groups;
 }
 
+// Rule Providers 補全轉換
 function overwriteRuleProviders(params) {
-    // 自動將 YAML 中的 rule-providers 全部補全
-    params["rule-providers"] = ${JSON.stringify(doc['rule-providers'], null, 8)};
+    // 自動獲取 YAML 中定義的所有 rule-providers
+    const providers = ${JSON.stringify(doc['rule-providers'], null, 4)};
+    params["rule-providers"] = providers;
 }
 
+// 分流規則轉換
 function overwriteRules(params) {
-    params.rules = ${JSON.stringify(doc.rules, null, 8)};
+    params.rules = ${JSON.stringify(doc.rules, null, 4)};
 }
 `;
 
-    fs.writeFileSync(outputFile, jsContent);
-    console.log(\`✅ 轉換完成！請查看 \${outputFile}\`);
+    // 寫入檔案
+    fs.writeFileSync(outputFile, jsContent, 'utf8');
+    console.log('------------------------------------------');
+    console.log('✅ 轉換成功！');
+    console.log(`原文件: ${yamlFile}`);
+    console.log(`生成文件: ${outputFile}`);
+    console.log('------------------------------------------');
 
 } catch (e) {
-    console.error('❌ 轉換失敗：', e);
+    console.error('❌ 轉換過程中發生錯誤：', e);
 }
