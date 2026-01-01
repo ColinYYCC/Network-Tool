@@ -1,0 +1,79 @@
+// 使用方式
+// 1. 將您的 MyMihomo.yaml 放在與腳本相同的目錄下。
+// 2. 執行指令：Bash node converter.js
+// 3. 目錄下會生成 output.js，這就是完整的預處理腳本。
+
+const fs = require('fs');
+const yaml = require('js-yaml');
+
+// 讀取原始 YAML 檔案
+const yamlFile = 'MyMihomo.yaml';
+const outputFile = 'output.js';
+
+try {
+    const doc = yaml.load(fs.readFileSync(yamlFile, 'utf8'));
+
+    // 構建 JS 內容
+    const jsContent = `
+function main(params) {
+    if (!params.proxies && !params["proxy-providers"]) return params;
+
+    overwriteBasicOptions(params);
+    overwriteDns(params);
+    overwriteTunnel(params);
+    overwriteProxyGroups(params);
+    overwriteRuleProviders(params);
+    overwriteRules(params);
+
+    return params;
+}
+
+function overwriteBasicOptions(params) {
+    const config = {
+        "mode": "${doc.mode || 'rule'}",
+        "mixed-port": ${doc['mixed-port'] || 7897},
+        "allow-lan": ${doc['allow-lan'] || true},
+        "ipv6": ${doc.ipv6 || true},
+        "log-level": "${doc['log-level'] || 'warning'}",
+        "unified-delay": ${doc['unified-delay'] || true},
+        "tcp-concurrent": ${doc['tcp-concurrent'] || true},
+        "find-process-mode": "${doc['find-process-mode'] || 'always'}",
+        "global-client-fingerprint": "${doc['global-client-fingerprint'] || 'chrome'}",
+        "external-controller": "${doc['external-controller'] || '0.0.0.0:9988'}",
+        "secret": "${doc.secret || ''}",
+        "profile": ${JSON.stringify(doc.profile, null, 8)},
+        "sniffer": ${JSON.stringify(doc.sniffer, null, 8)}
+    };
+    Object.assign(params, config);
+}
+
+function overwriteDns(params) {
+    params.dns = ${JSON.stringify(doc.dns, null, 8)};
+}
+
+function overwriteTunnel(params) {
+    params.tun = ${JSON.stringify(doc.tun, null, 8)};
+}
+
+function overwriteProxyGroups(params) {
+    // 這裡直接從 YAML 映射 Proxy Groups 結構
+    // 提示：實務中 JS 腳本通常需要根據當前訂閱動態過濾節點，此處採靜態映射
+    params["proxy-groups"] = ${JSON.stringify(doc['proxy-groups'], null, 8)};
+}
+
+function overwriteRuleProviders(params) {
+    // 自動將 YAML 中的 rule-providers 全部補全
+    params["rule-providers"] = ${JSON.stringify(doc['rule-providers'], null, 8)};
+}
+
+function overwriteRules(params) {
+    params.rules = ${JSON.stringify(doc.rules, null, 8)};
+}
+`;
+
+    fs.writeFileSync(outputFile, jsContent);
+    console.log(\`✅ 轉換完成！請查看 \${outputFile}\`);
+
+} catch (e) {
+    console.error('❌ 轉換失敗：', e);
+}
