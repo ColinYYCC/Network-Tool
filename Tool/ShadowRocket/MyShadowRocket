@@ -37,16 +37,16 @@ udp-policy-not-supported-behaviour = REJECT
 
 [Proxy Group]
 
-🌏 国外网站 = select,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
-📽️ 国际媒体 = select,🇸🇬 狮城节点,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
- Apple Service = select, DIRECT, 🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
-🖥️ 微软服务 = select,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
-🌌 谷歌服务 = select,🇭🇰 香港节点,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
-📟 电报消息 = select,🇭🇰 香港节点,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
-🐦 推特消息 = select,🇭🇰 香港节点,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
-🤖 AI = select,🇺🇸 美国节点,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
-🎮 游戏平台 = select,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
-📽️ Emby = select,🇸🇬 狮城节点,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,DIRECT,use=true,interval=86400,url=https://networkcheck.kde.org,timeout=3,select=0,policy-regex-filter=.
+🌏 国外网站 = select,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,DIRECT,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
+📽️ 国际媒体 = select,🇸🇬 狮城节点,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,DIRECT,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
+ Apple Service = select, DIRECT, 🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,vinterval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
+🖥️ 微软服务 = select,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,DIRECT,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
+🌌 谷歌服务 = select,🇭🇰 香港节点,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,DIRECT,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
+📟 电报消息 = select,🇭🇰 香港节点,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,DIRECT,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
+🐦 推特消息 = select,🇭🇰 香港节点,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,DIRECT,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
+🤖 AI = select,🇺🇸 美国节点,🇭🇰 香港节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,DIRECT,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
+🎮 游戏平台 = select,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,DIRECT,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
+📽️ Emby = select,🇸🇬 狮城节点,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,DIRECT,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
 🎵 Spotify = select,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
 🐟 兜底分流 = select,🛰️ 自动选择,🔯 故障转移,🔮 负载均衡,🇭🇰 香港节点,🇺🇸 美国节点,🇸🇬 狮城节点,🇯🇵 日本节点,🇨🇳 台湾节点,🇰🇷 韩国节点,DIRECT,interval=86400,timeout=3,select=0,url=https://networkcheck.kde.org
 
