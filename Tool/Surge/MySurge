@@ -226,7 +226,7 @@ YouTube = select, 香港, 台湾, 狮城, 日本, 美国, 韩国, 🎲自动选�
 # Disney+
 Disney+ = select, 狮城, 香港, 台湾, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/disney(blue).png
 # Spotify
-Spotify = select, 香港, 台湾, 狮城, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Spotify.png
+Spotify = select, 香港, 台湾, 狮城, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/spotify.svg
 # HBO GO ASIA
 HBO GO = select, 香港, 台湾, 狮城, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HBO_2.png
 # Emby
