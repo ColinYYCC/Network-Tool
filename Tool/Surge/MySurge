@@ -22,7 +22,7 @@ wifi-assist = false
 # > Internet 测试 URL
 internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
 # > 代理测速 URL
-proxy-test-url = www.v2ex.com/generate_204
+proxy-test-url = https://networkcheck.kde.org/
 # > 代理测试 UDP
 proxy-test-udp = www.apple.com@64.6.64.6
 # > 测试超时（秒）
