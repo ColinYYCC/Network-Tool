@@ -1105,3 +1105,254 @@ function getManualProxiesByRegex (params, regex) {
     const matchedProxies = params.proxies.filter ((e) => regex.test (e.name)).map ((e) => e.name);
     return matchedProxies.length > 0 ? matchedProxies : ["COMPATIBLE"];
 }
+
+/**
+ * MyMihomo.js
+ * 由 YAML 配置转换而来
+ * 适用版本：Mihomo (Clash Meta) 核心
+ */
+
+const config = {
+  // 核心配置
+  mode: "rule",
+  "mixed-port": 7897,
+  "allow-lan": true,
+  ipv6: true,
+  "unified-delay": true,
+  "tcp-concurrent": true,
+  "log-level": "warning",
+  "bind-address": "*",
+  "find-process-mode": "always",
+  "global-client-fingerprint": "chrome",
+  "keep-alive-interval": 15,
+  "keep-alive-idle": 600,
+
+  // 实验性功能
+  experimental: {
+    "quic-go-disable-gso": true
+  },
+
+  // 认证配置
+  authentication: ["mihomo:colinyycc"],
+  "skip-auth-prefixes": [
+    "192.168.1.0/24",
+    "192.168.31.0/24",
+    "192.168.100.0/24",
+    "127.0.0.1/8"
+  ],
+
+  // 管理面板配置
+  "external-ui-url": "https://mirror.ghproxy.com/https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip",
+  "external-ui": "ui",
+  "external-controller": "0.0.0.0:9988",
+  secret: "colinyycc",
+
+  // 配置存储
+  profile: {
+    "store-selected": true,
+    "store-fake-ip": true
+  },
+
+  "geodata-mode": true,
+  "geo-auto-update": true,
+  "geo-update-interval": 24,
+  "geox-url": {
+    geoip: "https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat",
+    mmdb: "https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb",
+    asn: "https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb"
+  },
+
+  // DNS配置
+  dns: {
+    enable: true,
+    ipv6: true,
+    "enhanced-mode": "fake-ip",
+    "fake-ip-range": "198.18.0.1/16",
+    "default-nameserver": ["119.29.29.29", "180.184.1.1", "223.5.5.5"],
+    nameserver: [
+      "https://dns.quad9.net/dns-query",
+      "https://doh.pub/dns-query",
+      "https://dns.alidns.com"
+    ],
+    "fake-ip-filter": [
+      "*.127.*.*.*.nip.io",
+      "*.127.*.*.*.sslip.io",
+      "*.srv.nintendo.net",
+      "*.stun.playstation.net",
+      "*.stun.twilio.com",
+      "*.turn.twilio.com",
+      "*.xboxlive.com",
+      "*-127-*-*-*.nip.io",
+      "*-127-*-*-*.sslip.io",
+      "+.bogon",
+      "+.internal",
+      "+.lan",
+      "+.local",
+      "+.localdomain",
+      "+.m2m",
+      "127-*-*-*.nip.io",
+      "127-*-*-*.sslip.io",
+      "127.*.*.*.nip.io",
+      "127.*.*.*.sslip.io",
+      "127.0.0.1.sslip.io",
+      "127.atlas.skk.moe",
+      "dns.msftncsi.com",
+      "home.arpa",
+      "injections.adguard.org",
+      "local.adguard.org",
+      "stun.*",
+      "stun.syncthing.net",
+      "xbox.*.microsoft.com"
+    ]
+  },
+
+  // 域名嗅探
+  sniffer: {
+    enable: true,
+    sniff: {
+      HTTP: {
+        ports: [80, "8080-8880"],
+        "override-destination": true
+      },
+      TLS: {
+        ports: [443, 8443]
+      },
+      QUIC: {
+        ports: [443, 8443]
+      }
+    },
+    "skip-domain": ["Mijia Cloud", "+.push.apple.com"]
+  },
+
+  // TUN配置
+  tun: {
+    enable: true,
+    stack: "system",
+    "dns-hijack": ["any:53", "tcp://any:53"],
+    "auto-route": true,
+    "auto-redirect": true,
+    "auto-detect-interface": true,
+    "strict-route": true,
+    mtu: 1500
+  },
+
+  // 节点订阅
+  "proxy-providers": {
+    MyMihomo: {
+      type: "http",
+      interval: 86400,
+      proxy: "DIRECT",
+      url: "替换订阅链接", // 请在此处替换你的订阅链接
+      "health-check": {
+        enable: true,
+        url: "www.v2ex.com/generate_204",
+        interval: 300
+      },
+      filter: "^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\\b(?:USE|USED|COM|TOTAL|EXPIRE|EMAIL|Panel)\\b)|[\\p{Han}]\\.com)).*$"
+    }
+  },
+
+  // 策略组
+  "proxy-groups": [
+    // 主要节点
+    { name: "🛰️ 自动选择", type: "url-test", "include-all": true, url: "www.v2ex.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, "max-failed-times": 3, filter: "^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\\b)|[\\p{Han}]\\.com)).*$", icon: "https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(3).png" },
+    { name: "🔯 故障转移", type: "fallback", "include-all": true, url: "www.v2ex.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, "max-failed-times": 2, filter: "^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\\b)|[\\p{Han}]\\.com)).*$", icon: "https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png" },
+    { name: "🔮 负载均衡", type: "load-balance", "include-all": true, url: "www.v2ex.com/generate_204", interval: 300, lazy: true, strategy: "consistent-hashing", timeout: 2000, "max-failed-times": 2, filter: "^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\\b)|[\\p{Han}]\\.com)).*$", icon: "https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png" },
+    { name: "手动切换", type: "select", proxies: ["🛰️ 自动选择", "🔮 负载均衡", "🔯 故障转移", "香港节点", "台湾节点", "日本节点", "韩国节点", "狮城节点", "美国节点", "DIRECT"], icon: "https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png" },
+    { name: "漏网之鱼", type: "select", proxies: ["🔯 故障转移", "🛰️ 自动选择", "🔮 负载均衡", "香港节点", "台湾节点", "日本节点", "韩国节点", "狮城节点", "美国节点", "DIRECT"], icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png" },
+    
+    // 分流策略组
+    { name: "国外网站", type: "select", proxies: ["🛰️ 自动选择", "🔮 负载均衡", "🔯 故障转移", "香港节点", "台湾节点", "日本节点", "韩国节点", "狮城节点", "美国节点", "DIRECT"], icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png" },
+    { name: "Telegram", type: "select", proxies: ["🛰️ 自动选择", "🔮 负载均衡", "🔯 故障转移", "香港节点", "台湾节点", "日本节点", "韩国节点", "狮城节点", "美国节点", "DIRECT"], icon: "https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/telegram.svg" },
+    { name: "Apple Service", type: "select", proxies: ["DIRECT", "🛰️ 自动选择", "🔯 故障转移", "🔮 负载均衡", "香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点"], icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png" },
+    { name: "AI", type: "select", proxies: ["美国节点", "香港节点", "台湾节点", "日本节点", "韩国节点", "狮城节点", "🛰️ 自动选择", "🔮 负载均衡", "🔯 故障转移", "DIRECT"], icon: "https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/qwen-color.svg" },
+    
+    // 媒体策略组
+    { name: "Netflix", type: "select", proxies: ["狮城节点", "香港节点", "日本节点", "美国节点", "韩国节点", "台湾节点", "🛰️ 自动选择", "🔯 故障转移", "🔮 负载均衡"], icon: "https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/netflix.svg" },
+    { name: "YouTube", type: "select", proxies: ["香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "🛰️ 自动选择", "🔯 故障转移", "🔮 负载均衡"], icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png" },
+    { name: "Disney+", type: "select", proxies: ["狮城节点", "香港节点", "日本节点", "美国节点", "韩国节点", "台湾节点", "🛰️ 自动选择", "🔯 故障转移", "🔮 负载均衡"], icon: "https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/disney-plus.svg" },
+    { name: "Spotify", type: "select", proxies: ["香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "🛰️ 自动选择", "🔯 故障转移", "🔮 负载均衡"], icon: "https://github.com/tugepaopao/Image-Storage/raw/master/cartoon/Cute/spotify.png" },
+    { name: "Emby", type: "select", proxies: ["香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "🛰️ 自动选择", "🔯 故障转移", "🔮 负载均衡"], icon: "https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/emby.svg" },
+    
+    // 游戏
+    { name: "游戏", type: "select", proxies: ["DIRECT", "🛰️ 自动选择", "🔯 故障转移"], icon: "https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/steam.svg" },
+    
+    // 自动选择（隐藏节点组）
+    { name: "香港节点", type: "url-test", "include-all": true, url: "www.v2ex.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, hidden: true, filter: "^(?=.*(香港|HK|Hong|🇭🇰))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png" },
+    { name: "日本节点", type: "url-test", "include-all": true, url: "www.v2ex.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, hidden: true, filter: "^(?=.*(日本|JP|Japan|🇯🇵))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png" },
+    { name: "韩国节点", type: "url-test", "include-all": true, url: "www.v2ex.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, hidden: true, filter: "^(?=.*(韩国|韓|KR|Korea|🇰🇷))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png" },
+    { name: "狮城节点", type: "url-test", "include-all": true, url: "www.v2ex.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, hidden: true, filter: "^(?=.*(新加坡|狮城|SG|Singapore|🇸🇬))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png" },
+    { name: "美国节点", type: "url-test", "include-all": true, url: "www.v2ex.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, hidden: true, filter: "^(?=.*(美国|US|United States|America|🇺🇸))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png" },
+    { name: "英国节点", type: "url-test", "include-all": true, url: "www.v2ex.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, hidden: true, filter: "^(?=.*(英国|UK|United Kingdom|🇬🇧))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_Kingdom.png" },
+    { name: "法国节点", type: "url-test", "include-all": true, url: "www.v2ex.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, hidden: true, filter: "^(?=.*(法国|FR|France|🇫🇷))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/France.png" },
+    { name: "德国节点", type: "url-test", "include-all": true, url: "www.v2ex.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, hidden: true, filter: "^(?=.*(德国|DE|Germany|🇩🇪))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Germany.png" },
+    { name: "台湾节点", type: "url-test", "include-all": true, url: "www.v2ex.com/generate_204", interval: 300, lazy: true, tolerance: 50, timeout: 2000, hidden: true, filter: "^(?=.*(台湾|TW|Taiwan|Wan|🇹🇼|🇨🇳))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$", icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png" }
+  ],
+
+  // 分流规则
+  rules: [
+    "DOMAIN-SUFFIX,zoom.us,国外网站",
+    "DOMAIN-KEYWORD,todesk,DIRECT",
+    "DOMAIN-KEYWORD,AnyViewer,DIRECT",
+    "DOMAIN-KEYWORD,DeepL,DIRECT",
+    "AND,((DST-PORT,443),(NETWORK,UDP)),REJECT",
+    "RULE-SET,sogouinput,REJECT",
+    "RULE-SET,AWAvenue-Ads-Rule,REJECT",
+    "RULE-SET,Adobe跟踪&SDK打点,REJECT-DROP",
+    "RULE-SET,视频QUIC&PCDN,REJECT",
+    "RULE-SET,内网非IP,DIRECT",
+    "RULE-SET,国内域名非IP,DIRECT",
+    "RULE-SET,直连非IP,DIRECT",
+    "RULE-SET,苹果CDN域名集,DIRECT",
+    "RULE-SET,苹果中国非IP,DIRECT",
+    "RULE-SET,微软CDN非IP,DIRECT",
+    "RULE-SET,微软服务非IP,DIRECT",
+    "RULE-SET,苹果服务非IP,Apple Service",
+    "RULE-SET,常见静态CDN域名集,手动切换",
+    "RULE-SET,常见静态CDN非IP,手动切换",
+    "RULE-SET,Netflix,Netflix",
+    "RULE-SET,流媒体非IP,美国节点",
+    "RULE-SET,Telegram,Telegram",
+    "RULE-SET,下载域名集,手动切换",
+    "RULE-SET,下载非IP,手动切换",
+    "RULE-SET,人工智能非IP,AI",
+    "RULE-SET,全球非IP,国外网站",
+    "RULE-SET,内网IP,DIRECT",
+    "RULE-SET,国内IP,DIRECT",
+    "RULE-SET,中国IP段,DIRECT",
+    "RULE-SET,流媒体IP,美国节点",
+    "GEOIP,CN,DIRECT",
+    "MATCH,漏网之鱼"
+  ],
+
+  // 规则集订阅
+  "rule-providers": {
+    sogouinput: { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt", path: "./Rules/sukkaw_ruleset/sogouinput.txt" },
+    "AWAvenue-Ads-Rule": { type: "http", behavior: "domain", interval: 43200, format: "yaml", url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml", path: "./Rules/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml" },
+    "Adobe跟踪&SDK打点": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt", path: "./Rules/sukkaw_ruleset/reject_non_ip_drop.txt" },
+    "视频QUIC&PCDN": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt", path: "./Rules/sukkaw_ruleset/reject_non_ip_no_drop.txt" },
+    "常见静态CDN域名集": { type: "http", behavior: "domain", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/domainset/cdn.txt", path: "./Rules/sukkaw_ruleset/cdn_domainset.txt" },
+    "常见静态CDN非IP": { type: "http", behavior: "domain", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/cdn.txt", path: "./Rules/sukkaw_ruleset/cdn_non_ip.txt" },
+    Netflix: { type: "http", behavior: "classical", interval: 43200, format: "yaml", url: "https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml", path: "./Rules/Netflix.yaml" },
+    "流媒体非IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/stream.txt", path: "./Rules/sukkaw_ruleset/stream_non_ip.txt" },
+    Telegram: { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://github.com/LucaLin233/Luca_Conf/raw/main/Surge/Rule/Telegram.list", path: "./Rules/Telegram.txt" },
+    "人工智能非IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/ai.txt", path: "./Rules/sukkaw_ruleset/ai_non_ip.txt" },
+    "苹果CDN域名集": { type: "http", behavior: "domain", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt", path: "./Rules/sukkaw_ruleset/apple_cdn.txt" },
+    "苹果服务非IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/apple_services.txt", path: "./Rules/sukkaw_ruleset/apple_services.txt" },
+    "苹果中国非IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt", path: "./Rules/sukkaw_ruleset/apple_cn_non_ip.txt" },
+    "微软CDN非IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/microsoft_cdn.txt", path: "./Rules/sukkaw_ruleset/microsoft_cdn_non_ip.txt" },
+    "微软服务非IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/microsoft.txt", path: "./Rules/sukkaw_ruleset/microsoft_non_ip.txt" },
+    "下载域名集": { type: "http", behavior: "domain", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/domainset/download.txt", path: "./Rules/sukkaw_ruleset/download_domainset.txt" },
+    "下载非IP": { type: "http", behavior: "domain", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/download.txt", path: "./Rules/sukkaw_ruleset/download_non_ip.txt" },
+    "内网非IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/lan.txt", path: "./Rules/sukkaw_ruleset/lan_non_ip.txt" },
+    "国内域名非IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/domestic.txt", path: "./Rules/sukkaw_ruleset/domestic_non_ip.txt" },
+    "直连非IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/direct.txt", path: "./Rules/sukkaw_ruleset/direct_non_ip.txt" },
+    "全球非IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/non_ip/global.txt", path: "./Rules/sukkaw_ruleset/global_non_ip.txt" },
+    "流媒体IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/ip/stream.txt", path: "./Rules/sukkaw_ruleset/stream_ip.txt" },
+    "内网IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/ip/lan.txt", path: "./Rules/sukkaw_ruleset/lan_ip.txt" },
+    "国内IP": { type: "http", behavior: "classical", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/ip/domestic.txt", path: "./Rules/sukkaw_ruleset/domestic_ip.txt" },
+    "中国IP段": { type: "http", behavior: "ipcidr", interval: 43200, format: "text", url: "https://ruleset.skk.moe/Clash/ip/china_ip.txt", path: "./Rules/sukkaw_ruleset/china_ip.txt" }
+  }
+};
+
+module.exports = config;
