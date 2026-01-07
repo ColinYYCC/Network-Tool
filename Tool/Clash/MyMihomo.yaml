@@ -197,7 +197,6 @@ rules:
   - DOMAIN-KEYWORD,todesk,DIRECT
   - DOMAIN-KEYWORD,AnyViewer,DIRECT
   - DOMAIN-KEYWORD,DeepL,DIRECT
-  - AND,((DST-PORT,443),(NETWORK,UDP)),REJECT 
 
 ### 非 IP 类规则
   - RULE-SET,sogouinput,REJECT
