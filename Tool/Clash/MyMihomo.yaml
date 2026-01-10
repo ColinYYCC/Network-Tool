@@ -154,6 +154,7 @@ FilterAll: &FilterAL '^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|
 # 策略组代理列表模板 - 预定义的代理节点优先级排序
 SelectFB: &SelectFB {type: select, proxies: [🔯 故障转移, 🛰️ 自动选择, 🔮 负载均衡, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点, DIRECT]}
 SelectUT: &SelectUT {type: select, proxies: [🛰️ 自动选择, 🔮 负载均衡, 🔯 故障转移, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点, DIRECT]}
+SelectDT: &SelectDT {type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔮 负载均衡, 🔯 故障转移, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点]}
 # ------
 
 # 节点组
@@ -163,7 +164,7 @@ proxy-groups:
   - {name: 🔯 故障转移, <<: *FallBack, include-all: true, filter: *FilterAL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png}
   - {name: 🔮 负载均衡, <<: *LoadBalance, include-all: true, filter: *FilterAL, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
   - {name: 手动切换, <<: *SelectUT, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png}
-  - {name: 漏网之鱼, <<: *SelectFB, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
+  - {name: 漏网之鱼, <<: *SelectDT, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
 # 分流策略组
   - {name: 国外网站, <<: *SelectUT, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png}
   - {name: Telegram, <<: *SelectUT, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/telegram.svg}
