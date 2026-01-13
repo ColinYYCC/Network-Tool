@@ -199,11 +199,14 @@ rules:
   - DOMAIN-KEYWORD,AnyViewer,DIRECT
   - DOMAIN-KEYWORD,DeepL,DIRECT
 
-### 非 IP 类规则
+### 拦截规则
   - RULE-SET,sogouinput,REJECT
   - RULE-SET,AWAvenue-Ads-Rule,REJECT
   - RULE-SET,Adobe跟踪&SDK打点,REJECT-DROP
   - RULE-SET,视频QUIC&PCDN,REJECT
+  - AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT 
+
+### 非 IP 类规则
   - RULE-SET,内网,DIRECT
   - RULE-SET,国内域名,DIRECT
   - RULE-SET,直连,DIRECT
@@ -221,7 +224,6 @@ rules:
   - RULE-SET,下载,手动切换
   - RULE-SET,人工智能,AI
   - RULE-SET,全球,国外网站
-
 
 ### IP 类规则
   - RULE-SET,内网IP,DIRECT
