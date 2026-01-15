@@ -219,7 +219,7 @@ rules:
   - RULE-SET,常见静态CDN域名集,手动切换
   - RULE-SET,常见静态CDN,手动切换
   - RULE-SET,Netflix,Netflix
-  - RULE-SET,流媒体,美国节点
+  - RULE-SET,流媒体,Youtube
   - RULE-SET,Telegram,Telegram
   - RULE-SET,下载域名集,手动切换
   - RULE-SET,下载,手动切换
