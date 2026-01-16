@@ -260,7 +260,7 @@ rule-providers:
   常见静态CDN: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/cdn.txt, path: ./Rules/cdn_non_ip.txt}
 
 # 流媒体服务
-  Emby: {<<: *ClassicalM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/Emby.mrs, path: ./Rules/Emby.mrs}}
+  Emby: {<<: *ClassicalY, url: https://kelee.one/Tool/Clash/Rule/EmbyServer.yaml, path: ./Rules/Emby.yaml}
   Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml, path: ./Rules/Netflix.yaml}
   Youtube: {<<: *ClassicalM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/YouTube.mrs, path: ./Rules/Youtube.mrs}
   流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream.txt, path: ./Rules/stream_non_ip.txt}
