@@ -243,7 +243,7 @@ ClassicalT: &ClassicalT {type: http, behavior: classical, interval: 43200, forma
 ClassicalY: &ClassicalY {type: http, behavior: classical, interval: 43200, format: yaml}
 DomainT: &DomainT {type: http, behavior: domain, interval: 43200, format: text}
 DomainY: &DomainY {type: http, behavior: domain, interval: 43200, format: yaml}
-DomainM: &DomainY {type: http, behavior: domain, interval: 43200, format: mrs}
+DomainM: &DomainM {type: http, behavior: domain, interval: 43200, format: mrs}
 ipcidr: &ipcidr {type: http, behavior: ipcidr, interval: 43200, format: text}
 
 
