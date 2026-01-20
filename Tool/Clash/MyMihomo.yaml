@@ -105,7 +105,7 @@ sniffer:
   enable: true
   sniff:
   HTTP:
-  ports: [80, 8080-8880]
+    ports: [80, 8080-8880]
     override-destination: true
   TLS:
     ports: [443, 8443]
@@ -244,8 +244,8 @@ rules:
   - RULE-SET, 台湾流媒体IP, 台湾节点
 
 ### 其他 类规则
-- GEOIP, CN, DIRECT
-- MATCH, 漏网之鱼
+  - GEOIP, CN, DIRECT
+  - MATCH, 漏网之鱼
 
 # 规则配置
 ClassicalT: &ClassicalT {type: http, behavior: classical, interval: 43200, format: text}
