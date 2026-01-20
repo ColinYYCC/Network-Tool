@@ -45,16 +45,16 @@ secret: colinyycc
 
 # 配置存储
 profile:
-store-selected: true
-store-fake-ip: true
+  store-selected: true
+  store-fake-ip: true
 
 geodata-mode: true
 geo-auto-update: true
 geo-update-interval: 24
 geox-url:
-geoip: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat'
-mmdb: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb'
-asn: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb'
+  geoip: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat'
+  mmdb: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb'
+  asn: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb'
 
 ### DNS配置
 dns:
