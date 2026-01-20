@@ -194,58 +194,60 @@ proxy-groups:
 rules:
 # 自定义规则
 ## 您可以在此处插入自定义规则
-  - DOMAIN-SUFFIX, zoom.us, 国外网站
-  - DOMAIN-KEYWORD, todesk, DIRECT
-  - DOMAIN-KEYWORD, AnyViewer, DIRECT
-  - DOMAIN-KEYWORD, DeepL, DIRECT
+  - DOMAIN-SUFFIX,zoom.us,国外网站
+  - DOMAIN-KEYWORD,todesk,DIRECT
+  - DOMAIN-KEYWORD,AnyViewer,DIRECT
+  - DOMAIN-KEYWORD,DeepL,DIRECT
 
 ### 拦截规则
-  - RULE-SET, sogouinput, REJECT
-  - RULE-SET, AWAvenue-Ads-Rule, REJECT
-  - RULE-SET, Adobe跟踪&SDK打点, REJECT-DROP
-  - RULE-SET, 视频QUIC&PCDN, REJECT
+  - RULE-SET,sogouinput,REJECT
+  - RULE-SET,AWAvenue-Ads-Rule,REJECT
+  - RULE-SET,Adobe跟踪&SDK打点,REJECT-DROP
+  - RULE-SET,视频QUIC&PCDN,REJECT
   - AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT
 
 ### 非 IP 类规则
-  - RULE-SET, 内网, DIRECT
-  - RULE-SET, 国内域名, DIRECT
-  - RULE-SET, 直连, DIRECT
-  - RULE-SET, 苹果CDN域名集, DIRECT
-  - RULE-SET, 苹果中国, DIRECT
-  - RULE-SET, 微软CDN, DIRECT
-  - RULE-SET, 微软服务, DIRECT
-  - RULE-SET, 苹果服务, Apple Service
-  - RULE-SET, 常见静态CDN域名集, 手动切换
-  - RULE-SET, 常见静态CDN, 手动切换
-  - RULE-SET, Netflix, Netflix
-  - RULE-SET, Youtube, Youtube
-  - RULE-SET, Emby, Emby
-  - RULE-SET, 美国流媒体, 美国节点
-  - RULE-SET, 欧洲流媒体, 国外网站
-  - RULE-SET, 日本流媒体, 日本节点
-  - RULE-SET, 韩国流媒体, 韩国节点
-  - RULE-SET, 香港流媒体, 香港节点
-  - RULE-SET, 台湾流媒体, 台湾节点
-  - RULE-SET, Telegram, Telegram
-  - RULE-SET, 下载域名集, 手动切换
-  - RULE-SET, 下载, 手动切换
-  - RULE-SET, 人工智能, AI
-  - RULE-SET, 全球, 国外网站
+  - RULE-SET,内网,DIRECT
+  - RULE-SET,国内域名,DIRECT
+  - RULE-SET,直连,DIRECT
+  - RULE-SET,苹果CDN域名集,DIRECT
+  - RULE-SET,苹果中国,DIRECT
+  - RULE-SET,微软CDN,DIRECT
+  - RULE-SET,微软服务,DIRECT
+  - RULE-SET,苹果服务,Apple Service
+  - RULE-SET,常见静态CDN域名集,手动切换
+  - RULE-SET,常见静态CDN,手动切换
+  - RULE-SET,Netflix,Netflix
+  - RULE-SET,Youtube,Youtube
+  - RULE-SET,Spotify,Spotify
+  - RULE-SET,Emby,Emby
+  - RULE-SET,Disney,Disney
+  - RULE-SET,美国流媒体,美国节点
+  - RULE-SET,欧洲流媒体,国外网站
+  - RULE-SET,日本流媒体,日本节点
+  - RULE-SET,韩国流媒体,韩国节点
+  - RULE-SET,香港流媒体,香港节点
+  - RULE-SET,台湾流媒体,台湾节点
+  - RULE-SET,Telegram,Telegram
+  - RULE-SET,下载域名集,手动切换
+  - RULE-SET,下载,手动切换
+  - RULE-SET,人工智能,AI
+  - RULE-SET,全球,国外网站
 
 ### IP 类规则
-  - RULE-SET, 内网IP, DIRECT
-  - RULE-SET, 国内IP, DIRECT
-  - RULE-SET, 中国IP段, DIRECT
-  - RULE-SET, 美国流媒体IP, 美国节点
-  - RULE-SET, 欧洲流媒体IP, 国外网站
-  - RULE-SET, 日本流媒体IP, 日本节点
-  - RULE-SET, 韩国流媒体IP, 韩国节点
-  - RULE-SET, 香港流媒体IP, 香港节点
-  - RULE-SET, 台湾流媒体IP, 台湾节点
+  - RULE-SET,内网IP,DIRECT
+  - RULE-SET,国内IP,DIRECT
+  - RULE-SET,中国IP段,DIRECT
+  - RULE-SET,美国流媒体IP,美国节点
+  - RULE-SET,欧洲流媒体IP,国外网站
+  - RULE-SET,日本流媒体IP,日本节点
+  - RULE-SET,韩国流媒体IP,韩国节点
+  - RULE-SET,香港流媒体IP,香港节点
+  - RULE-SET,台湾流媒体IP,台湾节点
 
 ### 其他 类规则
-  - GEOIP, CN, DIRECT
-  - MATCH, 漏网之鱼
+  - GEOIP,CN,DIRECT
+  - MATCH,漏网之鱼
 
 # 规则配置
 ClassicalT: &ClassicalT {type: http, behavior: classical, interval: 43200, format: text}
@@ -272,6 +274,8 @@ rule-providers:
   Emby: {<<: *ClassicalY, url: https://kelee.one/Tool/Clash/Rule/EmbyServer.yaml, path: ./Rules/Emby.yaml}
   Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml, path: ./Rules/Netflix.yaml}
   Youtube: {<<: *ClassicalM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/YouTube.mrs, path: ./Rules/Youtube.mrs}
+  Spotify: {<<: *ClassicalM, url: https://github.com/666OS/rules/blob/release/mihomo/domain/Spotify.mrs, path: ./Rules/Spotify.mrs}
+  Disney: {<<: *ClassicalM, url: https://github.com/666OS/rules/blob/release/mihomo/domain/Disney.mrs, path: ./Rules/Disney.mrs}
   美国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_us.txt, path: ./Rules/stream_us_non_ip.txt}
   欧洲流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_eu.txt, path: ./Rules/stream_eu_non_ip.txt}
   日本流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_jp.txt, path: ./Rules/stream_jp_non_ip.txt}
