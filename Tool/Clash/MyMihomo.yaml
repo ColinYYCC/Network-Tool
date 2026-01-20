@@ -25,16 +25,16 @@ keep-alive-idle: 600
 
 # 实验性功能
 experimental:
-quic-go-disable-gso: true 
+  quic-go-disable-gso: true 
 
 # 认证配置
 authentication:
-- mihomo:colinyycc
+  - mihomo:colinyycc
 skip-auth-prefixes:
-- 192.168.1.0/24
-- 192.168.31.0/24
-- 192.168.100.0/24
-- 127.0.0.1/8
+  - 192.168.1.0/24
+  - 192.168.31.0/24
+  - 192.168.100.0/24
+  - 127.0.0.1/8
 
 ### 如果使用的是裸核, 需要将下面的注释去掉, 方便ui界面的使用
 # 管理面板配置
@@ -58,75 +58,75 @@ asn: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb'
 
 ### DNS配置
 dns:
-enable: true
-ipv6: true
-enhanced-mode: fake-ip
-fake-ip-range: 198.18.0.1/16
-default-nameserver:
-- 119.29.29.29
-- 180.184.1.1
-- 223.5.5.5
-nameserver:
-- https://dns.quad9.net/dns-query
-- https://doh.pub/dns-query
-- https://dns.alidns.com
-fake-ip-filter:
-- '*.127.*.*.*.nip.io'
-- '*.127.*.*.*.sslip.io'
-- '*.srv.nintendo.net'
-- '*.stun.playstation.net'
-- '*.stun.twilio.com'
-- '*.turn.twilio.com'
-- '*.xboxlive.com'
-- '*-127-*-*-*.nip.io'
-- '*-127-*-*-*.sslip.io'
-- '+.bogon'
-- '+.internal'
-- '+.lan'
-- '+.local'
-- '+.localdomain'
-- '+.m2m'
-- '127-*-*-*.nip.io'
-- '127-*-*-*.sslip.io'
-- '127.*.*.*.nip.io'
-- '127.*.*.*.sslip.io'
-- '127.0.0.1.sslip.io'
-- '127.atlas.skk.moe'
-- 'dns.msftncsi.com'
-- 'home.arpa'
-- 'injections.adguard.org'
-- 'local.adguard.org'
-- 'stun.*'
-- 'stun.syncthing.net'
-- 'xbox.*.microsoft.com'
+  enable: true
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver:
+    - 119.29.29.29
+    - 180.184.1.1
+    - 223.5.5.5
+  nameserver:
+    - https://dns.quad9.net/dns-query
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com
+  fake-ip-filter:
+    - '*.127.*.*.*.nip.io'
+    - '*.127.*.*.*.sslip.io'
+    - '*.srv.nintendo.net'
+    - '*.stun.playstation.net'
+    - '*.stun.twilio.com'
+    - '*.turn.twilio.com'
+    - '*.xboxlive.com'
+    - '*-127-*-*-*.nip.io'
+    - '*-127-*-*-*.sslip.io'
+    - '+.bogon'
+    - '+.internal'
+    - '+.lan'
+    - '+.local'
+    - '+.localdomain'
+    - '+.m2m'
+    - '127-*-*-*.nip.io'
+    - '127-*-*-*.sslip.io'
+    - '127.*.*.*.nip.io'
+    - '127.*.*.*.sslip.io'
+    - '127.0.0.1.sslip.io'
+    - '127.atlas.skk.moe'
+    - 'dns.msftncsi.com'
+    - 'home.arpa'
+    - 'injections.adguard.org'
+    - 'local.adguard.org'
+    - 'stun.*'
+    - 'stun.syncthing.net'
+    - 'xbox.*.microsoft.com'
 
 ### 域名嗅探
 sniffer:
-enable: true
-sniff:
-HTTP:
-ports: [80, 8080-8880]
-override-destination: true
-TLS:
-ports: [443, 8443]
-QUIC:
-ports: [443, 8443]
-skip-domain:
-- 'Mijia Cloud'
-- '+.push.apple.com'
+  enable: true
+  sniff:
+  HTTP:
+  ports: [80, 8080-8880]
+    override-destination: true
+  TLS:
+    ports: [443, 8443]
+  QUIC:
+    ports: [443, 8443]
+  skip-domain:
+    - 'Mijia Cloud'
+    - '+.push.apple.com'
 
 ### TUN配置
 tun:
-enable: true
-stack: system
-dns-hijack:
-- any:53
-- tcp://any:53
-auto-route: true
-auto-redirect: true
-auto-detect-interface: true
-strict-route: true
-mtu: 1500
+  enable: false
+  stack: system
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+  strict-route: true
+  mtu: 1500
 # 如果有使用zerotier或者headscale等, 需要自己配置排除自己的网段
 # route-exclude-address: ['192.168.110.0/24']
 
@@ -161,87 +161,87 @@ SelectDT: &SelectDT {type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔮 
 # 节点组
 proxy-groups:
 # 主要节点
-- {name: 🛰️ 自动选择, <<: *UrlTest, include-all: true, filter: *FilterAL, icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(3).png}
-- {name: 🔯 故障转移, <<: *FallBack, include-all: true, filter: *FilterAL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png}
-- {name: 🔮 负载均衡, <<: *LoadBalance, include-all: true, filter: *FilterAL, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
-- {name: 手动切换, <<: *SelectBL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png}
-- {name: 漏网之鱼, <<: *SelectDT, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
+  - {name: 🛰️ 自动选择, <<: *UrlTest, include-all: true, filter: *FilterAL, icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(3).png}
+  - {name: 🔯 故障转移, <<: *FallBack, include-all: true, filter: *FilterAL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png}
+  - {name: 🔮 负载均衡, <<: *LoadBalance, include-all: true, filter: *FilterAL, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
+  - {name: 手动切换, <<: *SelectBL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png}
+  - {name: 漏网之鱼, <<: *SelectDT, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
 # 分流策略组
-- {name: 国外网站, <<: *SelectBL, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png}
-- {name: Telegram, <<: *SelectBL, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/telegram.svg}
-- {name: Apple Service, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡, 香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png}
-- {name: AI, <<: *SelectUT, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/qwen-color.svg}
+  - {name: 国外网站, <<: *SelectBL, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png}
+  - {name: Telegram, <<: *SelectBL, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/telegram.svg}
+  - {name: Apple Service, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡, 香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png}
+  - {name: AI, <<: *SelectUT, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/qwen-color.svg}
 # > 媒体策略组
-- {name: Netflix, type: select, proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/netflix.svg}
-- {name: YouTube, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png}
-- {name: 国际媒体, type: select, proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/disney-plus.svg}
-- {name: Emby, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/emby.svg}
+  - {name: Netflix, type: select, proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/netflix.svg}
+  - {name: YouTube, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png}
+  - {name: 国际媒体, type: select, proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/disney-plus.svg}
+  - {name: Emby, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/emby.svg}
 # 游戏
-- {name: 游戏, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/steam.svg}
+  - {name: 游戏, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/steam.svg}
 # 自动选择
-- {name: 香港节点, <<: *UrlTest, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png, hidden: true}
-- {name: 日本节点, <<: *UrlTest, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png, hidden: true}
-- {name: 韩国节点, <<: *UrlTest, include-all: true, filter: *FilterKR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png, hidden: true}
-- {name: 狮城节点, <<: *UrlTest, include-all: true, filter: *FilterSG, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png, hidden: true}
-- {name: 美国节点, <<: *UrlTest, include-all: true, filter: *FilterUS, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png, hidden: true}
-- {name: 英国节点, <<: *UrlTest, include-all: true, filter: *FilterUK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_Kingdom.png, hidden: true}
-- {name: 法国节点, <<: *UrlTest, include-all: true, filter: *FilterFR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/France.png, hidden: true}
-- {name: 德国节点, <<: *UrlTest, include-all: true, filter: *FilterDE, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Germany.png, hidden: true}
-- {name: 台湾节点, <<: *UrlTest, include-all: true, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png, hidden: true}
+  - {name: 香港节点, <<: *UrlTest, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png, hidden: true}
+  - {name: 日本节点, <<: *UrlTest, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png, hidden: true}
+  - {name: 韩国节点, <<: *UrlTest, include-all: true, filter: *FilterKR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png, hidden: true}
+  - {name: 狮城节点, <<: *UrlTest, include-all: true, filter: *FilterSG, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png, hidden: true}
+  - {name: 美国节点, <<: *UrlTest, include-all: true, filter: *FilterUS, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png, hidden: true}
+  - {name: 英国节点, <<: *UrlTest, include-all: true, filter: *FilterUK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_Kingdom.png, hidden: true}
+  - {name: 法国节点, <<: *UrlTest, include-all: true, filter: *FilterFR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/France.png, hidden: true}
+  - {name: 德国节点, <<: *UrlTest, include-all: true, filter: *FilterDE, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Germany.png, hidden: true}
+  - {name: 台湾节点, <<: *UrlTest, include-all: true, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png, hidden: true}
 # ------
 
 # 分流规则
 rules:
 # 自定义规则
 ## 您可以在此处插入自定义规则
-- DOMAIN-SUFFIX, zoom.us, 国外网站
-- DOMAIN-KEYWORD, todesk, DIRECT
-- DOMAIN-KEYWORD, AnyViewer, DIRECT
-- DOMAIN-KEYWORD, DeepL, DIRECT
+  - DOMAIN-SUFFIX, zoom.us, 国外网站
+  - DOMAIN-KEYWORD, todesk, DIRECT
+  - DOMAIN-KEYWORD, AnyViewer, DIRECT
+  - DOMAIN-KEYWORD, DeepL, DIRECT
 
 ### 拦截规则
-- RULE-SET, sogouinput, REJECT
-- RULE-SET, AWAvenue-Ads-Rule, REJECT
-- RULE-SET, Adobe跟踪&SDK打点, REJECT-DROP
-- RULE-SET, 视频QUIC&PCDN, REJECT
-- AND, ((DST-PORT, 443), (NETWORK, UDP), (NOT, ((GEOIP, CN)))), REJECT 
+  - RULE-SET, sogouinput, REJECT
+  - RULE-SET, AWAvenue-Ads-Rule, REJECT
+  - RULE-SET, Adobe跟踪&SDK打点, REJECT-DROP
+  - RULE-SET, 视频QUIC&PCDN, REJECT
+  - AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT
 
 ### 非 IP 类规则
-- RULE-SET, 内网, DIRECT
-- RULE-SET, 国内域名, DIRECT
-- RULE-SET, 直连, DIRECT
-- RULE-SET, 苹果CDN域名集, DIRECT
-- RULE-SET, 苹果中国, DIRECT
-- RULE-SET, 微软CDN, DIRECT
-- RULE-SET, 微软服务, DIRECT
-- RULE-SET, 苹果服务, Apple Service
-- RULE-SET, 常见静态CDN域名集, 手动切换
-- RULE-SET, 常见静态CDN, 手动切换
-- RULE-SET, Netflix, Netflix
-- RULE-SET, Youtube, Youtube
-- RULE-SET, Emby, Emby
-- RULE-SET, 美国流媒体, 美国节点
-- RULE-SET, 欧洲流媒体, 国外网站
-- RULE-SET, 日本流媒体, 日本节点
-- RULE-SET, 韩国流媒体, 韩国节点
-- RULE-SET, 香港流媒体, 香港节点
-- RULE-SET, 台湾流媒体, 台湾节点
-- RULE-SET, Telegram, Telegram
-- RULE-SET, 下载域名集, 手动切换
-- RULE-SET, 下载, 手动切换
-- RULE-SET, 人工智能, AI
-- RULE-SET, 全球, 国外网站
+  - RULE-SET, 内网, DIRECT
+  - RULE-SET, 国内域名, DIRECT
+  - RULE-SET, 直连, DIRECT
+  - RULE-SET, 苹果CDN域名集, DIRECT
+  - RULE-SET, 苹果中国, DIRECT
+  - RULE-SET, 微软CDN, DIRECT
+  - RULE-SET, 微软服务, DIRECT
+  - RULE-SET, 苹果服务, Apple Service
+  - RULE-SET, 常见静态CDN域名集, 手动切换
+  - RULE-SET, 常见静态CDN, 手动切换
+  - RULE-SET, Netflix, Netflix
+  - RULE-SET, Youtube, Youtube
+  - RULE-SET, Emby, Emby
+  - RULE-SET, 美国流媒体, 美国节点
+  - RULE-SET, 欧洲流媒体, 国外网站
+  - RULE-SET, 日本流媒体, 日本节点
+  - RULE-SET, 韩国流媒体, 韩国节点
+  - RULE-SET, 香港流媒体, 香港节点
+  - RULE-SET, 台湾流媒体, 台湾节点
+  - RULE-SET, Telegram, Telegram
+  - RULE-SET, 下载域名集, 手动切换
+  - RULE-SET, 下载, 手动切换
+  - RULE-SET, 人工智能, AI
+  - RULE-SET, 全球, 国外网站
 
 ### IP 类规则
-- RULE-SET, 内网IP, DIRECT
-- RULE-SET, 国内IP, DIRECT
-- RULE-SET, 中国IP段, DIRECT
-- RULE-SET, 美国流媒体IP, 美国节点
-- RULE-SET, 欧洲流媒体IP, 国外网站
-- RULE-SET, 日本流媒体IP, 日本节点
-- RULE-SET, 韩国流媒体IP, 韩国节点
-- RULE-SET, 香港流媒体IP  香港节点
-- RULE-SET, 台湾流媒体IP, 台湾节点
+  - RULE-SET, 内网IP, DIRECT
+  - RULE-SET, 国内IP, DIRECT
+  - RULE-SET, 中国IP段, DIRECT
+  - RULE-SET, 美国流媒体IP, 美国节点
+  - RULE-SET, 欧洲流媒体IP, 国外网站
+  - RULE-SET, 日本流媒体IP, 日本节点
+  - RULE-SET, 韩国流媒体IP, 韩国节点
+  - RULE-SET, 香港流媒体IP, 香港节点
+  - RULE-SET, 台湾流媒体IP, 台湾节点
 
 ### 其他 类规则
 - GEOIP, CN, DIRECT
@@ -250,7 +250,7 @@ rules:
 # 规则配置
 ClassicalT: &ClassicalT {type: http, behavior: classical, interval: 43200, format: text}
 ClassicalY: &ClassicalY {type: http, behavior: classical, interval: 43200, format: yaml}
-DomainT: &DomainT {type: http, behavior: domainfinterval: 43200, format: text}
+DomainT: &DomainT {type: http, behavior: domain, interval: 43200, format: text}
 DomainY: &DomainY {type: http, behavior: domain, interval: 43200, format: yaml}
 DomainM: &DomainM {type: http, behavior: domain, interval: 43200, format: mrs}
 ipcidr: &ipcidr {type: http, behavior: ipcidr, interval: 43200, format: text}
@@ -259,59 +259,59 @@ ipcidr: &ipcidr {type: http, behavior: ipcidr, interval: 43200, format: text}
 # 订阅规则
 rule-providers:
 # 拦截类规则
-sogouinput: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt, path: ./Rules/sogouinput.txt}
-AWAvenue-Ads-Rule: {<<: *DomainY, url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml, path: ./Rules/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml}
-Adobe跟踪&SDK打点: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt, path: ./Rules/reject_non_ip_drop.txt}
-视频QUIC&PCDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt, path: ./Rules/reject_non_ip_no_drop.txt}
+  sogouinput: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt, path: ./Rules/sogouinput.txt}
+  AWAvenue-Ads-Rule: {<<: *DomainY, url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml, path: ./Rules/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml}
+  Adobe跟踪&SDK打点: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt, path: ./Rules/reject_non_ip_drop.txt}
+  视频QUIC&PCDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt, path: ./Rules/reject_non_ip_no_drop.txt}
 
 # 常见静态 CDN
-常见静态CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/cdn.txt, path: ./Rules/cdn_domainset.txt}
-常见静态CDN: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/cdn.txt, path: ./Rules/cdn_non_ip.txt}
+  常见静态CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/cdn.txt, path: ./Rules/cdn_domainset.txt}
+  常见静态CDN: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/cdn.txt, path: ./Rules/cdn_non_ip.txt}
 
 # 流媒体服务
-Emby: {<<: *ClassicalY, url: https://kelee.one/Tool/Clash/Rule/EmbyServer.yaml, path: ./Rules/Emby.yaml}
-Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml, path: ./Rules/Netflix.yaml}
-Youtube: {<<: *ClassicalM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/YouTube.mrs, path: ./Rules/Youtube.mrs}
-美国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_us.txt, path: ./Rules/stream_us_non_ip.txt}
-欧洲流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_eu.txt, path: ./Rules/stream_eu_non_ip.txt}
-日本流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_jp.txt, path: ./Rules/stream_jp_non_ip.txt}
-韩国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_kr.txt, path: ./Rules/stream_kr_non_ip.txt}
-香港流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_hk.txt, path: ./Rules/stream_hk_non_ip.txt}
-台湾流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_tw.txt, path: ./Rules/stream_tw_non_ip.txt}
+  Emby: {<<: *ClassicalY, url: https://kelee.one/Tool/Clash/Rule/EmbyServer.yaml, path: ./Rules/Emby.yaml}
+  Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml, path: ./Rules/Netflix.yaml}
+  Youtube: {<<: *ClassicalM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/YouTube.mrs, path: ./Rules/Youtube.mrs}
+  美国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_us.txt, path: ./Rules/stream_us_non_ip.txt}
+  欧洲流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_eu.txt, path: ./Rules/stream_eu_non_ip.txt}
+  日本流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_jp.txt, path: ./Rules/stream_jp_non_ip.txt}
+  韩国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_kr.txt, path: ./Rules/stream_kr_non_ip.txt}
+  香港流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_hk.txt, path: ./Rules/stream_hk_non_ip.txt}
+  台湾流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_tw.txt, path: ./Rules/stream_tw_non_ip.txt}
 
 
 # 即时通讯
-Telegram: {<<: *ClassicalT, url: https://github.com/LucaLin233/Luca_Conf/raw/main/Surge/Rule/Telegram.list, path: ./Rules/Telegram.txt}
+  Telegram: {<<: *ClassicalT, url: https://github.com/LucaLin233/Luca_Conf/raw/main/Surge/Rule/Telegram.list, path: ./Rules/Telegram.txt}
 
 # 人工智能 
-人工智能: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/ai.txt, path: ./Rules/ai_non_ip.txt}
+  人工智能: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/ai.txt, path: ./Rules/ai_non_ip.txt}
 
 # 苹果服务
-苹果CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt, path: ./Rules/apple_cdn.txt}
-苹果服务: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/apple_services.txt, path: ./Rules/apple_services.txt}
-苹果中国: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt, path: ./Rules/apple_cn_non_ip.txt}
+  苹果CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt, path: ./Rules/apple_cdn.txt}
+  苹果服务: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/apple_services.txt, path: ./Rules/apple_services.txt}
+  苹果中国: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt, path: ./Rules/apple_cn_non_ip.txt}
 
 # 微软服务
-微软CDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/microsoft_cdn.txt, path: ./Rules/microsoft_cdn_non_ip.txt}
-微软服务: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/microsoft.txt, path: ./Rules/microsoft_non_ip.txt}
+  微软CDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/microsoft_cdn.txt, path: ./Rules/microsoft_cdn_non_ip.txt}
+  微软服务: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/microsoft.txt, path: ./Rules/microsoft_non_ip.txt}
 
 # 下载服务
-下载域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/download.txt, path: ./Rules/download_domainset.txt}
-下载: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/download.txt, path: ./Rules/download_non_ip.txt}
+  下载域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/download.txt, path: ./Rules/download_domainset.txt}
+  下载: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/download.txt, path: ./Rules/download_non_ip.txt}
 
 # 网络区域
-内网: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/lan.txt, path: ./Rules/lan_non_ip.txt}
-国内域名: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/domestic.txt, path: ./Rules/domestic_non_ip.txt}
-直连: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/direct.txt, path: ./Rules/direct_non_ip.txt}
-全球: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/global.txt, path: ./Rules/global_non_ip.txt} 
+  内网: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/lan.txt, path: ./Rules/lan_non_ip.txt}
+  国内域名: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/domestic.txt, path: ./Rules/domestic_non_ip.txt}
+  直连: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/direct.txt, path: ./Rules/direct_non_ip.txt}
+  全球: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/global.txt, path: ./Rules/global_non_ip.txt} 
 
 # IP 类规则
-美国流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_us.txt, path: ./Rules/stream_us_ip.txt}
-欧洲流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_eu.txt, path: ./Rules/stream_eu_ip.txt}
-日本流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_jp.txt, path: ./Rules/stream_jp_ip.txt}
-韩国流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_kr.txt, path: ./Rules/stream_kr_ip.txt}
-香港流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_hk.txt, path: ./Rules/stream_hk_ip.txt}
-台湾流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_tw.txt, path: ./Rules/stream_tw_ip.txt}
-内网IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/lan.txt, path: ./Rules/lan_ip.txt}
-国内IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/domestic.txt, path: ./Rules/domestic_ip.txt}
-中国IP段: {<<: *ipcidr, url: https://ruleset.skk.moe/Clash/ip/china_ip.txt, path: ./Rules/china_ip.txt}
+  美国流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_us.txt, path: ./Rules/stream_us_ip.txt}
+  欧洲流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_eu.txt, path: ./Rules/stream_eu_ip.txt}
+  日本流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_jp.txt, path: ./Rules/stream_jp_ip.txt}
+  韩国流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_kr.txt, path: ./Rules/stream_kr_ip.txt}
+  香港流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_hk.txt, path: ./Rules/stream_hk_ip.txt}
+  台湾流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_tw.txt, path: ./Rules/stream_tw_ip.txt}
+  内网IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/lan.txt, path: ./Rules/lan_ip.txt}
+  国内IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/domestic.txt, path: ./Rules/domestic_ip.txt}
+  中国IP段: {<<: *ipcidr, url: https://ruleset.skk.moe/Clash/ip/china_ip.txt, path: ./Rules/china_ip.txt}
