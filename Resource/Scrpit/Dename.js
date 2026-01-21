@@ -1,6 +1,6 @@
 /**
  * @Sub-Store-Page
- * DENAME 接口查询去重/重命名 2023-11-16 20:34:08
+ * DENAME 接口查询去重/重命名 2026-01-22 01:05:00
  * - 入口查询[国内spapi 识别到国外为ip-api] 落地查询[ip-api]
  * - 根据接口返回的真实结果，重新对节点命名。
  * - 添加入口城市、落地国家或地区、国内运营商信息，并对这些数据做持久化缓存（48小时有效期），减少API请求次数，提高运行效率。
@@ -75,7 +75,7 @@ const SUB_STORE_SCHEMA = {
   scope: ["Surge", "Loon"],
   author: "@Key @奶茶姐 @小一 @可莉 @ColinYYCC",
   updateTime: "2026-01-22 01:05:00",
-  version: "1.2.2",
+  version: "1.2.3",
   params: {
     flag: {
       datatype: "boolean",
@@ -208,7 +208,7 @@ const iar = $arguments;
 let FGF = iar.fgf == undefined ? " " : decodeURI(iar.fgf),FGFS = FGF,debug = iar.debug;
 const { yw, bl, iisp, xy,  yisp, yun, city, flag, inflag, game, yuan, sheng, offtz, snone: numone} = iar;
 const h = iar.h ? decodeURI(iar.h) : "",min = iar.min ? decodeURI(iar.min) : "",firstN = iar.name ? decodeURI(iar.name) : "";
-const XHFGF = iar.sn == undefined ? " " : decodeURI(iar.sn),{ isLoon: isLoon, isSurge: isSurge } = $substore.env, dns = iar.dnsjx,target = isLoon ? "Loon" : isSurge ? "Surge" : undefined,keypr= "peedtest";
+const XHFGF = iar.sn == undefined ? " " : decodeURI(iar.sn),{ isLoon: isLoon, isSurge: isSurge } = $substore.env, dns = iar.dnsjx,target = isLoon ? "Loon" : isSurge ? "Surge" : undefined,keypr= "peed";
 let cd = iar.cd ? iar.cd : 0, timeout = iar.timeout ? iar.timeout : 2000, writet = "", innum = 1728e5, loontrue = false, onen = false, Sue = false, rawtime = 1500;
 const keyp = "3.s",EXPIRATION_KEY = "#sub-store-csr-expiration-time";
 if (min !== "") {
