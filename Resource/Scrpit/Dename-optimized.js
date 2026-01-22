@@ -1,5 +1,6 @@
 /**
  * @Sub-Store-Page
+ * CNAME 接口查询去重/重命名 2023-11-16 20:34:08
  * - 入口查询[国内spapi 识别到国外为ip-api] 落地查询[ip-api]
  * - 根据接口返回的真实结果，重新对节点命名。
  * - 添加入口城市、落地国家或地区、国内运营商信息，并对这些数据做持久化缓存（48小时有效期），减少API请求次数，提高运行效率。
@@ -205,7 +206,7 @@ const SUB_STORE_SCHEMA = {
 const $ = $substore;
 const iar = $arguments;
 let FGF = iar.fgf == undefined ? " " : decodeURI(iar.fgf),FGFS = FGF,debug = iar.debug;
-const { yw, bl, iisp, xy,  yisp, yun, city, flag, inflag, game, yuan, sheng, offtz, snone: numone} = iar;
+const { yw, bl, iisp, xy,  yisp, city, flag, inflag, game, yuan, sheng, offtz, snone: numone} = iar;
 const h = iar.h ? decodeURI(iar.h) : "",min = iar.min ? decodeURI(iar.min) : "",firstN = iar.name ? decodeURI(iar.name) : "";
 const XHFGF = iar.sn == undefined ? " " : decodeURI(iar.sn),{ isLoon: isLoon, isSurge: isSurge } = $substore.env, dns = iar.dnsjx,target = isLoon ? "Loon" : isSurge ? "Surge" : undefined,keypr= "peedtest";
 let cd = iar.cd ? iar.cd : 0, timeout = iar.timeout ? iar.timeout : 2000, writet = "", innum = 1728e5, loontrue = false, onen = false, Sue = false, rawtime = 1500;
@@ -338,84 +339,112 @@ async function operator(e = [], targetPlatform, env) {
                 if (!support) {
                   $.notify("No Loon or Surge")
                   $.error(`No Loon or Surge, 开启 yisp || yw || flag 参数后 xy 参数无效`);
-                    return e;
+                  throw new Error("No Loon or Surge, 开启 yisp || yw || flag 参数后 xy 参数无效");
+                }
+                
+                try {
+                  const outip = await OUTIA(pk);
+                  if (!outip) {
+                    throw new Error("落地信息获取失败");
                   }
-                  
-                const outip = await OUTIA(pk);
-                let {country:outUsq, countryCode:outUs, city:outCity, query:outQuery, isp:outisp} = outip;//落地
-                if (yisp) {
-                    yuanisp = FGFS+outisp
-                };
-                debug && (pk.keyoutld = outip);
-                delog("落地信息 " + JSON.stringify(outip))
-                outu = outUs;
-                outips = outQuery;
-                luodi = (outUsq === "中国") ? outCity : (yw ? outUs : outUsq);
-                btip = outQuery !== inServer
+                  let {country:outUsq, countryCode:outUs, city:outCity, query:outQuery, isp:outisp} = outip;//落地
+                  if (yisp) {
+                      yuanisp = FGFS+outisp
+                  };
+                  debug && (pk.keyoutld = outip);
+                  delog("落地信息 " + JSON.stringify(outip))
+                  outu = outUs;
+                  outips = outQuery;
+                  luodi = (outUsq === "中国") ? outCity : (yw ? outUs : outUsq);
+                  btip = outQuery !== inServer;
+                } catch (error) {
+                  delog("落地信息获取错误: " + error.message);
+                  // 使用默认值继续运行，避免单个节点失败影响整个脚本
+                  outu = "";
+                  outips = "";
+                  luodi = "";
+                  btip = true;
+                }
               };
               
               if (btip || xy) {
                 if (!isNoAli || v4) {
-                  const spkey = await SPEC(inServer);
-                  let {country:inSpCn,regionName:inSpSheng,city:inSpCity,isp:inSpIsp,ip:inSpIp,countryCode:inCode} = spkey;
-                  inflag && (iflag = getflag(inCode));
-                  debug && (pk.keyinsp = spkey);
-                  isCN = inSpCn === "中国";
-                  inQcip = inServer;
-                  const keycm = {电信:"🅳", 联通:"🅻", 移动: "🆈",广电:"🅶"};
-                  if (isCN){
-                      debug && (pk.keyinsp = spkey)
-                      delog("国内入口 " + JSON.stringify(spkey));
-                      if(iisp && flag){
-                          inSpIsp=inSpIsp.replace(/中国/g, "")
-                          flag && (Oispflag = keycm.hasOwnProperty(inSpIsp) ? keycm[inSpIsp] : "🅲");
-                      } else if(iisp){
-                          Oisp = /电信|联通|移动|广电/.test(inSpIsp) ? inSpIsp.replace(/中国/g, "") : "企业";
-                      }
-                      (inSpSheng === inSpCity) && (inSpCity = "");
+                  try {
+                    const spkey = await SPEC(inServer);
+                    if (!spkey) {
+                      throw new Error("国内入口信息获取失败");
+                    }
+                    let {country:inSpCn,regionName:inSpSheng,city:inSpCity,isp:inSpIsp,ip:inSpIp,countryCode:inCode} = spkey;
+                    inflag && (iflag = getflag(inCode));
+                    debug && (pk.keyinsp = spkey);
+                    isCN = inSpCn === "中国";
+                    inQcip = inServer;
+                    const keycm = {电信:"🅳", 联通:"🅻", 移动: "🆈",广电:"🅶"};
+                    if (isCN){
+                        debug && (pk.keyinsp = spkey)
+                        delog("国内入口 " + JSON.stringify(spkey));
+                        if(iisp && flag){
+                            inSpIsp=inSpIsp.replace(/中国/g, "")
+                            flag && (Oispflag = keycm.hasOwnProperty(inSpIsp) ? keycm[inSpIsp] : "🅲");
+                        } else if(iisp){
+                            Oisp = /电信|联通|移动|广电/.test(inSpIsp) ? inSpIsp.replace(/中国/g, "") : "企业";
+                        }
+                        (inSpSheng === inSpCity) && (inSpCity = "");
 
-                      if (sheng && city){
-                        Osh = inSpSheng;Oct = inSpCity
-                      } else if (sheng){
-                        Osh = inSpSheng;
-                      } else if (city){
-                        Oct = inSpCity ? inSpCity : inSpSheng;
-                      }
+                        if (sheng && city){
+                          Osh = inSpSheng;Oct = inSpCity
+                        } else if (sheng){
+                          Osh = inSpSheng;
+                        } else if (city){
+                          Oct = inSpCity ? inSpCity : inSpSheng;
+                        }
 
-                  }    
+                    }    
+                  } catch (error) {
+                    delog("国内入口信息获取错误: " + error.message);
+                    // 继续执行，使用默认值
+                  }
                 }    
                 if (isNoAli || v6 || !isCN) {
-                      const inip = await INIA(Yserver);
-                      let {country: inUsq, city: inCity, query: inQuery, regionName: inIpSh, countryCode:inaCode} = inip;
-                      inflag && (iflag = getflag(inaCode));
-                      debug && (pk.keyinipapi = inip);
-                      delog("ipapi入口 " + JSON.stringify(inip));
-                      inQcip = inQuery; //去重ip
-                      if (inUsq === "中国") {
-                          // inCity === inUs ? (incity=inCity) 
-                          (/[a-zA-Z]/.test(inCity)) && (inCity = inIpSh);
-                          (inCity === inIpSh) && (inIpSh="");
-                          if (sheng && city){
-                            Osh = inIpSh;Oct = inCity;
-                          } else if (sheng){
-                            Osh = inIpSh;
-                          } else if (city){
-                            Oct = inCity ? inCity : inIpSh;
-                          }
-                          // 运营商 未知
-                          flag && (Oispflag = "🅲");
+                      try {
+                        const inip = await INIA(Yserver);
+                        if (!inip) {
+                          throw new Error("ipapi入口信息获取失败");
+                        }
+                        let {country: inUsq, city: inCity, query: inQuery, regionName: inIpSh, countryCode:inaCode} = inip;
+                        inflag && (iflag = getflag(inaCode));
+                        debug && (pk.keyinipapi = inip);
+                        delog("ipapi入口 " + JSON.stringify(inip));
+                        inQcip = inQuery; //去重ip
+                        if (inUsq === "中国") {
+                            // inCity === inUs ? (incity=inCity) 
+                            (/[a-zA-Z]/.test(inCity)) && (inCity = inIpSh);
+                            (inCity === inIpSh) && (inIpSh="");
+                            if (sheng && city){
+                              Osh = inIpSh;Oct = inCity;
+                            } else if (sheng){
+                              Osh = inIpSh;
+                            } else if (city){
+                              Oct = inCity ? inCity : inIpSh;
+                            }
+                            // 运营商 未知
+                            flag && (Oispflag = "🅲");
 
-                      } else {
-                          if(inQuery === outips){
-                              flag && (Oispflag = "🆉");
-                              (sheng || city || iisp) && (zhi  = "直连");
-                          } else if (yuan){
-                              flag && (Oispflag = "🅲");
-                              (sheng || city || iisp) && (zhi  = inUsq);
-                          } else {
-                              flag && (Oispflag = "🆇");
-                              (sheng || city || iisp) && (zhi  = "境外");
-                          }
+                        } else {
+                            if(inQuery === outips){
+                                flag && (Oispflag = "🆉");
+                                (sheng || city || iisp) && (zhi  = "直连");
+                            } else if (yuan){
+                                flag && (Oispflag = "🅲");
+                                (sheng || city || iisp) && (zhi  = inUsq);
+                            } else {
+                                flag && (Oispflag = "🆇");
+                                (sheng || city || iisp) && (zhi  = "境外");
+                            }
+                        }
+                      } catch (error) {
+                        delog("ipapi入口信息获取错误: " + error.message);
+                        // 继续执行，使用默认值
                       }
                 }
               } else {
@@ -425,19 +454,21 @@ async function operator(e = [], targetPlatform, env) {
               flag && (adflag = getflag(outu));
               game && (OGame = /game|游戏/i.test(pk.name) ? (flag ? "🎮" : FGF+"Game") : OGame);
               if (bl){
-                const match = pk.name.match(/((倍率|X|x|×)\D?((\d\.)?\d+)\D?)|((\d\.)?\d+)(倍|X|x|×)/);
+                // 简化正则表达式，提高性能
+                const match = pk.name.match(/(\d+(?:\.\d+)?)(?:倍|X|x|×)/i);
                 if (match) {
-                const matchVa = match[0].match(/(\d[\d.]*)/)[0];
-                    if (matchVa !== "1") {
-                        nxx = XHFGF + matchVa + "X";
-                    }
+                  const matchVa = match[1];
+                  if (matchVa !== "1") {
+                    nxx = XHFGF + matchVa + "X";
+                  }
                 }
               }
               (!iisp && !city && !sheng && !xy && !inflag) && (Oispflag = "",FGF ="");
-              keyover = keyover.concat(
+              // 直接构建数组，避免使用concat，提高性能
+              keyover = [
                   firstN, Oispflag,Osh,Oct,Oisp,zhi,FGF,adflag,luodi,OGame,nxx,yuanisp
-                  ).filter(ki => ki !== "");
-                  // delog(keyover)
+              ].filter(ki => ki !== "");
+              // delog(keyover)
               let overName = keyover.join("");
               xy && (overName = iflag +overName +FGF+ pk.name);
               // delog(overName)
@@ -447,11 +478,10 @@ async function operator(e = [], targetPlatform, env) {
               inflag && (pk.name = iflag + overName);
               pk.qc = inQcip + outips;
             } catch (err) {
-              if (inapi >= 1) {
-                retryi++;
-                breaki = true;
-              }
               delog(err.message)
+              if (inapi >= 1) {
+                throw err; // 抛出错误，让Promise.all捕获，终止当前批处理
+              }
             };
         })
       );
@@ -537,7 +567,65 @@ async function operator(e = [], targetPlatform, env) {
 function getflag(e) { const t = e .toUpperCase() .split("") .map((e) => 127397 + e.charCodeAt()); return String.fromCodePoint(...t).replace(/🇹🇼/g, "🇨🇳"); } function sleep(e) { return new Promise((t) => setTimeout(t, e)); } let apiRead = 0, apiw = 0; 
 const oaMap = new Map(); async function OUTIA(e) { const t = getid(e); if (oaMap.has(t)) return oaMap.get(t); const cached = scriptResourceCache.get(t);if (cached) { apiRead++; return cached; } else {inapi++;};const maxRE = 2; const url = `http://ip-api.com/json?lang=zh-CN&fields=status,message,country,countryCode,city,query,isp`; const getHttp = async (reTry) => { try { let r = ProxyUtils.produce([e], target); const response = await Promise.race([ $.http.get({ url: url, node: r, "policy-descriptor": r }), new Promise((_, reject) => setTimeout(() => reject(new Error("timeout-OUTIA")), timeout) ), ]); const data = JSON.parse(response.body); if (data.status === "success") { scriptResourceCache.set(t, data); return data; } else { throw new Error(data.message || "请求失败"); } } catch (error) { if (reTry < maxRE) { await sleep(GRa()); delog(e.name + "-> [outipApi超时查询次数] " + reTry); return getHttp(reTry + 1); } else { throw error; } } }; const resGet = new Promise((resolve, reject) => { if (cd < 1 && onen) return resGet; getHttp(1) .then((data) => { apiw++; resolve(data); }) .catch(reject); }); oaMap.set(t, resGet); return resGet; };
 const alMap = new Map(); async function AliD(e) { const ti = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$|^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/.test( e ); if (ti) return e; const t = getaliid(e); if (alMap.has(t)) return alMap.get(t); const cached = scriptResourceCache.get(t); if (cached) { apiRead++; return cached;} else {inapi++;};const maxRE = 2; let alip = Math.random() < 0.5 ? '223.5.5.5' : '223.6.6.6';const url = `https://${alip}/resolve?name=${e}&type=A&short=1`; const getHttp = async (reTry) => { try { const response = await Promise.race([ $.http.get({ url: url }), new Promise((_, reject) => setTimeout(() => reject(new Error("timeout-AliD")), timeout) ), ]); const resdata = JSON.parse(response.body); if (resdata.length > 0) { scriptResourceCache.set(t, resdata[0]); return resdata[0]; } else { return "keyn"; } } catch (error) { if (reTry < maxRE) { await sleep(GRa()); delog(e + " [->Ali超时查询次数] " + reTry); return getHttp(reTry + 1); } else { throw error; } } }; const resGet = new Promise((resolve, reject) => { if (cd < 1 && onen) { return resGet; } else { getHttp(1) .then((data) => { resolve(data); }) .catch(reject); } }); alMap.set(t, resGet); return resGet; };function getaliid(e){let t="al";return MD5(`${t}-${e}`)};function getspcn(e){let t="sc";return MD5(`${t}-${e}`)};
-const spMap = new Map(); async function SPEC(e) { const n = getspcn(e); if (spMap.has(n)) return spMap.get(n);const cached = scriptResourceCache.get(n); if (cached) {apiRead++;return cached;} else {inapi++;}; const maxRE = 2; const url = `https://api-v${keyp}${keypr}.cn/ip?ip=${e}`; const getHttp = async (reTry) => { try { const response = await Promise.race([ $.http.get({ url: url }), new Promise((_, reject) => setTimeout(() => reject(new Error("timeout-SPEC")), timeout) ), ]); const resdata = JSON.parse(response.body); delog(resdata); if (resdata.data) { const { country: e, province: o, city: r, isp: i, ip: c, countryCode: k, } = resdata.data; const a = { country: e, regionName: o, city: r, isp: i, ip: c, countryCode: k, }; delog("写入"); scriptResourceCache.set(n, a); return a; } else { throw new Error(resdata.message); } } catch (error) { if (reTry < maxRE) { await sleep(GRa()); delog(e + "-> [SP超时查询次数] " + reTry); return getHttp(reTry + 1); } else { throw error; } } }; const resGet = new Promise((resolve, reject) => {if (cd < 1 && onen) return resGet; getHttp(1) .then((data) => { resolve(data); }) .catch(reject); }); spMap.set(n, resGet); return resGet; };
+const spMap = new Map(); async function SPEC(e) { 
+  const n = getspcn(e); 
+  if (spMap.has(n)) return spMap.get(n);
+  const cached = scriptResourceCache.get(n); 
+  if (cached) { 
+    apiRead++; 
+    return cached;
+  } else { 
+    inapi++;
+  } 
+  const maxRE = 2; 
+  const url = `https://api-v${keyp}${keypr}.cn/ip?ip=${e}`; 
+  
+  const getHttp = async (reTry) => { 
+    try { 
+      const response = await Promise.race([ 
+        $.http.get({ url: url }), 
+        new Promise((_, reject) => setTimeout(() => reject(new Error("timeout-SPEC")), timeout) ), 
+      ]); 
+      
+      // 检查响应是否为空
+      if (!response || !response.body) {
+        throw new Error("空响应");
+      }
+      
+      const resdata = JSON.parse(response.body); 
+      delog(resdata); 
+      
+      if (resdata && resdata.data) { 
+        const { country: e, province: o, city: r, isp: i, ip: c, countryCode: k, } = resdata.data; 
+        const a = { 
+          country: e, 
+          regionName: o, 
+          city: r, 
+          isp: i, 
+          ip: c, 
+          countryCode: k, 
+        }; 
+        delog("写入"); 
+        scriptResourceCache.set(n, a); 
+        return a; 
+      } else { 
+        throw new Error(resdata ? resdata.message : "无效响应数据"); 
+      } 
+    } catch (error) { 
+      if (reTry < maxRE) { 
+        await sleep(GRa()); 
+        delog(e + "-> [SP超时查询次数] " + reTry); 
+        return getHttp(reTry + 1); 
+      } else { 
+        throw error; 
+      } 
+    } 
+  }; 
+  
+  const resGet = getHttp(1);
+  spMap.set(n, resGet); 
+  return resGet; 
+};
 const iaMap = new Map(); async function INIA(e) { const t = getinid(e); if (iaMap.has(t)) return iaMap.get(t); const cached = scriptResourceCache.get(t); if (cached) {apiRead++;return cached;} else {inapi++;}; const maxRE = 2; const url = `http://ip-api.com/json/${e}?lang=zh-CN&fields=status,message,country,city,query,regionName,countryCode`; const getHttp = async (reTry) => { try { delog(url); const response = await Promise.race([ $.http.get({ url: url }), new Promise((_, reject) => setTimeout(() => reject(new Error("timeout-INIA")), timeout) ), ]); const data = JSON.parse(response.body); if (data.status === "success") { scriptResourceCache.set(t, data); return data; } else { throw new Error(data.message || "请求失败"); } } catch (error) { if (reTry < maxRE) { await sleep(GRa()); delog(e + "-> [inipApi超时查询次数] " + reTry); return getHttp(reTry + 1); } else { throw error; } } }; const resGet = new Promise((resolve, reject) => { if (cd < 1 && onen) return resGet; getHttp(1) .then((data) => { resolve(data); }) .catch(reject); }); iaMap.set(t, resGet); return resGet; } function GRa() { return Math.floor(Math.random() * (500 - 50 + 1) + 50); };
 function delog(...arg) { if (debug) { console.log("[CNAME] :" + arg); } } function removels(e) { const t = new Set(); const n = []; for (const s of e) { if (s.qc && !t.has(s.qc)) { t.add(s.qc); n.push(s); } } return n; } function removeqc(e) { const t = new Set(); const n = []; for (const s of e) { if (!t.has(s.qc)) { t.add(s.qc); const e = { ...s }; delete e.qc; n.push(e); } } return n; } function jxh(e) { const t = e.reduce((e, t) => { const n = e.find((e) => e.name === t.name); if (n) { n.count++; n.items.push({ ...t, name: `${t.name}${XHFGF}${n.count.toString().padStart(2, "0")}`, }); } else { e.push({ name: t.name, count: 1, items: [{ ...t, name: `${t.name}${XHFGF}01` }], }); } return e; }, []); const n = t.flatMap((e) => e.items); e.splice(0, e.length, ...n); return e; } 
 function onee(e) { const t = e.reduce((e, t) => { const n = t.name.replace(/[^A-Za-z0-9\u00C0-\u017F\u4E00-\u9FFF]+\d+$/, ""); if (!e[n]) { e[n] = []; } e[n].push(t); return e; }, {}); for (const e in t) { if (t[e].length === 1 && t[e][0].name.endsWith("01")) { t[e][0].name= t[e][0].name.replace(/[^.]01/, "") } } return e; }
