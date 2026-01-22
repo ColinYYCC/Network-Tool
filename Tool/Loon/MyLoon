@@ -210,26 +210,9 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTubeMusic/YouTubeMusic.list, policy=YouTube, tag=YouTube, enabled=true
 # Spotify
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Spotify/Spotify.list, policy=Spotify, tag=Spotify, enabled=true
-# Now E
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/NowE/NowE.list, policy=香港, tag=Now E, enabled=true
-# 巴哈姆特
-https://raw.githubusercontent.com/ConnersHua/RuleGo/master/Surge/Ruleset/Extra/Streaming/Video/Bahamut.list, policy=台湾, tag=巴哈姆特, enabled=true
-# Hami Video
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/HamiVideo/HamiVideo.list, policy=台湾, tag=Hami Video, enabled=true
-# Niconico
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Niconico/Niconico.list, policy=日本, tag=Niconico, enabled=true
-# HBO
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/HBOUSA/HBOUSA.list, policy=美国, tag=HBO MAX, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/HBOHK/HBOHK.list, policy=香港, tag=HBO GO ASIA, enabled=true
-# Hulu
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/HuluUSA/HuluUSA.list, policy=美国, tag=Hulu, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/HuluJP/HuluJP.list, policy=日本, tag=HuluJP, enabled=true
-# BiliBili
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/BiliBiliIntl/BiliBiliIntl.list, policy=国外网站, tag=BiliBili, enabled=true
-
 # Streaming 国际流媒体服务
-https://ruleset.skk.moe/List/non_ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体服务, enabled=true
-https://ruleset.skk.moe/List/ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体服务(IP), enabled=true
+https://ruleset.skk.moe/List/non_ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体, enabled=true
+https://ruleset.skk.moe/List/ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体(IP), enabled=true
 
 # 国外网站
 https://ruleset.skk.moe/List/non_ip/global.conf, policy=🥡 节点选择, tag=国外网站, enabled=true
