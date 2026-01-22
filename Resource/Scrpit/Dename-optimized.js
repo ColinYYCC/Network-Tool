@@ -1,6 +1,6 @@
 /**
  * @Sub-Store-Page
- * DENAME 接口查询去重/重命名 2026-01-22 01:05:00
+ * CNAME 接口查询去重/重命名 2023-11-16 20:34:08
  * - 入口查询[国内spapi 识别到国外为ip-api] 落地查询[ip-api]
  * - 根据接口返回的真实结果，重新对节点命名。
  * - 添加入口城市、落地国家或地区、国内运营商信息，并对这些数据做持久化缓存（48小时有效期），减少API请求次数，提高运行效率。
@@ -12,11 +12,11 @@
  * - 无参数时的节点命名格式: "美国 01"
  * - 1. 官方默认版(目前不带 ability 参数, 不保证以后不会改动): 》https://raw.githubusercontent.com/sub-store-org/Sub-Store/master/config/Surge.sgmodule
  *
- * - 2. 固定带 ability 参数版本,可能会爆内存, 如果需要使用指定节点功能 例如 [加国旗脚本或者DENAME脚本] 请使用此带 ability 参数版本: https://raw.githubusercontent.com/sub-store-org/Sub-Store/master/config/Surge-ability.sgmodule
+ * - 2. 固定带 ability 参数版本,可能会爆内存, 如果需要使用指定节点功能 例如 [加国旗脚本或者cname脚本] 请使用此带 ability 参数版本: https://raw.githubusercontent.com/sub-store-org/Sub-Store/master/config/Surge-ability.sgmodule
  *
  * - 3. 固定不带 ability 参数版本：https://raw.githubusercontent.com/sub-store-org/Sub-Store/master/config/Surge-Noability.sgmodule
  *
- * - 参数必须以"#"开头，多个参数使用"&"连接，例如 https://github.com/Keywos/rule/raw/main/Dename.js#city&iisp&name=Name
+ * - 参数必须以"#"开头，多个参数使用"&"连接，例如 https://github.com/Keywos/rule/raw/main/cname.js#city&iisp&name=Name
  * - 以下是此脚本支持的参数，必须以"#"开头，多个参数使用"&"连接，需要传入参数的话用 "=" 例如 "name=一元" 参考上述地址为例使用参数。
  * - 无参数时的节点命名格式: "美国 01"，如果 [入口IP或国家]或 [落地IP或国家]一样则为 "直连 德国 01" 
  * - 首次运行或者在没有缓存的情况下会通知进度
@@ -61,28 +61,28 @@
  * 超时参数
  * - [timeout=]  当无任何节点缓存时测试节点HTTP延时允许的最大超时参数，超出允许范围则判定为无效节点，默认2000ms；
  * - [cd=]       当有缓存时，会先读取缓存，直接输出结果；默认 [cd=]的值等于0，微直接读取缓存； 
- * 当设为更高的值: 比如'460'则每次读缓存都会再次处理之前判定为超时的节点,超时为460ms
- *
- * 其他参数
- * - [debug]     调试日志，普通用户不建议使用。
- * - 异常：如遇问题，Loon可以进入[配置]→[持久化缓存]→[删除指定数据]→输入Key [sub-store-cached-script-resource]并删除缓存。累计输出节点为0个3次以上将清理所有缓存
- * - Surge需要进入[脚本编辑器]→左下角[设置]→[$persistentStore]  [sub-store-cached-script-resource]删除缓存数据。
- */
+当设为更高的值: 比如'460'则每次读缓存都会再次处理之前判定为超时的节点,超时为460ms
+*
+* 其他参数
+* - [debug]     调试日志，普通用户不建议使用。
+* - 异常：如遇问题，Loon可以进入[配置]→[持久化缓存]→[删除指定数据]→输入Key [sub-store-cached-script-resource]并删除缓存。累计输出节点为0个3次以上将清理所有缓存
+* - Surge需要进入[脚本编辑器]→左下角[设置]→[$persistentStore]  [sub-store-cached-script-resource]删除缓存数据。
+*/
 
 const SUB_STORE_SCHEMA = {
-  title: "DENAME",
+  title: "CNAME",
   description: "根据接口返回的真实结果，重新对节点命名/去重。 如：入口/落地详细地区信息",
   scope: ["Surge", "Loon"],
-  author: "@Key @奶茶姐 @小一 @可莉 @ColinYYCC",
-  updateTime: "2026-01-22 01:05:00",
-  version: "1.2.3",
+  author: "@Key @奶茶姐 @小一 @可莉",
+  updateTime: "2023-11-11 18:26:00",
+  version: "1.2.2",
   params: {
     flag: {
       datatype: "boolean",
       description: "增加落地国家或地区的旗帜标识，默认无此参数",
       defaultValue: false,
     },
-    inflag: {
+    inflag:{
       datatype: "boolean",
       description: "增加入口国家或地区的旗帜标识，默认无此参数",
       defaultValue: false,
@@ -102,24 +102,15 @@ const SUB_STORE_SCHEMA = {
       description: "增加入口城市文字标识",
       defaultValue: false,
     },
-    yuan: {
-      datatype: "boolean",
-      description: "为境外入口添加真实的入口属地标识",
-      defaultValue: false,
-    },
     sheng: {
       datatype: "boolean",
       description: "增加入口省份文字标识",
       defaultValue: false,
     },
-    offtz: {
+    yuan: {
       datatype: "boolean",
-      description: "关闭脚本通知",
-      defaultValue: false,
-    },
-    game: {
-      datatype: "boolean",
-      description: "增加游戏节点标识",
+      description:
+        "为境外入口添加真实的入口属地标识，当未配置此此参数时，则将境外入口统一标记为[境外]，默认未配置此参数",
       defaultValue: false,
     },
     yisp: {
@@ -129,7 +120,13 @@ const SUB_STORE_SCHEMA = {
     },
     yw: {
       datatype: "boolean",
-      description: "落地归属地使用英文缩写标识",
+      description:
+        "落地归属地使用英文缩写标识，不建议与其他入口参数配合使用，因为其他参数API没有返回英文",
+      defaultValue: false,
+    },
+    game: {
+      datatype: "boolean",
+      description: "增加游戏节点标识",
       defaultValue: false,
     },
     bl: {
@@ -142,9 +139,19 @@ const SUB_STORE_SCHEMA = {
       description: "清理某地区内只有一个节点的序号",
       defaultValue: false,
     },
+    offtz: {
+      datatype: "boolean",
+      description: "关闭脚本通知",
+      defaultValue: false,
+    },
     dnsjx: {
       datatype: "boolean",
-      description: "将节点域名解析为IP",
+      description: "将节点域名解析为IP, 普通用户不建议使用",
+      defaultValue: false,
+    },
+    debug: {
+      datatype: "boolean",
+      description: "调试日志，普通用户不建议使用",
       defaultValue: false,
     },
     fgf: {
@@ -162,781 +169,378 @@ const SUB_STORE_SCHEMA = {
       description: "为节点添加机场名称前缀",
       defaultValue: "",
     },
-    h: {
-      datatype: "string",
-      description: "节点缓存有效期，单位小时",
-      defaultValue: "",
-    },
-    min: {
-      datatype: "string",
-      description: "节点缓存有效期，单位分钟",
-      defaultValue: "",
-    },
     timeout: {
       datatype: "number",
-      description: "节点HTTP延时允许的最大超时参数，默认2000ms",
+      description:
+        "当无任何节点缓存时测试节点HTTP延时允许的最大超时参数，超出允许范围则判定为无效节点，默认2000ms",
       defaultValue: 2000,
     },
     cd: {
       datatype: "number",
-      description: "当有缓存时，再次处理之前判定为超时的节点",
+      description:
+        "当有缓存时，会先读取缓存，直接输出结果；默认[cd=]的值等于0，微直接读取缓存； 当设为更高的值: 比如'460'则每次读缓存都会再次处理之前判定为超时的节点,超时为460ms",
       defaultValue: 0,
     },
     bs: {
       datatype: "number",
-      description: "批处理节点数，建议10个左右",
-      defaultValue: 9,
+      description:
+        "批处理节点数建议10个左右，如果经常读不到节点建议减小批处理个数",
+      defaultValue: 10,
     },
-    debug: {
-      datatype: "boolean",
-      description: "调试日志，普通用户不建议使用",
-      defaultValue: false,
+    h: {
+      datatype: "number",
+      description:
+        "节点缓存有效期，单位小时，时间参数只能二选一，Loon用户不需填写要此参数，请进入Sub-Store插件的配置界面自定义缓存有效期",
+      defaultValue: "",
+    },
+    min: {
+      datatype: "number",
+      description:
+        "节点缓存有效期，单位分钟，时间参数只能二选一，Loon用户不需填写要此参数，请进入Sub-Store插件的配置界面自定义缓存有效期",
+      defaultValue: "",
     },
   },
 };
 
-// 环境变量将在operator函数中获取
 
-// 常量定义
-const CONSTANTS = {
-  EXPIRATION_KEY: "#sub-store-csr-expiration-time",
-  DEFAULT_CACHE_TIME: 1728e5, // 48小时
-  MAX_RETRY: 2,
-  RANDOM_DELAY_MIN: 50,
-  RANDOM_DELAY_MAX: 500,
-  keyp: "3.s",
-  keypr: "peed"
-};
-
-// API缓存计数
-let apiRead = 0;
-let apiWrite = 0;
-let apiCount = 0;
-
-// 日志记录函数
-function log(logType, message) {
-  console.log(`[DENAME] [${logType}] ${message}`);
+const $ = $substore;
+const iar = $arguments;
+let FGF = iar.fgf == undefined ? " " : decodeURI(iar.fgf),FGFS = FGF,debug = iar.debug;
+const { yw, bl, iisp, xy,  yisp, yun, city, flag, inflag, game, yuan, sheng, offtz, snone: numone} = iar;
+const h = iar.h ? decodeURI(iar.h) : "",min = iar.min ? decodeURI(iar.min) : "",firstN = iar.name ? decodeURI(iar.name) : "";
+const XHFGF = iar.sn == undefined ? " " : decodeURI(iar.sn),{ isLoon: isLoon, isSurge: isSurge } = $substore.env, dns = iar.dnsjx,target = isLoon ? "Loon" : isSurge ? "Surge" : undefined,keypr= "peedtest";
+let cd = iar.cd ? iar.cd : 0, timeout = iar.timeout ? iar.timeout : 2000, writet = "", innum = 1728e5, loontrue = false, onen = false, Sue = false, rawtime = 1500;
+const keyp = "3.s",EXPIRATION_KEY = "#sub-store-csr-expiration-time";
+if (min !== "") {
+  Sue = true;
+  innum = parseInt(min, 10) * 6e4;
+  writet = $.write(JSON.stringify(innum), EXPIRATION_KEY);
+} else if (h !== "") {
+  Sue = true;
+  innum = parseInt(h, 10) * 36e5;
+  writet = $.write(JSON.stringify(innum), EXPIRATION_KEY);
+} else {
+  writet = $.write(JSON.stringify(innum), EXPIRATION_KEY);
 }
-
-// 生成随机延迟时间
-function getRandomDelay() {
-  return Math.floor(Math.random() * (CONSTANTS.RANDOM_DELAY_MAX - CONSTANTS.RANDOM_DELAY_MIN + 1) + CONSTANTS.RANDOM_DELAY_MIN);
-}
-
-// 睡眠函数
-async function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// 获取国旗emoji
-function getFlag(countryCode) {
-  const flagMap = {
-    CN: "🇨🇳",
-    US: "🇺🇸",
-    JP: "🇯🇵",
-    KR: "🇰🇷",
-    SG: "🇸🇬",
-    GB: "🇬🇧",
-    DE: "🇩🇪",
-    FR: "🇫🇷",
-    AU: "🇦🇺",
-    CA: "🇨🇦",
-    IN: "🇮🇳",
-    RU: "🇷🇺",
-    BR: "🇧🇷",
-    ID: "🇮🇩",
-    TH: "🇹🇭",
-    MY: "🇲🇾",
-    VN: "🇻🇳",
-    HK: "🇭🇰",
-    TW: "🇹🇼"
-  };
-  return flagMap[countryCode] || "";
-}
-
-// 格式化时间
-function formatTime(ms) {
-  if (ms < 1000) {
-    return `${ms}ms`;
-  } else if (ms < 60 * 1000) {
-    return `${Math.round(ms / 1000)}秒`;
-  } else if (ms < 60 * 60 * 1000) {
-    const minutes = Math.floor(ms / (60 * 1000));
-    const seconds = Math.round((ms % (60 * 1000)) / 1000);
-    return `${minutes}分${seconds}秒`;
+let TIMEDKEY = $.read(EXPIRATION_KEY),inapi=0;
+async function operator(e = [], targetPlatform, env) {
+  let tzname = "", subcoll = "", x = false, xys = false;
+  if (env?.source?.[e?.[0]?.subName]) x = true;
+  if (env?.source?._collection?.name) xys = true;
+  if (x && xys) {
+    tzname =
+      env.source._collection.name + ": [" + env.source._collection.subscriptions + "]";
+    subcoll = "组合订阅内单条订阅加了脚本, 输出组合订阅";
+  } else if (x) {
+    tzname = env.source[e[0].subName].name;
+    subcoll = "单条订阅脚本";
   } else {
-    const hours = Math.floor(ms / (60 * 60 * 1000));
-    const minutes = Math.floor((ms % (60 * 60 * 1000)) / (60 * 1000));
-    return `${hours}小时${minutes}分`;
+    tzname = env.source._collection.name;
+    subcoll = "组合订阅脚本";
   }
-}
-
-// 生成缓存键
-function getCacheKey(prefix, value) {
-  return `${prefix}-${MD5(value)}`;
-}
-
-// 带缓存的API请求
-async function fetchApiWithCache(cacheKey, url, options = {}, cacheMap) {
-  // 检查缓存
-  if (cacheMap.has(cacheKey)) {
-    apiRead++;
-    return cacheMap.get(cacheKey);
-  }
-
-  try {
-    // 发送请求
-    const response = await $.http.get(url, options);
-    let result = response.body;
-    
-    // 解析JSON
-    if (typeof result === "string") {
-      result = JSON.parse(result);
-    }
-    
-    // 缓存结果
-    cacheMap.set(cacheKey, result);
-    apiWrite++;
-    
-    return result;
-  } catch (error) {
-    apiCount++;
-    console.log(`[DENAME] [ERROR] API请求失败: ${url}, 错误: ${error.message}`);
-    throw error;
-  }
-}
-
-// 获取节点ID
-function getNodeId(node) {
-  return MD5(`${node.server}-${node.port}`);
-}
-
-// 获取落地IP信息
-async function getOutboundIP(node, target, oaMap) {
-  const cacheKey = getNodeId(node);
-  const url = `http://ip-api.com/json?lang=zh-CN&fields=status,message,country,countryCode,city,query,isp`;
-  const proxyConfig = typeof ProxyUtils !== 'undefined' ? ProxyUtils.produce([node], target) : node;
-  
-  return fetchApiWithCache(cacheKey, url, {
-    node: proxyConfig,
-    "policy-descriptor": proxyConfig
-  }, oaMap);
-}
-
-// 域名解析
-async function resolveDomain(domain, alMap) {
-  // 检查是否已经是IP地址
-  const isIP = /^(\d{1,3}\.){3}\d{1,3}$|^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/.test(domain);
-  if (isIP) {
-    return domain;
-  }
-
-  const cacheKey = getCacheKey("al", domain);
-  const aliyunDNS = Math.random() < 0.5 ? '223.5.5.5' : '223.6.6.6';
-  const url = `https://${aliyunDNS}/resolve?name=${domain}&type=A&short=1`;
-  
-  try {
-    const result = await fetchApiWithCache(cacheKey, url, {}, alMap);
-    return result.length > 0 ? result[0] : "keyn";
-  } catch (error) {
-    return "keyn";
-  }
-}
-
-// 获取详细IP信息
-async function getIPDetails(ip, config, spMap) {
-  const cacheKey = getCacheKey("sc", ip);
-  const url = `https://api-v${config.keyp}${config.keypr}.cn/ip?ip=${ip}`;
-  
-  const result = await fetchApiWithCache(cacheKey, url, {}, spMap);
-  if (result.data) {
-    const { country, province, city, isp, ip: ipAddr, countryCode } = result.data;
-    return {
-      country,
-      regionName: province,
-      city,
-      isp,
-      ip: ipAddr,
-      countryCode
-    };
-  } else {
-    throw new Error(result.message || "获取IP信息失败");
-  }
-}
-
-// 获取入口IP信息
-async function getInboundIP(server, iaMap) {
-  const cacheKey = getCacheKey("in", server);
-  const url = `http://ip-api.com/json/${server}?lang=zh-CN&fields=status,message,country,city,query,regionName,countryCode`;
-  
-  return fetchApiWithCache(cacheKey, url, {}, iaMap);
-}
-
-// 移除重复节点
-function removeDuplicateNodes(nodes) {
-  const uniqueKeys = new Set();
-  const result = [];
-  
-  for (const node of nodes) {
-    if (node.qc && !uniqueKeys.has(node.qc)) {
-      uniqueKeys.add(node.qc);
-      result.push(node);
-    }
-  }
-  
-  return result;
-}
-
-// 移除QC字段
-function removeQCField(nodes) {
-  const uniqueKeys = new Set();
-  const result = [];
-  
-  for (const node of nodes) {
-    if (!uniqueKeys.has(node.qc)) {
-      uniqueKeys.add(node.qc);
-      const { qc, ...rest } = node;
-      result.push(rest);
-    }
-  }
-  
-  return result;
-}
-
-// 为节点添加序号
-function addNodeNumbers(nodes, config) {
-  const groupedNodes = nodes.reduce((acc, node) => {
-    const existing = acc.find(item => item.name === node.name);
-    if (existing) {
-      existing.count++;
-      existing.items.push({
-        ...node,
-        name: `${node.name}${config.sn}${existing.count.toString().padStart(2, "0")}`
-      });
-    } else {
-      acc.push({
-        name: node.name,
-        count: 1,
-        items: [{
-          ...node,
-          name: `${node.name}${config.sn}01`
-        }]
-      });
-    }
-    return acc;
-  }, []);
-  
-  const result = groupedNodes.flatMap(item => item.items);
-  nodes.splice(0, nodes.length, ...result);
-  return nodes;
-}
-
-// 清理单个节点的序号
-function cleanupSingleNodeNumbers(nodes) {
-  const groupedNodes = nodes.reduce((acc, node) => {
-    const baseName = node.name.replace(/[^A-Za-z0-9\u00C0-\u017F\u4E00-\u9FFF]+\d+$/, "");
-    if (!acc[baseName]) {
-      acc[baseName] = [];
-    }
-    acc[baseName].push(node);
-    return acc;
-  }, {});
-  
-  for (const key in groupedNodes) {
-    if (groupedNodes[key].length === 1 && groupedNodes[key][0].name.endsWith("01")) {
-      groupedNodes[key][0].name = groupedNodes[key][0].name.replace(/[^.]01/, "");
-    }
-  }
-  
-  return Object.values(groupedNodes).flat();
-}
-
-async function processNode(node, config, features, cacheMaps, target) {
-  try {
-    let { server } = node;
-    let landingInfo = "", inQcip = "",倍率Info = "", flag = "", gameFlag = "", isp = "", ispFlag = "", province = "", city = "", directFlag = "", landingIsp = "";
-    let isCN = false, isV4 = false, isV6 = false, isNoAli = false;
-    
-    // 域名解析
-    if (features.dns && !features.xy) {
-      server = await resolveDomain(server, cacheMaps.al);
-    }
-    
-    node.server = server;
-    let resolvedServer = server;
-    
-    // 检查解析结果
-    if (resolvedServer === "keyn") {
-      isNoAli = true;
-      resolvedServer = server;
-    } else {
-      node.keyrk = resolvedServer;
-      if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(resolvedServer)) {
-        isV4 = true;
-      } else if (/^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/.test(resolvedServer)) {
-        isV6 = true;
-      }
-    }
-    
-    let isDirect = true, landingCountryCode = "", landingQuery = "";
-    
-    // 获取落地IP信息
-    if (!features.xy || features.yisp || features.yw || features.flag) {
-      try {
-        const outboundIP = await getOutboundIP(node, target, cacheMaps.oa);
-        const { country: outCountry, countryCode: outCode, city: outCity, query: outQuery, isp: outIsp } = outboundIP;
-        
-        if (features.yisp) {
-          landingIsp = config.fgfs + outIsp;
-        }
-        
-        if (config.debug) {
-          console.log(`[DENAME] [DEBUG] 落地信息: ${JSON.stringify(outboundIP)}`);
-        }
-        
-        landingCountryCode = outCode;
-        landingQuery = outQuery;
-        landingInfo = (outCountry === "中国") ? outCity : (features.yw ? outCode : outCountry);
-        isDirect = outQuery !== resolvedServer;
-      } catch (error) {
-        console.log(`[DENAME] [DEBUG] 获取落地IP信息失败: ${error.message}`);
-      }
-    }
-    
-    // 获取入口IP信息
-    if (isDirect || features.xy) {
-      if (!isNoAli || isV4) {
-        try {
-          const ipDetails = await getIPDetails(resolvedServer, config, cacheMaps.sp);
-          const { country: inCountry, regionName: inProvince, city: inCity, isp: inIsp, countryCode: inCode } = ipDetails;
-          
-          if (features.inflag) {
-            flag = getFlag(inCode);
-          }
-          
-          if (config.debug) {
-            console.log(`[DENAME] [DEBUG] 国内入口信息: ${JSON.stringify(ipDetails)}`);
-          }
-          
-          isCN = inCountry === "中国";
-          inQcip = resolvedServer;
-          
-          const ispMap = {电信: "🅳", 联通: "🅻", 移动: "🆈", 广电: "🅶"};
-          isp = inIsp;
-          ispFlag = ispMap[inIsp] || "🅲";
-          
-          province = inProvince;
-          city = inCity;
-        } catch (error) {
-          console.log(`[DENAME] [DEBUG] 获取入口IP信息失败: ${error.message}`);
-        }
-      }
-    }
-    
-    // 处理游戏节点标识
-    if (features.game && isCN) {
-      gameFlag = "🎮";
-    }
-    
-    // 处理直连标识
-    if (isDirect) {
-      directFlag = "🆉";
-    }
-    
-    // 构建节点名称
-    let nodeName = "";
-    
-    if (isCN || features.yuan) {
-      nodeName += `${features.inflag ? flag : ""}${features.iisp ? ispFlag : ""}${features.sheng ? province : ""}${features.city ? city : ""}${features.yisp ? landingIsp : ""}${features.fgf ? config.fgf : ""}`;
-    } else {
-      nodeName += `${features.inflag ? flag : ""}[境外]${features.fgf ? config.fgf : ""}`;
-    }
-    
-    nodeName += `${features.flag ? getFlag(landingCountryCode) : ""}${landingInfo}${features.bl ? 倍率Info : ""}${gameFlag}`;
-    
-    // 添加机场名称前缀
-    if (config.firstN) {
-      nodeName = `${config.firstN}${nodeName}`;
-    }
-    
-    // 更新节点名称
-    node.name = nodeName;
-    
-    return node;
-  } catch (error) {
-    console.log(`[DENAME] [ERROR] 处理节点失败: ${node.server}, 错误: ${error.message}`);
-    return node; // 返回原始节点，避免整个批处理失败
-  }
-}
-
-/**
- * 处理节点列表
- * @param {Array<Object>} nodes - 节点列表
- * @param {string} tzname - 订阅名称
- * @param {string} subcoll - 订阅类型
- * @param {number} totalNodes - 总节点数
- * @param {number} batchSize - 批处理大小
- * @param {boolean} useCache - 是否使用缓存
- * @param {Object} config - 配置参数
- * @param {Object} features - 功能开关
- * @param {Object} cacheMaps - 缓存映射
- * @param {string} target - 目标平台
- * @returns {Promise<Array<Object>>} 处理后的节点列表
- */
-async function processNodes(nodes, tzname, subcoll, totalNodes, batchSize, useCache, config, features, cacheMaps, target) {
-  const processedNodes = [];
-  const landingIps = [];
-  
-  // 日志记录函数
-  const log = (logType, message) => {
-    if (config.debug) {
-      console.log(`[DENAME] [${logType}] ${message}`);
-    }
-  };
-  
-  // 生成随机延迟时间
-  const getRandomDelay = () => {
-    return Math.floor(Math.random() * (config.RANDOM_DELAY_MAX - config.RANDOM_DELAY_MIN + 1) + config.RANDOM_DELAY_MIN);
-  };
-  
-  // 睡眠函数
-  const sleep = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  };
-  
-  for (let i = 0; i < nodes.length; i += batchSize) {
-    const batch = nodes.slice(i, i + batchSize);
-    
-    const batchResults = await Promise.all(
-      batch.map(async (node) => {
-        try {
-          const processedNode = await processNode(node, config, features, cacheMaps, target);
-          // 添加qc属性以便去重
-          if (!processedNode.qc) {
-            processedNode.qc = `${processedNode.server}-${processedNode.port}`;
-          }
-          if (processedNode.qc) {
-            landingIps.push(processedNode.qc.charAt(processedNode.qc.length - 1));
-          }
-          return processedNode;
-        } catch (error) {
-          log("ERROR", `处理节点失败: ${node.server}, 错误: ${error.message}`);
-          return null;
-        }
-      })
-    );
-    
-    const validNodes = batchResults.filter(node => node !== null);
-    processedNodes.push(...validNodes);
-    
-    // 随机延迟，避免API请求过快
-    await sleep(getRandomDelay());
-  }
-  
-  return {
-    processedNodes,
-    landingIps
-  };
-}
-
-/**
- * 主函数
- * @param {Array<Object>} nodes - 节点列表
- * @param {string} targetPlatform - 目标平台
- * @param {Object} env - 环境变量
- * @returns {Array<Object>} 处理后的节点列表
- */
-async function operator(nodes = [], targetPlatform, env) {
-  // 获取全局变量
-  const $ = typeof $substore !== 'undefined' ? $substore : {
-    http: { get: async () => ({ body: '{}' }) },
-    write: () => {},
-    read: () => null,
-    notify: () => {}
-  };
-  
-  // 环境变量
-  const isLoon = env ? env.isLoon : false;
-  const isSurge = env ? env.isSurge : false;
-  const target = isLoon ? "Loon" : isSurge ? "Surge" : undefined;
-  
-  // 获取参数
-  const scriptArgs = typeof $arguments !== 'undefined' ? $arguments : {};
-  const args = scriptArgs;
-  
-  // 配置参数
-  const config = {
-    debug: args.debug || false,
-    fgf: args.fgf ? decodeURI(args.fgf) : " ",
-    fgfs: args.fgf ? decodeURI(args.fgf) : " ",
-    h: args.h ? decodeURI(args.h) : "",
-    min: args.min ? decodeURI(args.min) : "",
-    firstN: args.name ? decodeURI(args.name) : "",
-    sn: args.sn ? decodeURI(args.sn) : " ",
-    cd: args.cd || 0,
-    timeout: args.timeout || 2000,
-    bs: args.bs || 9,
-    keyp: CONSTANTS.keyp,
-    keypr: CONSTANTS.keypr,
-    EXPIRATION_KEY: CONSTANTS.EXPIRATION_KEY,
-    DEFAULT_CACHE_TIME: CONSTANTS.DEFAULT_CACHE_TIME,
-    MAX_RETRY: CONSTANTS.MAX_RETRY,
-    MAX_TIMEOUT: 460,
-    RANDOM_DELAY_MIN: CONSTANTS.RANDOM_DELAY_MIN,
-    RANDOM_DELAY_MAX: CONSTANTS.RANDOM_DELAY_MAX
-  };
-  
-  // 功能开关
-  const features = {
-    yw: args.yw,
-    bl: args.bl,
-    iisp: args.iisp,
-    xy: args.xy,
-    yisp: args.yisp,
-    yuan: args.yuan,
-    city: args.city,
-    flag: args.flag,
-    inflag: args.inflag,
-    game: args.game,
-    sheng: args.sheng,
-    offtz: args.offtz,
-    numone: args.snone,
-    dns: args.dnsjx
-  };
-  
-  // 初始化缓存
-  let useCache = true;
-  let cacheTime = config.DEFAULT_CACHE_TIME;
-  let TIMEDKEY = cacheTime;
-  let cacheExpireTime = "";
-  
-  // API缓存映射
-  const spMap = new Map();
-  const alMap = new Map();
-  const iaMap = new Map();
-  const oaMap = new Map();
-  
-  // 检查是否需要自定义缓存时间
-  const useCustomCacheTime = config.h !== "" || config.min !== "";
-  if (useCustomCacheTime) {
-    cacheTime = config.h ? parseInt(config.h, 10) * 36e5 : parseInt(config.min, 10) * 6e4;
-    TIMEDKEY = cacheTime;
-    
-    // 写入缓存时间
-    $.write(JSON.stringify(cacheTime), config.EXPIRATION_KEY);
-  } else {
-    // 读取缓存时间
-    const cacheTimeStr = $.read(config.EXPIRATION_KEY);
-    if (cacheTimeStr) {
-      TIMEDKEY = parseInt(cacheTimeStr, 10);
-    }
-  }
-  
   const startTime = new Date();
-  const currentTime = startTime.getTime();
-  
-  // 读取缓存
-  const cacheMap = {
-    sp: spMap,
-    al: alMap,
-    ia: iaMap,
-    oa: oaMap
-  };
-  
-  let subcoll = args.name ? decodeURI(args.name) : "", tzname = "";
-  
-  // 处理订阅信息
-  if (env && env.subInfo && env.subInfo.title) {
-    tzname = env.subInfo.title;
+  const support = isLoon || isSurge;
+  if (!xy) {
+    if (!support) {
+      $.notify("No Loon or Surge")
+      $.error(`No Loon or Surge`);
+        return e;
+      }
   }
+  function klog(...arg) {
+    console.log('[CNAME] ' +subcoll+ tzname +" : "+ arg);
+  }
+  if (e.length < 1) {$.notify(subcoll +tzname,"订阅无节点","");return e;}
+  if (typeof scriptResourceCache === "undefined")return e;
+  let bs = iar.bs ? iar.bs : 12;
+  const ein = e.length;
+  const eins = ein/2;
+  klog(`开始处理节点: ${ein} 个`);
+  klog(`批处理节点数: ${bs} 个`);
+  klog(`设定api超时: ${zhTime(timeout)}`);
+  klog(`有缓api超时: ${zhTime(cd)}`);
+  // e = e.filter((item) => !nlc.test(item.name));
+  let Pushtd = "",intimed = "",iflag="",cachen = 0;
   
-  // 检查缓存过期时间
-  const cacheExpirationTime = $.read(config.EXPIRATION_KEY);
-  if (cacheExpirationTime) {
-    const expireTime = parseInt(cacheExpirationTime, 10);
-    const remainingTime = expireTime - currentTime;
-    if (remainingTime > 0) {
-      cacheExpireTime = formatTime(remainingTime);
+  // 优化：使用reduce一次性统计所有缓存数量，替代逐个节点检查
+  cachen = e.reduce((count, pk) => {
+    return count + (scriptResourceCache.get(getid(pk)) ? 1 : 0);
+  }, 0);
+  
+  if (cachen > eins) {
+    klog(`检查缓存数量: ${cachen}/${ein} 个`);
+    rawtime = timeout;
+    timeout = cd;
+    onen = true;
+    
+    // 获取第一个节点的缓存时间来计算过期时间
+    if (e.length > 0) {
+      const id = getid(e[0]);
+      const readt = scriptResourceCache.gettime(id);
+      if (readt) {
+        let nt = new Date().getTime();
+        let timedPush = "";
+        if (isLoon) {
+          let loontd = "";
+          const loonkkk={"1分钟":6e4,"5分钟":3e5,"10分钟":6e5,"30分钟":18e5,"1小时":36e5,"2小时":72e5,"3小时":108e5,"6小时":216e5,"12小时":432e5,"24小时":864e5,"48小时":1728e5,"72小时":2592e5,参数传入:"innums"};
+          intimed = $.read("#节点缓存有效期");
+          loontd = loonkkk[intimed] || 1728e5;
+          if (loontd == "innums") {
+            loontd = innum;
+          }
+          timedPush = zhTime(
+            parseInt(readt, 10) - nt + parseInt(loontd, 10)
+          );
+        } else if (target === "Surge" && Sue) {
+          timedPush = zhTime(
+            parseInt(readt, 10) - nt + parseInt(innum, 10)
+          );
+        } else {
+          timedPush = zhTime(
+            parseInt(readt, 10) - nt + parseInt(TIMEDKEY, 10)
+          );
+        }
+        Pushtd = `, ${timedPush}后过期 \n`;
+      }
     }
   }
-  
-  // 检查是否需要重新生成缓存
-  if (useCustomCacheTime) {
-    cacheExpireTime = formatTime(cacheTime);
-  } else if (target === "Loon") {
-    const loonCacheMap = {
-      "1分钟": 6e4, "5分钟": 3e5, "10分钟": 6e5, "30分钟": 18e5,
-      "1小时": 36e5, "2小时": 72e5, "3小时": 108e5, "6小时": 216e5,
-      "12小时": 432e5, "24小时": 864e5, "48小时": 1728e5, "72小时": 2592e5,
-      "参数传入": "innums"
-    };
-    
-    const loonCacheSetting = $.read("#节点缓存有效期");
-    let loonCacheTime = loonCacheMap[loonCacheSetting] || 1728e5;
-    
-    if (loonCacheTime === "innums") {
-      loonCacheTime = cacheTime;
-    }
-    
-    cacheExpireTime = formatTime(parseInt(cacheExpirationTime, 10) - currentTime + parseInt(loonCacheTime, 10));
-  } else if (target === "Surge" && useCustomCacheTime) {
-    cacheExpireTime = formatTime(parseInt(cacheExpirationTime, 10) - currentTime + parseInt(cacheTime, 10));
-  } else {
-    cacheExpireTime = formatTime(parseInt(cacheExpirationTime, 10) - currentTime + parseInt(TIMEDKEY, 10));
-  }
-  
-  // 发送开始处理通知
-  if (!useCache && !features.offtz) {
-    $.notify(subcoll + tzname, `开始处理节点: ${nodes.length} 个 批处理数量: ${config.bs} 个`, "请等待处理完毕后再次点击预览");
-  }
-  
-  // 处理节点
-  let retryCount = 0;
-  let breakFlag = false;
-  let processedNodes = [];
-  let landingIps = [];
-  
-  // 缓存映射
-  const cacheMaps = {
-    sp: spMap,
-    al: alMap,
-    ia: iaMap,
-    oa: oaMap
-  };
-  
+  if (!onen && !offtz) $.notify(subcoll+tzname, `开始处理节点: ${ein} 个 批处理数量: ${bs} 个`, "请等待处理完毕后再次点击预览");
+
+  let retryi = 0,breaki=false, isone = 0;
   do {
-    try {
-      const result = await processNodes(nodes, tzname, subcoll, nodes.length, config.bs, useCache, config, features, cacheMaps, target);
-      processedNodes = result.processedNodes;
-      landingIps = result.landingIps;
-      break;
-    } catch (error) {
-      console.log(`[DENAME] [ERROR] 处理节点失败: ${error.message}`);
-      if (apiCount >= 1) {
-        retryCount++;
-        breakFlag = true;
+    let i = 0,newnode = [];isone++;
+    while (i < e.length) {
+      const batch = e.slice(i, i + bs);
+      await Promise.all(
+        batch.map(async (pk) => {
+            try {
+              let keyover = [], Yserver = pk.server,luodi = "",inQcip = "",nxx = "",adflag = "",OGame="",Oisp="",Oispflag="",Osh="", Oct="",zhi = "",yuanisp ="",isCN = false,v4 = false, v6 = false, isNoAli = false;
+              let inServer = await AliD(Yserver);
+              delog(inServer)
+              switch (inServer) {
+                case "keyn":
+                  isNoAli = true;
+                  inServer = Yserver;
+                  break;
+                default:
+                  pk.keyrk = inServer;
+                  if (!isNoAli) {
+                    if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(inServer)) {
+                      v4 = true;
+                    } else if (/^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/.test(inServer)) {
+                      v6 = true;
+                    }
+                  }
+                  break;
+              }
+              
+              let btip = true,outu="",outips="";
+              if (!xy || yisp || yw || flag) {
+                if (!support) {
+                  $.notify("No Loon or Surge")
+                  $.error(`No Loon or Surge, 开启 yisp || yw || flag 参数后 xy 参数无效`);
+                    return e;
+                  }
+                  
+                const outip = await OUTIA(pk);
+                let {country:outUsq, countryCode:outUs, city:outCity, query:outQuery, isp:outisp} = outip;//落地
+                if (yisp) {
+                    yuanisp = FGFS+outisp
+                };
+                debug && (pk.keyoutld = outip);
+                delog("落地信息 " + JSON.stringify(outip))
+                outu = outUs;
+                outips = outQuery;
+                luodi = (outUsq === "中国") ? outCity : (yw ? outUs : outUsq);
+                btip = outQuery !== inServer
+              };
+              
+              if (btip || xy) {
+                if (!isNoAli || v4) {
+                  const spkey = await SPEC(inServer);
+                  let {country:inSpCn,regionName:inSpSheng,city:inSpCity,isp:inSpIsp,ip:inSpIp,countryCode:inCode} = spkey;
+                  inflag && (iflag = getflag(inCode));
+                  debug && (pk.keyinsp = spkey);
+                  isCN = inSpCn === "中国";
+                  inQcip = inServer;
+                  const keycm = {电信:"🅳", 联通:"🅻", 移动: "🆈",广电:"🅶"};
+                  if (isCN){
+                      debug && (pk.keyinsp = spkey)
+                      delog("国内入口 " + JSON.stringify(spkey));
+                      if(iisp && flag){
+                          inSpIsp=inSpIsp.replace(/中国/g, "")
+                          flag && (Oispflag = keycm.hasOwnProperty(inSpIsp) ? keycm[inSpIsp] : "🅲");
+                      } else if(iisp){
+                          Oisp = /电信|联通|移动|广电/.test(inSpIsp) ? inSpIsp.replace(/中国/g, "") : "企业";
+                      }
+                      (inSpSheng === inSpCity) && (inSpCity = "");
+
+                      if (sheng && city){
+                        Osh = inSpSheng;Oct = inSpCity
+                      } else if (sheng){
+                        Osh = inSpSheng;
+                      } else if (city){
+                        Oct = inSpCity ? inSpCity : inSpSheng;
+                      }
+
+                  }    
+                }    
+                if (isNoAli || v6 || !isCN) {
+                      const inip = await INIA(Yserver);
+                      let {country: inUsq, city: inCity, query: inQuery, regionName: inIpSh, countryCode:inaCode} = inip;
+                      inflag && (iflag = getflag(inaCode));
+                      debug && (pk.keyinipapi = inip);
+                      delog("ipapi入口 " + JSON.stringify(inip));
+                      inQcip = inQuery; //去重ip
+                      if (inUsq === "中国") {
+                          // inCity === inUs ? (incity=inCity) 
+                          (/[a-zA-Z]/.test(inCity)) && (inCity = inIpSh);
+                          (inCity === inIpSh) && (inIpSh="");
+                          if (sheng && city){
+                            Osh = inIpSh;Oct = inCity;
+                          } else if (sheng){
+                            Osh = inIpSh;
+                          } else if (city){
+                            Oct = inCity ? inCity : inIpSh;
+                          }
+                          // 运营商 未知
+                          flag && (Oispflag = "🅲");
+
+                      } else {
+                          if(inQuery === outips){
+                              flag && (Oispflag = "🆉");
+                              (sheng || city || iisp) && (zhi  = "直连");
+                          } else if (yuan){
+                              flag && (Oispflag = "🅲");
+                              (sheng || city || iisp) && (zhi  = inUsq);
+                          } else {
+                              flag && (Oispflag = "🆇");
+                              (sheng || city || iisp) && (zhi  = "境外");
+                          }
+                      }
+                }
+              } else {
+                flag && (Oispflag = "🆉");
+                (sheng || city || iisp) && (zhi  = "直连");
+              }
+              flag && (adflag = getflag(outu));
+              game && (OGame = /game|游戏/i.test(pk.name) ? (flag ? "🎮" : FGF+"Game") : OGame);
+              if (bl){
+                const match = pk.name.match(/((倍率|X|x|×)\D?((\d\.)?\d+)\D?)|((\d\.)?\d+)(倍|X|x|×)/);
+                if (match) {
+                const matchVa = match[0].match(/(\d[\d.]*)/)[0];
+                    if (matchVa !== "1") {
+                        nxx = XHFGF + matchVa + "X";
+                    }
+                }
+              }
+              (!iisp && !city && !sheng && !xy && !inflag) && (Oispflag = "",FGF ="");
+              keyover = keyover.concat(
+                  firstN, Oispflag,Osh,Oct,Oisp,zhi,FGF,adflag,luodi,OGame,nxx,yuanisp
+                  ).filter(ki => ki !== "");
+                  // delog(keyover)
+              let overName = keyover.join("");
+              xy && (overName = iflag +overName +FGF+ pk.name);
+              // delog(overName)
+              newnode.push(outips);
+              dns && (pk.server = inQcip);
+              pk.name = overName;
+              inflag && (pk.name = iflag + overName);
+              pk.qc = inQcip + outips;
+            } catch (err) {
+              if (inapi >= 1) {
+                retryi++;
+                breaki = true;
+              }
+              delog(err.message)
+            };
+        })
+      );
+      i += bs;
+      klog(`处理进度${i}/${ein}`)
+      if (!onen){
+        if(!offtz && (ein > (i*2))){
+            if (i >= (e.length / 3) && i < (e.length * 2 / 3) && ein>i) {
+                $.notify(subcoll+tzname, `处理进度${i}/${ein}`, "耐心等待, 请勿重复点击预览...");
+            }
+        }
+        await sleep(GRa());
       }
     }
-  } while (retryCount < 2);
-  
-  // 去重处理
-  if (!features.xy) {
-    processedNodes = removeDuplicateNodes(processedNodes);
-  }
-  
-  const finalNodeCount = processedNodes.length;
-  
-  // 检查Surge平台落地IP是否相同
-  if (finalNodeCount > 3 && isSurge) {
-    const allSame = landingIps.every((value, index, arr) => value === arr[0]);
-    if (allSame) {
-      if (config.debug) {
-        console.log(`[DENAME] [DEBUG] 未使用带指定节点功能的 SubStore, 或所有节点落地IP相同`);
+    !xy && (e = removels(e));
+    var eout = e.length;
+    if (eout > 3 && isSurge){
+      const allsame = newnode.every((value, index, arr) => value === arr[0]);
+      if(allsame){
+          klog(`未使用带指定节点功能的 SubStore, 或所有节点落地IP相同`);
+          $.notify('CNAME：点击以安装对应版本','未使用带指定节点功能的 SubStore，或所有节点落地IP相同','',{url: "https://raw.githubusercontent.com/sub-store-org/Sub-Store/master/config/Surge-ability.sgmodule",})
+          return e;
       }
-      $.notify('DENAME：点击以安装对应版本', '未使用带指定节点功能的 SubStore，或所有节点落地IP相同', '', {
-        url: "https://raw.githubusercontent.com/sub-store-org/Sub-Store/master/config/Surge-ability.sgmodule"
-      });
     }
-  }
-  
-  // 重试逻辑
-  if (apiCount >= 1) {
-    retryCount++;
-    config.timeout = config.DEFAULT_CACHE_TIME;
-    useCache = false;
-    
-    // 清空缓存映射
-    spMap.clear();
-    alMap.clear();
-    iaMap.clear();
-    oaMap.clear();
-    
-    if (config.debug) {
-      console.log(`[DENAME] [DEBUG] 重试中...`);
+    if (inapi >= 1) {
+      retryi++;
+      timeout = rawtime;
+      onen = false;
+      spMap.clear();alMap.clear();iaMap.clear();oaMap.clear();
+      klog(`重试中...`);
+    } else {
+      retryi = 2;
     }
-  } else {
-    retryCount = 2;
-  }
-  
-  // 移除QC字段
-  if (!features.xy) {
-    processedNodes = removeQCField(processedNodes);
-  }
-  
-  // 为节点添加序号
-  processedNodes = addNodeNumbers(processedNodes, config);
-  
-  // 清理单个节点的序号
-  if (features.numone) {
-    processedNodes = cleanupSingleNodeNumbers(processedNodes);
-  }
-  
+  } while(retryi < 2);
+    
+  !xy && (e = removeqc(e));
+  e = jxh(e);
+  // if (firstN !== "") {e.forEach((pk) => {pk.name = firstN + " " + pk.name;});}
+  numone && (e = onee(e));
   const endTime = new Date();
-  const totalTime = endTime.getTime() - startTime.getTime();
-  
-  // 输出处理结果
-  if (features.dns) {
-    if (config.debug) {
-      console.log(`[DENAME] [DEBUG] dns解析后共: ${finalNodeCount} 个`);
-    }
+  const timeDiff = endTime.getTime() - startTime.getTime();
+  if (dns) {
+    klog(`dns解析后共: ${eout} 个`);
   }
-  
-  if (apiRead > 0) {
-    if (config.debug) {
-      console.log(`[DENAME] [DEBUG] 读取api缓存: ${apiRead} 个`);
-    }
-  }
-  
-  if (apiWrite > 0) {
-    if (config.debug) {
-      console.log(`[DENAME] [DEBUG] 写入api缓存: ${apiWrite} 个`);
-    }
-  }
-  
-  if (config.debug) {
-    console.log(`[DENAME] [DEBUG] 处理完后剩余: ${finalNodeCount} 个`);
-  }
-  
-  // 输出缓存过期时间
+  apiRead > 0 ? klog(`读取api缓存: ${apiRead} 个`) : null;
+  apiw > 0 ? klog(`写入api缓存: ${apiw} 个`) : null;
+  klog(`处理完后剩余: ${eout} 个`);
+  // const Nullv ='#SubStoreNullvalue';
+  // if (eout === 0 && ein !== 0){
+  //   let Nullvi = parseInt($.read(Nullv), 10);
+  //   if (isNaN(Nullvi)) {
+  //     klog(`错误1次, 3次后将清理所有节点缓存`);
+  //     $.write("0", Nullv);
+  //   } else {
+  //     Nullvi += 1;
+  //     klog(`错误${Nullvi}次, 3次后将清理所有节点缓存`);
+  //     $.write(Nullvi.toString(), Nullv);
+  //   }
+  //   if (Nullvi > 3) {
+  //     $.write({}, "#sub-store-cached-script-resource");
+  //     klog(`错误${Nullvi}次, 已清理所有节点缓存`);
+  //     Nullvi = 0;
+  //     $.write(Nullvi.toString(), Nullv);
+  //   }
+  // }
   if (isLoon) {
-    const loonCacheSetting = $.read("#节点缓存有效期");
-    if (config.debug) {
-      console.log(`[DENAME] [DEBUG] 缓存过期时间: ${loonCacheSetting}, 还剩 ${cacheExpireTime.replace(/,|\n/g, "")}`);
-    }
+    klog("缓存过期时间: " + intimed + ", 还剩" + Pushtd.replace(/,|\n/g, ""));
   } else {
-    if (config.debug) {
-      console.log(`[DENAME] [DEBUG] 缓存过期时间: ${formatTime(TIMEDKEY)}, 还剩 ${cacheExpireTime.replace(/,|\n/g, "")}`);
-    }
+    klog("缓存过期时间: " +zhTime(TIMEDKEY) +", 还剩" +Pushtd.replace(/,|\n/g, ""));
   }
-  
-  if (config.debug) {
-    console.log(`[DENAME] [DEBUG] 此方法总用时: ${formatTime(totalTime)}\n----For New DENAME----\n\n\n\n\n`);
-  }
-  
-  // 发送完成通知
-  const readLog = apiRead ? `读取缓存:${apiRead} ` : "";
-  const writeLog = apiWrite ? `写入缓存:${apiWrite}, ` : "";
-  const resultMsg = (finalNodeCount === nodes.length && finalNodeCount === 0) ? "" : 
-                    (finalNodeCount === nodes.length ? "全部通过测试, " : `去除无效节点后有${finalNodeCount}个, `);
-  
-  if (!features.offtz) {
-    $.notify(
-      `${subcoll}${tzname} 共${nodes.length}个节点`,
+  klog(`此方法总用时: ${zhTime(timeDiff)}\n----For New CNAME----\n\n\n\n\n`);
+  const readklog = apiRead ? `读取缓存:${apiRead} ` : "";
+  const writeklog = apiw ? `写入缓存:${apiw}, ` : "";
+  const Push = (eout === ein && eout === 0) ? "" : (eout === ein ? "全部通过测试, " : "去除无效节点后有" + eout + "个, ");
+  if (!offtz) {$.notify(
+      `${subcoll}${tzname} 共${ein}个节点`,
       "",
-      `${writeLog}${readLog}${cacheExpireTime ? `, ${cacheExpireTime}后过期 ` : ""}${resultMsg}用时:${formatTime(totalTime)}`
-    );
-  }
-  
-  return processedNodes;
+      `${writeklog}${readklog}${Pushtd}${Push}用时:${zhTime(timeDiff)}`
+      );}
+  return e;
 }
 
-// MD5加密函数 (简化版，仅用于生成缓存键)
-function MD5(str) {
-  const crypto = require('crypto');
-  return crypto.createHash('md5').update(str).digest('hex');
-}
-
-// 导出主函数
-module.exports = {
-  operator: operator
-};
+function getflag(e) { const t = e .toUpperCase() .split("") .map((e) => 127397 + e.charCodeAt()); return String.fromCodePoint(...t).replace(/🇹🇼/g, "🇨🇳"); } function sleep(e) { return new Promise((t) => setTimeout(t, e)); } let apiRead = 0, apiw = 0; 
+const oaMap = new Map(); async function OUTIA(e) { const t = getid(e); if (oaMap.has(t)) return oaMap.get(t); const cached = scriptResourceCache.get(t);if (cached) { apiRead++; return cached; } else {inapi++;};const maxRE = 2; const url = `http://ip-api.com/json?lang=zh-CN&fields=status,message,country,countryCode,city,query,isp`; const getHttp = async (reTry) => { try { let r = ProxyUtils.produce([e], target); const response = await Promise.race([ $.http.get({ url: url, node: r, "policy-descriptor": r }), new Promise((_, reject) => setTimeout(() => reject(new Error("timeout-OUTIA")), timeout) ), ]); const data = JSON.parse(response.body); if (data.status === "success") { scriptResourceCache.set(t, data); return data; } else { throw new Error(data.message || "请求失败"); } } catch (error) { if (reTry < maxRE) { await sleep(GRa()); delog(e.name + "-> [outipApi超时查询次数] " + reTry); return getHttp(reTry + 1); } else { throw error; } } }; const resGet = new Promise((resolve, reject) => { if (cd < 1 && onen) return resGet; getHttp(1) .then((data) => { apiw++; resolve(data); }) .catch(reject); }); oaMap.set(t, resGet); return resGet; };
+const alMap = new Map(); async function AliD(e) { const ti = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$|^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/.test( e ); if (ti) return e; const t = getaliid(e); if (alMap.has(t)) return alMap.get(t); const cached = scriptResourceCache.get(t); if (cached) { apiRead++; return cached;} else {inapi++;};const maxRE = 2; let alip = Math.random() < 0.5 ? '223.5.5.5' : '223.6.6.6';const url = `https://${alip}/resolve?name=${e}&type=A&short=1`; const getHttp = async (reTry) => { try { const response = await Promise.race([ $.http.get({ url: url }), new Promise((_, reject) => setTimeout(() => reject(new Error("timeout-AliD")), timeout) ), ]); const resdata = JSON.parse(response.body); if (resdata.length > 0) { scriptResourceCache.set(t, resdata[0]); return resdata[0]; } else { return "keyn"; } } catch (error) { if (reTry < maxRE) { await sleep(GRa()); delog(e + " [->Ali超时查询次数] " + reTry); return getHttp(reTry + 1); } else { throw error; } } }; const resGet = new Promise((resolve, reject) => { if (cd < 1 && onen) { return resGet; } else { getHttp(1) .then((data) => { resolve(data); }) .catch(reject); } }); alMap.set(t, resGet); return resGet; };function getaliid(e){let t="al";return MD5(`${t}-${e}`)};function getspcn(e){let t="sc";return MD5(`${t}-${e}`)};
+const spMap = new Map(); async function SPEC(e) { const n = getspcn(e); if (spMap.has(n)) return spMap.get(n);const cached = scriptResourceCache.get(n); if (cached) {apiRead++;return cached;} else {inapi++;}; const maxRE = 2; const url = `https://api-v${keyp}${keypr}.cn/ip?ip=${e}`; const getHttp = async (reTry) => { try { const response = await Promise.race([ $.http.get({ url: url }), new Promise((_, reject) => setTimeout(() => reject(new Error("timeout-SPEC")), timeout) ), ]); const resdata = JSON.parse(response.body); delog(resdata); if (resdata.data) { const { country: e, province: o, city: r, isp: i, ip: c, countryCode: k, } = resdata.data; const a = { country: e, regionName: o, city: r, isp: i, ip: c, countryCode: k, }; delog("写入"); scriptResourceCache.set(n, a); return a; } else { throw new Error(resdata.message); } } catch (error) { if (reTry < maxRE) { await sleep(GRa()); delog(e + "-> [SP超时查询次数] " + reTry); return getHttp(reTry + 1); } else { throw error; } } }; const resGet = new Promise((resolve, reject) => {if (cd < 1 && onen) return resGet; getHttp(1) .then((data) => { resolve(data); }) .catch(reject); }); spMap.set(n, resGet); return resGet; };
+const iaMap = new Map(); async function INIA(e) { const t = getinid(e); if (iaMap.has(t)) return iaMap.get(t); const cached = scriptResourceCache.get(t); if (cached) {apiRead++;return cached;} else {inapi++;}; const maxRE = 2; const url = `http://ip-api.com/json/${e}?lang=zh-CN&fields=status,message,country,city,query,regionName,countryCode`; const getHttp = async (reTry) => { try { delog(url); const response = await Promise.race([ $.http.get({ url: url }), new Promise((_, reject) => setTimeout(() => reject(new Error("timeout-INIA")), timeout) ), ]); const data = JSON.parse(response.body); if (data.status === "success") { scriptResourceCache.set(t, data); return data; } else { throw new Error(data.message || "请求失败"); } } catch (error) { if (reTry < maxRE) { await sleep(GRa()); delog(e + "-> [inipApi超时查询次数] " + reTry); return getHttp(reTry + 1); } else { throw error; } } }; const resGet = new Promise((resolve, reject) => { if (cd < 1 && onen) return resGet; getHttp(1) .then((data) => { resolve(data); }) .catch(reject); }); iaMap.set(t, resGet); return resGet; } function GRa() { return Math.floor(Math.random() * (500 - 50 + 1) + 50); };
+function delog(...arg) { if (debug) { console.log("[CNAME] :" + arg); } } function removels(e) { const t = new Set(); const n = []; for (const s of e) { if (s.qc && !t.has(s.qc)) { t.add(s.qc); n.push(s); } } return n; } function removeqc(e) { const t = new Set(); const n = []; for (const s of e) { if (!t.has(s.qc)) { t.add(s.qc); const e = { ...s }; delete e.qc; n.push(e); } } return n; } function jxh(e) { const t = e.reduce((e, t) => { const n = e.find((e) => e.name === t.name); if (n) { n.count++; n.items.push({ ...t, name: `${t.name}${XHFGF}${n.count.toString().padStart(2, "0")}`, }); } else { e.push({ name: t.name, count: 1, items: [{ ...t, name: `${t.name}${XHFGF}01` }], }); } return e; }, []); const n = t.flatMap((e) => e.items); e.splice(0, e.length, ...n); return e; } 
+function onee(e) { const t = e.reduce((e, t) => { const n = t.name.replace(/[^A-Za-z0-9\u00C0-\u017F\u4E00-\u9FFF]+\d+$/, ""); if (!e[n]) { e[n] = []; } e[n].push(t); return e; }, {}); for (const e in t) { if (t[e].length === 1 && t[e][0].name.endsWith("01")) { t[e][0].name= t[e][0].name.replace(/[^.]01/, "") } } return e; }
+function zhTime(e) { e = e.toString().replace(/-/g, ""); if (e < 1e3) { return `${Math.round(e)}毫秒`; } else if (e < 6e4) { return `${Math.round(e / 1e3)}秒`; } else if (e < 36e5) { return `${Math.round(e / 6e4)}分钟`; } else if (e >= 36e5) { return `${Math.round(e / 36e5)}小时`; } } 
+var MD5=function(e){var t=M(V(Y(X(e),8*e.length)));return t.toLowerCase()};function M(e){for(var t,n="0123456789ABCDEF",s="",o=0;o<e.length;o++)t=e.charCodeAt(o),s+=n.charAt(t>>>4&15)+n.charAt(15&t);return s}function X(e){for(var t=Array(e.length>>2),n=0;n<t.length;n++)t[n]=0;for(n=0;n<8*e.length;n+=8)t[n>>5]|=(255&e.charCodeAt(n/8))<<n%32;return t}function V(e){for(var t="",n=0;n<32*e.length;n+=8)t+=String.fromCharCode(e[n>>5]>>>n%32&255);return t}function Y(e,t){e[t>>5]|=128<<t%32,e[14+(t+64>>>9<<4)]=t;for(var n=1732584193,s=-271733879,o=-1732584194,r=271733878,i=0;i<e.length;i+=16){var c=n,a=s,u=o,m=r;s=md5_ii(s=md5_ii(s=md5_ii(s=md5_ii(s=md5_hh(s=md5_hh(s=md5_hh(s=md5_hh(s=md5_gg(s=md5_gg(s=md5_gg(s=md5_gg(s=md5_ff(s=md5_ff(s=md5_ff(s=md5_ff(s,o=md5_ff(o,r=md5_ff(r,n=md5_ff(n,s,o,r,e[i+0],7,-680876936),s,o,e[i+1],12,-389564586),n,s,e[i+2],17,606105819),r,n,e[i+3],22,-1044525330),o=md5_ff(o,r=md5_ff(r,n=md5_ff(n,s,o,r,e[i+4],7,-176418897),s,o,e[i+5],12,1200080426),n,s,e[i+6],17,-1473231341),r,n,e[i+7],22,-45705983),o=md5_ff(o,r=md5_ff(r,n=md5_ff(n,s,o,r,e[i+8],7,1770035416),s,o,e[i+9],12,-1958414417),n,s,e[i+10],17,-42063),r,n,e[i+11],22,-1990404162),o=md5_ff(o,r=md5_ff(r,n=md5_ff(n,s,o,r,e[i+12],7,1804603682),s,o,e[i+13],12,-40341101),n,s,e[i+14],17,-1502002290),r,n,e[i+15],22,1236535329),o=md5_gg(o,r=md5_gg(r,n=md5_gg(n,s,o,r,e[i+1],5,-165796510),s,o,e[i+6],9,-1069501632),n,s,e[i+11],14,643717713),r,n,e[i+0],20,-373897302),o=md5_gg(o,r=md5_gg(r,n=md5_gg(n,s,o,r,e[i+5],5,-701558691),s,o,e[i+10],9,38016083),n,s,e[i+15],14,-660478335),r,n,e[i+4],20,-405537848),o=md5_gg(o,r=md5_gg(r,n=md5_gg(n,s,o,r,e[i+9],5,568446438),s,o,e[i+14],9,-1019803690),n,s,e[i+3],14,-187363961),r,n,e[i+8],20,1163531501),o=md5_gg(o,r=md5_gg(r,n=md5_gg(n,s,o,r,e[i+13],5,-1444681467),s,o,e[i+2],9,-51403784),n,s,e[i+7],14,1735328473),r,n,e[i+12],20,-1926607734),o=md5_hh(o,r=md5_hh(r,n=md5_hh(n,s,o,r,e[i+5],4,-378558),s,o,e[i+8],11,-2022574463),n,s,e[i+11],16,1839030562),r,n,e[i+14],23,-35309556),o=md5_hh(o,r=md5_hh(r,n=md5_hh(n,s,o,r,e[i+1],4,-1530992060),s,o,e[i+4],11,1272893353),n,s,e[i+7],16,-155497632),r,n,e[i+10],23,-1094730640),o=md5_hh(o,r=md5_hh(r,n=md5_hh(n,s,o,r,e[i+13],4,681279174),s,o,e[i+0],11,-358537222),n,s,e[i+3],16,-722521979),r,n,e[i+6],23,76029189),o=md5_hh(o,r=md5_hh(r,n=md5_hh(n,s,o,r,e[i+9],4,-640364487),s,o,e[i+12],11,-421815835),n,s,e[i+15],16,530742520),r,n,e[i+2],23,-995338651),o=md5_ii(o,r=md5_ii(r,n=md5_ii(n,s,o,r,e[i+0],6,-198630844),s,o,e[i+7],10,1126891415),n,s,e[i+14],15,-1416354905),r,n,e[i+5],21,-57434055),o=md5_ii(o,r=md5_ii(r,n=md5_ii(n,s,o,r,e[i+12],6,1700485571),s,o,e[i+3],10,-1894986606),n,s,e[i+10],15,-1051523),r,n,e[i+1],21,-2054922799),o=md5_ii(o,r=md5_ii(r,n=md5_ii(n,s,o,r,e[i+8],6,1873313359),s,o,e[i+15],10,-30611744),n,s,e[i+6],15,-1560198380),r,n,e[i+13],21,1309151649),o=md5_ii(o,r=md5_ii(r,n=md5_ii(n,s,o,r,e[i+4],6,-145523070),s,o,e[i+11],10,-1120210379),n,s,e[i+2],15,718787259),r,n,e[i+9],21,-343485551),n=safe_add(n,c),s=safe_add(s,a),o=safe_add(o,u),r=safe_add(r,m)}return Array(n,s,o,r)}function md5_cmn(e,t,n,s,o,r){return safe_add(bit_rol(safe_add(safe_add(t,e),safe_add(s,r)),o),n)}function md5_ff(e,t,n,s,o,r,i){return md5_cmn(t&n|~t&s,e,t,o,r,i)}function md5_gg(e,t,n,s,o,r,i){return md5_cmn(t&s|n&~s,e,t,o,r,i)}function md5_hh(e,t,n,s,o,r,i){return md5_cmn(t^n^s,e,t,o,r,i)}function md5_ii(e,t,n,s,o,r,i){return md5_cmn(n^(t|~s),e,t,o,r,i)}function safe_add(e,t){var n=(65535&e)+(65535&t);return(e>>16)+(t>>16)+(n>>16)<<16|65535&n}function bit_rol(e,t){return e<<t|e>>>32-t}function getid(e){let t="ld";return MD5(`${t}-${e.server}-${e.port}`)}function getinid(e){let t="ia";return MD5(`${t}-${e}`)};
