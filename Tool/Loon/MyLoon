@@ -168,6 +168,8 @@ DOMAIN,yacd.haishan.me,DIRECT
 # > BoxJs
 DOMAIN,boxjs.com,DIRECT
 DOMAIN,boxjs.net,DIRECT
+# > Sub-Store
+DOMAIN-SUFFIX,vercel.app,国外网站
 
 # 自动 REJECT 保护丢包，防止应用循环请求
 IP-CIDR,0.0.0.0/32,REJECT 
