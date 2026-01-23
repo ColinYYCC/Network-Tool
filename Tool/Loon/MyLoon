@@ -182,14 +182,14 @@ FINAL,漏网之鱼
 # ------
 
 [Remote Rule]
-# ADs
+# > ADs
 https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge.list, policy=REJECT, tag=秋风广告规则, enabled=true
 https://ruleset.skk.moe/List/domainset/reject_phishing.conf, policy=REJECT, tag=Phiishing 拦截, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf, policy=REJECT-NO-DROP, tag=防止PCDN, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject-drop.conf, policy=REJECT-DROP, tag=Adobe 系列软件内部的跟踪, enabled=true
 #https://ruleset.skk.moe/List/ip/reject.conf, policy = REJECT-DROP, tag = 广告拦截 IP, enabled = false
 
-# CDN
+# > CDN
 https://ruleset.skk.moe/List/domainset/cdn.conf, policy=国外网站, tag=SukkaW静态CDN域名, enabled=true
 https://ruleset.skk.moe/List/non_ip/cdn.conf, policy=国外网站, tag=SukkaW静态CDN域名, enabled=true
 https://ruleset.skk.moe/List/non_ip/apple_cdn.conf, policy=DIRECT, tag=Apple 国內CDN, enabled=true
@@ -199,6 +199,7 @@ https://ruleset.skk.moe/List/non_ip/apple_cn.conf, policy=DIRECT, tag=Apple CN �
 # > 苹果服务域名
 https://ruleset.skk.moe/List/non_ip/apple_services.conf, policy=Apple Service, tag=🍎 苹果服务, enabled=true
 
+# > 海外媒体
 # TV+
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/AppleTV/AppleTV.list, policy=国外网站, tag=TV+, enabled=true
 # Disney+
@@ -216,9 +217,8 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/
 https://ruleset.skk.moe/List/non_ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体, enabled=true
 https://ruleset.skk.moe/List/ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体(IP), enabled=true
 
-# 国外网站
+# > 国外网站
 https://ruleset.skk.moe/List/non_ip/global.conf, policy=🥡 节点选择, tag=国外网站, enabled=true
-
 # Telegram 电报
 https://github.com/LucaLin233/Luca_Conf/raw/main/Surge/Rule/Telegram.list?raw = true, policy=Telegram, tag=Telegram 电报, enabled=true
 
@@ -250,7 +250,7 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/UBI/UBI.list, policy=游戏, tag=UBI, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Xbox/Xbox.list, policy=游戏, tag=Xbox, enabled=true
 
-# 中国直连
+# > 中国直连
 https://ruleset.skk.moe/List/non_ip/lan.conf, policy=DIRECT, tag=局域网, enabled=true  
 https://ruleset.skk.moe/List/non_ip/domestic.conf, policy=DIRECT, tag=国內直连, enabled=true
 https://ruleset.skk.moe/List/non_ip/direct.conf, policy=DIRECT, tag=国內直连, enabled=true
