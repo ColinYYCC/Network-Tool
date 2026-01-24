@@ -11,7 +11,11 @@ proxy-providers:
 
 ### 核心配置
 mode: rule
-mixed-port: 7897
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+tproxy-port: 7894
 allow-lan: true
 ipv6: true
 unified-delay: true
@@ -273,9 +277,9 @@ rule-providers:
 # 流媒体服务
   Emby: {<<: *ClassicalY, url: https://kelee.one/Tool/Clash/Rule/EmbyServer.yaml, path: ./Rules/Emby.yaml}
   Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml, path: ./Rules/Netflix.yaml}
-  Youtube: {<<: *ClassicalM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/YouTube.mrs, path: ./Rules/Youtube.mrs}
-  Spotify: {<<: *ClassicalM, url: https://github.com/666OS/rules/blob/release/mihomo/domain/Spotify.mrs, path: ./Rules/Spotify.mrs}
-  Disney: {<<: *ClassicalM, url: https://github.com/666OS/rules/blob/release/mihomo/domain/Disney.mrs, path: ./Rules/Disney.mrs}
+  Youtube: {<<: *DomainM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/YouTube.mrs, path: ./Rules/Youtube.mrs}
+  Spotify: {<<: *DomainM, url: https://github.com/666OS/rules/blob/release/mihomo/domain/Spotify.mrs, path: ./Rules/Spotify.mrs}
+  Disney: {<<: *DomainM, url: https://github.com/666OS/rules/blob/release/mihomo/domain/Disney.mrs, path: ./Rules/Disney.mrs}
   美国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_us.txt, path: ./Rules/stream_us_non_ip.txt}
   欧洲流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_eu.txt, path: ./Rules/stream_eu_non_ip.txt}
   日本流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_jp.txt, path: ./Rules/stream_jp_non_ip.txt}
