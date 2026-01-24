@@ -232,6 +232,7 @@ rules:
   - RULE-SET,韩国流媒体,韩国节点
   - RULE-SET,香港流媒体,香港节点
   - RULE-SET,台湾流媒体,台湾节点
+  - RULE-SET,国际流媒体,国外网站
   - RULE-SET,Telegram,Telegram
   - RULE-SET,下载域名集,手动切换
   - RULE-SET,下载,手动切换
@@ -248,6 +249,7 @@ rules:
   - RULE-SET,韩国流媒体IP,韩国节点
   - RULE-SET,香港流媒体IP,香港节点
   - RULE-SET,台湾流媒体IP,台湾节点
+  - RULE-SET,国际流媒体IP,国外网站
 
 ### 其他 类规则
   - GEOIP,CN,DIRECT
@@ -286,6 +288,7 @@ rule-providers:
   韩国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_kr.txt, path: ./Rules/stream_kr_non_ip.txt}
   香港流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_hk.txt, path: ./Rules/stream_hk_non_ip.txt}
   台湾流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_tw.txt, path: ./Rules/stream_tw_non_ip.txt}
+  国际流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream.txt, path: ./Rules/stream_non_ip.txt}
 
 
 # 即时通讯
@@ -314,12 +317,7 @@ rule-providers:
   全球: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/global.txt, path: ./Rules/global_non_ip.txt} 
 
 # IP 类规则
-  美国流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_us.txt, path: ./Rules/stream_us_ip.txt}
-  欧洲流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_eu.txt, path: ./Rules/stream_eu_ip.txt}
-  日本流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_jp.txt, path: ./Rules/stream_jp_ip.txt}
-  韩国流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_kr.txt, path: ./Rules/stream_kr_ip.txt}
-  香港流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_hk.txt, path: ./Rules/stream_hk_ip.txt}
-  台湾流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream_tw.txt, path: ./Rules/stream_tw_ip.txt}
   内网IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/lan.txt, path: ./Rules/lan_ip.txt}
   国内IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/domestic.txt, path: ./Rules/domestic_ip.txt}
   中国IP段: {<<: *ipcidr, url: https://ruleset.skk.moe/Clash/ip/china_ip.txt, path: ./Rules/china_ip.txt}
+  国际流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream.txt, path: ./Rules/stream_ip.txt}
