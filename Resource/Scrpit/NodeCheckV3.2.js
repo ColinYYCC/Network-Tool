@@ -341,6 +341,9 @@ async function operator(e = [], env) {
       }
     }
     
+    // 移除重复节点（基于qc属性）
+    !xy && (e = removels(e));
+    
     // 处理重试
     if (inapi >= 1) {
       retryi++;
@@ -355,7 +358,7 @@ async function operator(e = [], env) {
   } while (retryi < 2);
   
   // 最终处理
-  e = removeqc(e);
+  !xy && (e = removeqc(e));
   e = jxh(e);
   numone && (e = onee(e));
   
@@ -413,23 +416,25 @@ async function processNodesBatch(nodes, batchSize, klog, subcoll, tzname) {
   
   for (let i = 0; i < nodeCount; i += batchSize) {
     const batch = nodes.slice(i, i + batchSize);
-    const batchResults = await Promise.allSettled(
-      batch.map(async (pk) => {
-        try {
-          return await processSingleNode(pk);
-        } catch (err) {
-          debug && klog(`${pk.name} 处理失败: ${err.message}`);
-          return null;
-        }
-      })
-    );
     
-    // 收集成功结果
-    batchResults.forEach((result, index) => {
-      if (result.status === 'fulfilled' && result.value) {
-        results.push(result.value);
-      }
-    });
+    // 使用Promise.all替代Promise.allSettled，确保严格过滤无效节点
+    try {
+      const batchResults = await Promise.all(
+        batch.map(async (pk) => {
+          return await processSingleNode(pk);
+        })
+      );
+      
+      // 收集成功结果
+      batchResults.forEach(result => {
+        if (result) {
+          results.push(result);
+        }
+      });
+    } catch (err) {
+      debug && klog(`批处理失败: ${err.message}`);
+      // 继续处理下一批，不中断整个流程
+    }
     
     // 显示进度
     const processed = Math.min(i + batchSize, nodeCount);
@@ -688,8 +693,26 @@ async function apiRequest(cacheMap, cacheKey, url, maxRetries, timeoutMs, proces
   while (retryCount < maxRetries) {
     try {
       const response = await httpGetWithTimeout(url, {}, timeoutMs);
+      
+      // 严格检查响应
+      if (!response || !response.body) {
+        throw new Error(`无效响应: ${url}`);
+      }
+      
       const data = JSON.parse(response.body);
+      
+      // 检查数据有效性
+      if (!data || typeof data !== 'object') {
+        throw new Error(`无效数据格式: ${url}`);
+      }
+      
+      // 调用处理器处理数据
       const result = processor(data);
+      
+      // 检查处理结果有效性
+      if (!result || typeof result !== 'object') {
+        throw new Error(`无效处理结果: ${url}`);
+      }
       
       // 缓存结果
       scriptResourceCache.set(cacheKey, result);
@@ -770,16 +793,23 @@ async function INIA(e) {
   });
 }
 
-// 节点去重函数
+// 节点去重函数 - 严格模式
 function removels(e) {
   const t = new Set();
   const n = [];
+  
   for (const s of e) {
-    if (s.qc && !t.has(s.qc)) {
-      t.add(s.qc);
-      n.push(s);
+    // 严格检查qc属性，确保有效
+    if (s.qc && typeof s.qc === 'string' && s.qc.length > 0) {
+      // 使用更严格的去重逻辑，确保每个qc只对应一个节点
+      if (!t.has(s.qc)) {
+        t.add(s.qc);
+        n.push(s);
+      }
     }
+    // 没有qc属性的节点视为无效节点，直接过滤
   }
+  
   return n;
 }
 
