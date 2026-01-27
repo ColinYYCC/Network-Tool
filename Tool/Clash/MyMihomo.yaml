@@ -226,7 +226,7 @@ rules:
   - RULE-SET,Youtube,Youtube
   - RULE-SET,Spotify,Spotify
   - RULE-SET,Emby,Emby
-  - RULE-SET,Disney,Disney
+  - RULE-SET,Disney,Disney+
   - RULE-SET,美国流媒体,美国节点
   - RULE-SET,欧洲流媒体,国外网站
   - RULE-SET,日本流媒体,日本节点
