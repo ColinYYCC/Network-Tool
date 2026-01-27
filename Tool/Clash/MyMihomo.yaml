@@ -244,12 +244,6 @@ rules:
   - RULE-SET,内网IP,DIRECT
   - RULE-SET,国内IP,DIRECT
   - RULE-SET,中国IP段,DIRECT
-  - RULE-SET,美国流媒体IP,美国节点
-  - RULE-SET,欧洲流媒体IP,国外网站
-  - RULE-SET,日本流媒体IP,日本节点
-  - RULE-SET,韩国流媒体IP,韩国节点
-  - RULE-SET,香港流媒体IP,香港节点
-  - RULE-SET,台湾流媒体IP,台湾节点
   - RULE-SET,国际流媒体IP,国外网站
 
 ### 其他 类规则
