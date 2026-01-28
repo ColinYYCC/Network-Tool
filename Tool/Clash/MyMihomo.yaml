@@ -269,11 +269,11 @@ rule-providers:
   常见静态CDN: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/cdn.txt, path: ./Rules/cdn_non_ip.txt}
 
 # 流媒体服务
-  Emby: {<<: *ClassicalY, url: https://kelee.one/Tool/Clash/Rule/EmbyServer.yaml, path: ./Rules/Emby.yaml}
+  Emby: {<<: *DomainY, url: https://kelee.one/Tool/Clash/Rule/EmbyServer.yaml, path: ./Rules/Emby.yaml}
   Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml, path: ./Rules/Netflix.yaml}
   Youtube: {<<: *DomainM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/YouTube.mrs, path: ./Rules/Youtube.mrs}
-  Spotify: {<<: *DomainM, url: https://github.com/666OS/rules/blob/release/mihomo/domain/Spotify.mrs, path: ./Rules/Spotify.mrs}
-  Disney: {<<: *DomainM, url: https://github.com/666OS/rules/blob/release/mihomo/domain/Disney.mrs, path: ./Rules/Disney.mrs}
+  Spotify: {<<: *DomainM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/Spotify.mrs, path: ./Rules/Spotify.mrs}
+  Disney: {<<: *DomainM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/Disney.mrs, path: ./Rules/Disney.mrs}
   美国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_us.txt, path: ./Rules/stream_us_non_ip.txt}
   欧洲流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_eu.txt, path: ./Rules/stream_eu_non_ip.txt}
   日本流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_jp.txt, path: ./Rules/stream_jp_non_ip.txt}
