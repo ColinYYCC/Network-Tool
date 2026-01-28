@@ -259,57 +259,56 @@ ipcidr: &ipcidr {type: http, behavior: ipcidr, interval: 43200, format: text}
 # 订阅规则
 rule-providers:
 # 拦截类规则
-  sogouinput: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt, path: ./Rules/sogouinput.txt}
-  AWAvenue-Ads-Rule: {<<: *DomainY, url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml, path: ./Rules/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml}
-  Adobe跟踪&SDK打点: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt, path: ./Rules/reject_non_ip_drop.txt}
-  视频QUIC&PCDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt, path: ./Rules/reject_non_ip_no_drop.txt}
+  sogouinput: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt}
+  AWAvenue-Ads-Rule: {<<: *DomainY, url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml}
+  Adobe跟踪&SDK打点: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt}
+  视频QUIC&PCDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt}
 
 # 常见静态 CDN
-  常见静态CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/cdn.txt, path: ./Rules/cdn_domainset.txt}
-  常见静态CDN: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/cdn.txt, path: ./Rules/cdn_non_ip.txt}
+  常见静态CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/cdn.txt}
+  常见静态CDN: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/cdn.txt}
 
 # 流媒体服务
-  Emby: {<<: *DomainY, url: https://kelee.one/Tool/Clash/Rule/EmbyServer.yaml, path: ./Rules/Emby.yaml}
-  Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml, path: ./Rules/Netflix.yaml}
-  Youtube: {<<: *DomainM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/YouTube.mrs, path: ./Rules/Youtube.mrs}
-  Spotify: {<<: *DomainM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/Spotify.mrs, path: ./Rules/Spotify.mrs}
-  Disney: {<<: *DomainM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/Disney.mrs, path: ./Rules/Disney.mrs}
-  美国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_us.txt, path: ./Rules/stream_us_non_ip.txt}
-  欧洲流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_eu.txt, path: ./Rules/stream_eu_non_ip.txt}
-  日本流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_jp.txt, path: ./Rules/stream_jp_non_ip.txt}
-  韩国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_kr.txt, path: ./Rules/stream_kr_non_ip.txt}
-  香港流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_hk.txt, path: ./Rules/stream_hk_non_ip.txt}
-  台湾流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_tw.txt, path: ./Rules/stream_tw_non_ip.txt}
-  国际流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream.txt, path: ./Rules/stream_non_ip.txt}
-
+  Emby: {<<: *ClassicalY , url: https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Emby.list}
+  Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml}
+  Youtube: {<<: *DomainM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/YouTube.mrs}
+  Spotify: {<<: *DomainM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/Spotify.mrs}
+  Disney: {<<: *DomainM, url: https://github.com/666OS/rules/raw/release/mihomo/domain/Disney.mrs}
+  美国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_us.txt}
+  欧洲流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_eu.txt}
+  日本流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_jp.txt}
+  韩国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_kr.txt}
+  香港流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_hk.txt}
+  台湾流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_tw.txt}
+  国际流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream.txt}
 
 # 即时通讯
-  Telegram: {<<: *ClassicalT, url: https://github.com/LucaLin233/Luca_Conf/raw/main/Surge/Rule/Telegram.list, path: ./Rules/Telegram.txt}
+  Telegram: {<<: *ClassicalT, url: https://github.com/LucaLin233/Luca_Conf/raw/main/Surge/Rule/Telegram.list}
 
 # 人工智能 
-  人工智能: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/ai.txt, path: ./Rules/ai_non_ip.txt}
+  人工智能: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/ai.txt}
 
 # 苹果服务
-  苹果CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt, path: ./Rules/apple_cdn.txt}
-  苹果服务: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/apple_services.txt, path: ./Rules/apple_services.txt}
-  苹果中国: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt, path: ./Rules/apple_cn_non_ip.txt}
+  苹果CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt}
+  苹果服务: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/apple_services.txt}
+  苹果中国: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt}
 
 # 微软服务
-  微软CDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/microsoft_cdn.txt, path: ./Rules/microsoft_cdn_non_ip.txt}
-  微软服务: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/microsoft.txt, path: ./Rules/microsoft_non_ip.txt}
+  微软CDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/microsoft_cdn.txt}
+  微软服务: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/microsoft.txt}
 
 # 下载服务
-  下载域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/download.txt, path: ./Rules/download_domainset.txt}
-  下载: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/download.txt, path: ./Rules/download_non_ip.txt}
+  下载域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/download.txt}
+  下载: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/download.txt}
 
 # 网络区域
-  内网: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/lan.txt, path: ./Rules/lan_non_ip.txt}
-  国内域名: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/domestic.txt, path: ./Rules/domestic_non_ip.txt}
-  直连: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/direct.txt, path: ./Rules/direct_non_ip.txt}
-  全球: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/global.txt, path: ./Rules/global_non_ip.txt} 
+  内网: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/lan.txt}
+  国内域名: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/domestic.txt}
+  直连: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/direct.txt}
+  全球: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/global.txt} 
 
 # IP 类规则
-  内网IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/lan.txt, path: ./Rules/lan_ip.txt}
-  国内IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/domestic.txt, path: ./Rules/domestic_ip.txt}
-  中国IP段: {<<: *ipcidr, url: https://ruleset.skk.moe/Clash/ip/china_ip.txt, path: ./Rules/china_ip.txt}
-  国际流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream.txt, path: ./Rules/stream_ip.txt}
+  内网IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/lan.txt}
+  国内IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/domestic.txt}
+  中国IP段: {<<: *ipcidr, url: https://ruleset.skk.moe/Clash/ip/china_ip.txt}
+  国际流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream.txt}
