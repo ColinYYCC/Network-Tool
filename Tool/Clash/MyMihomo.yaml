@@ -68,8 +68,8 @@ dns:
     - 223.5.5.5
   nameserver:
     - https://dns.quad9.net/dns-query
-    - https://doh.pub/dns-query
-    - https://dns.alidns.com
+    - https://dns.pub/dns-query
+    - https://dns.alidns.com/dns-query
   fake-ip-filter:
     - '*.127.*.*.*.nip.io'
     - '*.127.*.*.*.sslip.io'
