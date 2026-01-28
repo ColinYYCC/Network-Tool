@@ -165,7 +165,7 @@ proxy-groups:
   - {name: 🔯 故障转移, <<: *FallBack, include-all: true, filter: *FilterAL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png}
   - {name: 🔮 负载均衡, <<: *LoadBalance, include-all: true, filter: *FilterAL, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
   - {name: 手动切换, <<: *SelectBL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png}
-  - {name: 漏网之鱼, <<: *SelectDT, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
+  - {name: 漏网之鱼, <<: *SelectFB, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
 # 分流策略组
   - {name: 国外网站, <<: *SelectBL, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png}
   - {name: Telegram, <<: *SelectBL, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/telegram.svg}
@@ -206,7 +206,6 @@ rules:
   - RULE-SET,AWAvenue-Ads-Rule,REJECT
   - RULE-SET,Adobe跟踪&SDK打点,REJECT-DROP
   - RULE-SET,视频QUIC&PCDN,REJECT
-  - AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT
 
 ### 非 IP 类规则
   - RULE-SET,内网,DIRECT
