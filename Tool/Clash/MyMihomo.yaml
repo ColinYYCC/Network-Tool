@@ -208,16 +208,13 @@ rules:
   - RULE-SET,视频QUIC&PCDN,REJECT
 
 ### 非 IP 类规则
-  - RULE-SET,内网,DIRECT
-  - RULE-SET,国内域名,DIRECT
-  - RULE-SET,直连,DIRECT
+  - RULE-SET,苹果服务,Apple Service
+  - RULE-SET,常见静态CDN域名集,手动切换
+  - RULE-SET,常见静态CDN,手动切换
   - RULE-SET,苹果CDN域名集,DIRECT
   - RULE-SET,苹果中国,DIRECT
   - RULE-SET,微软CDN,DIRECT
   - RULE-SET,微软服务,DIRECT
-  - RULE-SET,苹果服务,Apple Service
-  - RULE-SET,常见静态CDN域名集,手动切换
-  - RULE-SET,常见静态CDN,手动切换
   - RULE-SET,Netflix,Netflix
   - RULE-SET,Youtube,Youtube
   - RULE-SET,Spotify,Spotify
@@ -235,12 +232,14 @@ rules:
   - RULE-SET,下载,手动切换
   - RULE-SET,人工智能,AI
   - RULE-SET,全球,国外网站
+  - RULE-SET,内网,DIRECT
+  - RULE-SET,国内域名,DIRECT
+  - RULE-SET,直连,DIRECT
 
 ### IP 类规则
+  - RULE-SET,国际流媒体IP,国外网站
   - RULE-SET,内网IP,DIRECT
   - RULE-SET,国内IP,DIRECT
-  - RULE-SET,中国IP段,DIRECT
-  - RULE-SET,国际流媒体IP,国外网站
 
 ### 其他 类规则
   - GEOIP,CN,DIRECT
