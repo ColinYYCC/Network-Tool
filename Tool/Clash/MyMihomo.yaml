@@ -309,5 +309,4 @@ rule-providers:
 # IP 类规则
   内网IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/lan.txt}
   国内IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/domestic.txt}
-  中国IP段: {<<: *ipcidr, url: https://ruleset.skk.moe/Clash/ip/china_ip.txt}
   国际流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream.txt}
