@@ -209,12 +209,12 @@ rules:
   - RULE-SET,LAN,DIRECT
   - RULE-SET,国内域名,DIRECT
   - RULE-SET,直连,DIRECT
-  - RULE-SET,ASN China,DIRECT
 
 ### IP 类规则
   - RULE-SET,国际流媒体IP,国外网站
   - RULE-SET,内网IP,DIRECT
   - RULE-SET,国内IP,DIRECT
+  - RULE-SET,ASN China,DIRECT
 
 ### 其他 类规则
   - GEOIP,CN,DIRECT
