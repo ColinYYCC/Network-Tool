@@ -226,6 +226,7 @@ ClassicalY: &ClassicalY {type: http, behavior: classical, interval: 86400, forma
 DomainT: &DomainT {type: http, behavior: domain, interval: 86400, format: text}
 DomainY: &DomainY {type: http, behavior: domain, interval: 86400, format: yaml}
 DomainM: &DomainM {type: http, behavior: domain, interval: 86400, format: mrs}
+DomainM: &DomainI {type: http, behavior: ipcidr, interval: 86400, format: mrs}
 ipcidr: &ipcidr {type: http, behavior: ipcidr, interval: 86400, format: text}
 
 
@@ -283,5 +284,5 @@ rule-providers:
 
 # IP 类规则
   内网IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/lan.txt}
-  国内IP: {<<: *DomainM, url: https://github.com/666OS/rules/raw/release/mihomo/ip/China.mrs}
+  国内IP: {<<: *DomainI, url: https://github.com/666OS/rules/raw/release/mihomo/ip/China.mrs}
   国际流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream.txt}
