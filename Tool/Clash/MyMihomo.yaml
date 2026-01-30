@@ -4,7 +4,7 @@
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
 
 ### 节点配置
-NodeParam: &NodeParam {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: http://cp.cloudflare.com/generate_204, interval: 300}, filter: '^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|COM|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$'}
+NodeParam: &NodeParam {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: http://cp.cloudflare.com/generate_204, interval: 600}, filter: '^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|COM|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$'}
 # 节点订阅
 proxy-providers:
   MyMihomo: {<<: *NodeParam, url: '替换订阅链接'}
@@ -70,34 +70,16 @@ dns:
     - https://dns.pub/dns-query
     - https://dns.alidns.com/dns-query
   fake-ip-filter:
-    - '*.127.*.*.*.nip.io'
-    - '*.127.*.*.*.sslip.io'
-    - '*.srv.nintendo.net'
-    - '*.stun.playstation.net'
-    - '*.stun.twilio.com'
-    - '*.turn.twilio.com'
-    - '*.xboxlive.com'
-    - '*-127-*-*-*.nip.io'
-    - '*-127-*-*-*.sslip.io'
-    - '+.bogon'
-    - '+.internal'
-    - '+.lan'
-    - '+.local'
-    - '+.localdomain'
-    - '+.m2m'
-    - '127-*-*-*.nip.io'
-    - '127-*-*-*.sslip.io'
-    - '127.*.*.*.nip.io'
-    - '127.*.*.*.sslip.io'
-    - '127.0.0.1.sslip.io'
-    - '127.atlas.skk.moe'
-    - 'dns.msftncsi.com'
-    - 'home.arpa'
-    - 'injections.adguard.org'
-    - 'local.adguard.org'
-    - 'stun.*'
-    - 'stun.syncthing.net'
-    - 'xbox.*.microsoft.com'
+  - '+.lan'
+  - '+.local'
+  - '+.internal'
+  - 'localhost.ptlogin2.qq.com'
+  - '+.srv.nintendo.net'
+  - '+.stun.playstation.net'
+  - 'xbox.*.microsoft.com'
+  - '+.xboxlive.com'
+  - 'stun.*'
+  - '+.push.apple.com'
 
 ### 域名嗅探
 sniffer:
@@ -130,23 +112,20 @@ tun:
 # route-exclude-address: ['192.168.110.0/24']
 
 #### 节点组参数锚点
-# 锚点 - 时延优选参数 [每 300 秒一次惰性健康检查, 容差 20ms, 时延超过 2 秒判定为失败, 失败 3 次则自动触发健康检查]
-UrlTest: &UrlTest {type: url-test, url: http://cp.cloudflare.com/generate_204, interval: 300, lazy: true, tolerance: 100, timeout: 2000, disable-udp: false, max-failed-times: 3, hidden: true}
-# 锚点 - 故障转移参数 [每 300 秒一次惰性健康检查, 时延超过 2 秒判定为失败, 失败 3 次则自动触发健康检查]
-FallBack: &FallBack {type: fallback, url: http://cp.cloudflare.com/generate_204, interval: 300, lazy: true, tolerance: 100, timeout: 2000, disable-udp: false, max-failed-times: 2, hidden: true}
-# 锚点 - 负载均衡参数 [每 300 秒一次惰性健康检查, 时延超过 2 秒判定为失败, 失败 3 次则自动触发健康检查]
-LoadBalance: &LoadBalance {type: load-balance, url: http://cp.cloudflare.com/generate_204, interval: 300, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 2000, max-failed-times: 2, hidden: true}
+# 锚点 - 时延优选参数 [每 600 秒一次惰性健康检查, 容差 100ms, 时延超过 2 秒判定为失败, 失败 3 次则自动触发健康检查]
+UrlTest: &UrlTest {type: url-test, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, tolerance: 100, timeout: 2000, disable-udp: false, max-failed-times: 3, hidden: true}
+# 锚点 - 故障转移参数 [每 600 秒一次惰性健康检查, 时延超过 2 秒判定为失败, 失败 3 次则自动触发健康检查]
+FallBack: &FallBack {type: fallback, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, tolerance: 100, timeout: 2000, disable-udp: false, max-failed-times: 2, hidden: true}
+# 锚点 - 负载均衡参数 [每 600 秒一次惰性健康检查, 时延超过 2 秒判定为失败, 失败 3 次则自动触发健康检查]
+LoadBalance: &LoadBalance {type: load-balance, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 2000, max-failed-times: 2, hidden: true}
 
 # 节点筛选正则表达式 - 基于地理位置和关键词过滤
-FilterHK: &FilterHK '^(?=.*(香港|HK|Hong|🇭🇰))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
-FilterJP: &FilterJP '^(?=.*(日本|JP|Japan|🇯🇵))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
-FilterKR: &FilterKR '^(?=.*(韩国|韓|KR|Korea|🇰🇷))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
-FilterSG: &FilterSG '^(?=.*(新加坡|狮城|SG|Singapore|🇸🇬))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
-FilterUS: &FilterUS '^(?=.*(美国|US|United States|America|🇺🇸))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
-FilterUK: &FilterUK '^(?=.*(英国|UK|United Kingdom|🇬🇧))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
-FilterFR: &FilterFR '^(?=.*(法国|FR|France|🇫🇷))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
-FilterDE: &FilterDE '^(?=.*(德国|DE|Germany|🇩🇪))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
-FilterTW: &FilterTW '^(?=.*(台湾|TW|Taiwan|Wan|🇹🇼|🇨🇳))^(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterHK: &FilterHK '^(?=.*(香港|HK|Hong|🇭🇰))(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterJP: &FilterJP '^(?=.*(日本|JP|Japan|🇯🇵))(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterKR: &FilterKR '^(?=.*(韩国|韓|KR|Korea|🇰🇷))(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterSG: &FilterSG '^(?=.*(新加坡|狮城|SG|Singapore|🇸🇬))(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterUS: &FilterUS '^(?=.*(美国|US|United States|America|🇺🇸))(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterTW: &FilterTW '^(?=.*(台湾|TW|Taiwan|Wan|🇹🇼|🇨🇳))(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
 FilterOthers: &FilterOT '^(?!.*(🇭🇰|HK|Hong|香港|🇹🇼|TW|Taiwan|Wan|🇯🇵|JP|Japan|日本|🇸🇬|SG|Singapore|狮城|🇺🇸|US|United States|America|美国|🇩🇪|DE|Germany|德国|🇬🇧|UK|United Kingdom|英国|🇰🇷|KR|Korea|韩国|韓|🇫🇷|FR|France|法国)).*$'
 FilterAll: &FilterAL '^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$'
 
@@ -160,9 +139,9 @@ SelectDT: &SelectDT {type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔮 
 # 节点组
 proxy-groups:
 # 主要节点
-  - {name: 🛰️ 自动选择, <<: *UrlTest, include-all: true, filter: *FilterAL, icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(3).png}
-  - {name: 🔯 故障转移, <<: *FallBack, include-all: true, filter: *FilterAL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png}
-  - {name: 🔮 负载均衡, <<: *LoadBalance, include-all: true, filter: *FilterAL, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
+  - {name: 🛰️ 自动选择, <<: *UrlTest, icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(3).png}
+  - {name: 🔯 故障转移, <<: *FallBack, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png}
+  - {name: 🔮 负载均衡, <<: *LoadBalance, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
   - {name: 手动切换, <<: *SelectBL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png}
   - {name: 漏网之鱼, <<: *SelectFB, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
 # 分流策略组
