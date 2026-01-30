@@ -63,12 +63,15 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   default-nameserver:
-    - 119.29.29.29
-    - 180.184.1.1
-    - 223.5.5.5
+    - https://dns.alidns.com/dns-query
+    - tls://8.8.8.8
   nameserver:
     - https://dns.pub/dns-query
     - https://dns.alidns.com/dns-query
+  fallback:
+    - tls://9.9.9.9
+  proxy-server-nameserver:
+    - https://doh.pub/dns-query
   fake-ip-filter:
     - '+.lan'
     - '+.local'
@@ -93,12 +96,17 @@ sniffer:
     QUIC:
       ports: [443, 8443]
   skip-domain:
-    - 'Mijia Cloud'
-    - '+.push.apple.com'
+    - Mijia Cloud
+    - +.push.apple.com
+    - +.push.apple.com.cn
+    - +.mzstatic.com
+    - +.icloud.com
+    - +.icloud-content.com
+    - gamecenter.apple.com
 
 ### TUN配置
 tun:
-  enable: false
+  enable: true
   stack: system
   dns-hijack:
     - "any:53"
