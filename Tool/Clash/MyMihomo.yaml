@@ -70,16 +70,16 @@ dns:
     - https://dns.pub/dns-query
     - https://dns.alidns.com/dns-query
   fake-ip-filter:
-  - '+.lan'
-  - '+.local'
-  - '+.internal'
-  - 'localhost.ptlogin2.qq.com'
-  - '+.srv.nintendo.net'
-  - '+.stun.playstation.net'
-  - 'xbox.*.microsoft.com'
-  - '+.xboxlive.com'
-  - 'stun.*'
-  - '+.push.apple.com'
+    - '+.lan'
+    - '+.local'
+    - '+.internal'
+    - 'localhost.ptlogin2.qq.com'
+    - '+.srv.nintendo.net'
+    - '+.stun.playstation.net'
+    - 'xbox.*.microsoft.com'
+    - '+.xboxlive.com'
+    - 'stun.*'
+    - '+.push.apple.com'
 
 ### 域名嗅探
 sniffer:
@@ -116,7 +116,7 @@ tun:
 UrlTest: &UrlTest {type: url-test, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, tolerance: 100, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
 # 锚点 - 故障转移参数 [每 600 秒一次惰性健康检查, 时延超过 3 秒判定为失败, 失败 3 次则自动触发健康检查]
 FallBack: &FallBack {type: fallback, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, tolerance: 100, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
-# 锚点 - 负载均衡参数 [每 600 秒一次惰性健康检查, 时延超过 23秒判定为失败, 失败 3 次则自动触发健康检查]
+# 锚点 - 负载均衡参数 [每 600 秒一次惰性健康检查, 时延超过 3 秒判定为失败, 失败 3 次则自动触发健康检查]
 LoadBalance: &LoadBalance {type: load-balance, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 3000, max-failed-times: 3, hidden: true}
 
 # 节点筛选正则表达式 - 基于地理位置和关键词过滤
