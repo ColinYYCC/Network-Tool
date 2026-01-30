@@ -112,12 +112,12 @@ tun:
 # route-exclude-address: ['192.168.110.0/24']
 
 #### 节点组参数锚点
-# 锚点 - 时延优选参数 [每 600 秒一次惰性健康检查, 容差 100ms, 时延超过 2 秒判定为失败, 失败 3 次则自动触发健康检查]
-UrlTest: &UrlTest {type: url-test, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, tolerance: 100, timeout: 2000, disable-udp: false, max-failed-times: 3, hidden: true}
-# 锚点 - 故障转移参数 [每 600 秒一次惰性健康检查, 时延超过 2 秒判定为失败, 失败 3 次则自动触发健康检查]
-FallBack: &FallBack {type: fallback, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, tolerance: 100, timeout: 2000, disable-udp: false, max-failed-times: 2, hidden: true}
-# 锚点 - 负载均衡参数 [每 600 秒一次惰性健康检查, 时延超过 2 秒判定为失败, 失败 3 次则自动触发健康检查]
-LoadBalance: &LoadBalance {type: load-balance, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 2000, max-failed-times: 2, hidden: true}
+# 锚点 - 时延优选参数 [每 600 秒一次惰性健康检查, 容差 100ms, 时延超过 3 秒判定为失败, 失败 3 次则自动触发健康检查]
+UrlTest: &UrlTest {type: url-test, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, tolerance: 100, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
+# 锚点 - 故障转移参数 [每 600 秒一次惰性健康检查, 时延超过 3 秒判定为失败, 失败 3 次则自动触发健康检查]
+FallBack: &FallBack {type: fallback, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, tolerance: 100, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
+# 锚点 - 负载均衡参数 [每 600 秒一次惰性健康检查, 时延超过 23秒判定为失败, 失败 3 次则自动触发健康检查]
+LoadBalance: &LoadBalance {type: load-balance, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 3000, max-failed-times: 3, hidden: true}
 
 # 节点筛选正则表达式 - 基于地理位置和关键词过滤
 FilterHK: &FilterHK '^(?=.*(香港|HK|Hong|🇭🇰))(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
@@ -139,15 +139,15 @@ SelectDT: &SelectDT {type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔮 
 # 节点组
 proxy-groups:
 # 主要节点
-  - {name: 🛰️ 自动选择, <<: *UrlTest, icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(3).png}
-  - {name: 🔯 故障转移, <<: *FallBack, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png}
-  - {name: 🔮 负载均衡, <<: *LoadBalance, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
+  - {name: 🛰️ 自动选择, <<: *SelectUT, include-all: true, filter: *FilterAL, icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(3).png}
+  - {name: 🔯 故障转移, <<: *FallBack, include-all: true, filter: *FilterAL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png}
+  - {name: 🔮 负载均衡, <<: *LoadBalance, include-all: true, filter: *FilterAL, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
   - {name: 手动切换, <<: *SelectBL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png}
   - {name: 漏网之鱼, <<: *SelectFB, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
 # 分流策略组
   - {name: 国外网站, <<: *SelectBL, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png}
   - {name: Telegram, <<: *SelectBL, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/telegram.svg}
-  - {name: Apple Service, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡, 香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png}
+  - {name: Apple Service, <<: *SelectDT, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png}
   - {name: AI, <<: *SelectUT, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/qwen-color.svg}
 # 媒体策略组
   - {name: Netflix, type: select, proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/netflix.svg}
@@ -209,9 +209,10 @@ rules:
   - RULE-SET,下载,手动切换
   - RULE-SET,人工智能,AI
   - RULE-SET,全球,国外网站
-  - RULE-SET,内网,DIRECT
+  - RULE-SET,LAN,DIRECT
   - RULE-SET,国内域名,DIRECT
   - RULE-SET,直连,DIRECT
+  - RULE-SET,ASN China,DIRECT
 
 ### IP 类规则
   - RULE-SET,国际流媒体IP,国外网站
@@ -277,12 +278,13 @@ rule-providers:
   下载: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/download.txt}
 
 # 网络区域
-  内网: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/lan.txt}
+  LAN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/lan.txt}
   国内域名: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/domestic.txt}
   直连: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/direct.txt}
+  ASN China: {<<: *ClassicalY, url: https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.China.yaml}
   全球: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/global.txt} 
 
 # IP 类规则
   内网IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/lan.txt}
-  国内IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/domestic.txt}
+  国内IP: {<<: *DomainM, url: https://github.com/666OS/rules/raw/release/mihomo/ip/China.mrs}
   国际流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream.txt}
