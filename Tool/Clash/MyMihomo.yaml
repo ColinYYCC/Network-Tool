@@ -8,7 +8,8 @@ NodeParam: &NodeParam {type: http, interval: 86400, proxy: DIRECT, health-check:
 # 节点订阅
 proxy-providers:
   MyMihomo: {<<: *NodeParam, url: '替换订阅链接'}
-
+  MyBackup: {<<: *NodeParam, url: '替换订阅链接'}
+  
 ### 核心配置
 mode: rule
 mixed-port: 7893
