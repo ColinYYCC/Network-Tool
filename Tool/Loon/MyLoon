@@ -41,7 +41,7 @@ wifi-access-socks5-port = 7221
 mitm-on-wifi-access = true
 
 # > 节点延迟测试
-proxy-test-url = https://networkcheck.kde.org
+proxy-test-url = http://networkcheck.kde.org
 # > 互联网联通性测试
 internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
 # > 节点测速时的超时秒数
@@ -129,18 +129,18 @@ Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,�
 # ------
 
 # > 节点分流
-🎲 自动选择 = url-test,All,url = https://networkcheck.kde.org,interval = 60,tolerance = 30,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/group/GetSomeFries.png
-🔯 故障转移 = fallback,All,url = https://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png
-🔮 负载均衡 = load-balance,All,url = https://networkcheck.kde.org,interval = 60,max-timeout = 1000,algorithm = pcc,img-url = https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png
+🎲 自动选择 = url-test,All,url = http://networkcheck.kde.org,interval = 60,tolerance = 30,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/group/GetSomeFries.png
+🔯 故障转移 = fallback,All,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png
+🔮 负载均衡 = load-balance,All,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,algorithm = pcc,img-url = https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png
 # ------
 
 # 地区策略组
-香港节点 = fallback,HK,url = https://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png
-美国节点 = fallback,US,url = https://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png
-狮城节点 = fallback,SG,url = https://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png
-日本节点 = fallback,JP,url = https://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png
-韩国节点 = fallback,KR,url = https://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png
-台湾节点 = fallback,TW,url = https://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png
+香港节点 = fallback,HK,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png
+美国节点 = fallback,US,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png
+狮城节点 = fallback,SG,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png
+日本节点 = fallback,JP,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png
+韩国节点 = fallback,KR,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png
+台湾节点 = fallback,TW,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png
 # ------
 
 [Rule]
