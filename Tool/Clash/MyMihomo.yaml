@@ -4,7 +4,7 @@
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
 
 ### 节点配置
-NodeParam: &NodeParam {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: http://cp.cloudflare.com/generate_204, interval: 600}, filter: '^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|COM|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$'}
+NodeParam: &NodeParam {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: http://cp.cloudflare.com/generate_204, interval: 1800}, filter: '^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|COM|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$'}
 # 节点订阅
 proxy-providers:
   MyMihomo: {<<: *NodeParam, url: '替换订阅链接'}
@@ -29,7 +29,7 @@ experimental:
 
 # 认证配置
 authentication:
-  - mihomo:colinyycc
+  - mihomo:Mh2026@SecurePass!
 skip-auth-prefixes:
   - 192.168.1.0/24
   - 192.168.31.0/24
@@ -41,7 +41,7 @@ skip-auth-prefixes:
 external-ui-url: 'https://mirror.ghproxy.com/https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip'
 external-ui: ui
 external-controller: 127.0.0.1:9988
-secret: colinyycc
+secret: Mh2026@SecurePass!
 
 # 配置存储
 profile:
@@ -117,11 +117,11 @@ tun:
 
 #### 节点组参数锚点
 # 锚点 - 时延优选参数 [每 600 秒一次惰性健康检查, 容差 100ms, 时延超过 3 秒判定为失败, 失败 3 次则自动触发健康检查]
-UrlTest: &UrlTest {type: url-test, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, tolerance: 100, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
+UrlTest: &UrlTest {type: url-test, url: http://cp.cloudflare.com/generate_204, interval: 1800, lazy: true, tolerance: 100, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
 # 锚点 - 故障转移参数 [每 600 秒一次惰性健康检查, 时延超过 3 秒判定为失败, 失败 3 次则自动触发健康检查]
-FallBack: &FallBack {type: fallback, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, tolerance: 100, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
+FallBack: &FallBack {type: fallback, url: http://cp.cloudflare.com/generate_204, interval: 1800, lazy: true, tolerance: 100, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
 # 锚点 - 负载均衡参数 [每 600 秒一次惰性健康检查, 时延超过 3 秒判定为失败, 失败 3 次则自动触发健康检查]
-LoadBalance: &LoadBalance {type: load-balance, url: http://cp.cloudflare.com/generate_204, interval: 600, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 3000, max-failed-times: 3, hidden: true}
+LoadBalance: &LoadBalance {type: load-balance, url: http://cp.cloudflare.com/generate_204, interval: 1800, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 3000, max-failed-times: 3, hidden: true}
 
 # 节点筛选正则表达式 - 基于地理位置和关键词过滤
 FilterHK: &FilterHK '^(?=.*(香港|HK|Hong|🇭🇰))(?!.*(网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
