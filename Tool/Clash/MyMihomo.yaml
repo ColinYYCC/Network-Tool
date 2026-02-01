@@ -112,7 +112,6 @@ tun:
   auto-redirect: true
   auto-detect-interface: true
   strict-route: true
-  mtu: 1400
 # 如果有使用zerotier或者headscale等, 需要自己配置排除自己的网段
 # route-exclude-address: ['192.168.110.0/24']
 
