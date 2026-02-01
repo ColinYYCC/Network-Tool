@@ -65,16 +65,9 @@ dns:
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
-    - 8.8.8.8
   nameserver:
     - https://dns.pub/dns-query
     - https://dns.alidns.com/dns-query
-  fallback:
-    - https://1.1.1.1/dns-query
-    - https://8.8.8.8/dns-query
-  fallback-filter:
-    geoip: true
-    geoip-code: CN
   proxy-server-nameserver:
     - https://doh.pub/dns-query
   fake-ip-filter:
@@ -103,7 +96,6 @@ sniffer:
   skip-domain:
     - Mijia Cloud
     - +.push.apple.com
-    - +.push.apple.com.cn
     - +.mzstatic.com
     - +.icloud.com
     - +.icloud-content.com
@@ -120,7 +112,7 @@ tun:
   auto-redirect: true
   auto-detect-interface: true
   strict-route: true
-  mtu: 1500
+  mtu: 1400
 # 如果有使用zerotier或者headscale等, 需要自己配置排除自己的网段
 # route-exclude-address: ['192.168.110.0/24']
 
@@ -172,12 +164,12 @@ proxy-groups:
 # 游戏
   - {name: 游戏, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/steam.svg}
 # 自动选择
-  - {name: 香港节点, <<: *UrlTest, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png, hidden: true}
-  - {name: 日本节点, <<: *UrlTest, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png, hidden: true}
-  - {name: 韩国节点, <<: *UrlTest, include-all: true, filter: *FilterKR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png, hidden: true}
-  - {name: 狮城节点, <<: *UrlTest, include-all: true, filter: *FilterSG, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png, hidden: true}
-  - {name: 美国节点, <<: *UrlTest, include-all: true, filter: *FilterUS, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png, hidden: true}
-  - {name: 台湾节点, <<: *UrlTest, include-all: true, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png, hidden: true}
+  - {name: 香港节点, <<: *LoadBalance, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png, hidden: true}
+  - {name: 日本节点, <<: *LoadBalance, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png, hidden: true}
+  - {name: 韩国节点, <<: *LoadBalance, include-all: true, filter: *FilterKR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png, hidden: true}
+  - {name: 狮城节点, <<: *LoadBalance, include-all: true, filter: *FilterSG, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png, hidden: true}
+  - {name: 美国节点, <<: *LoadBalance, include-all: true, filter: *FilterUS, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png, hidden: true}
+  - {name: 台湾节点, <<: *LoadBalance, include-all: true, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png, hidden: true}
 # ------
 
 # 分流规则
