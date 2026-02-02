@@ -153,7 +153,7 @@ proxy-groups:
   - {name: 国外网站, <<: *SelectBL, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png}
   - {name: Telegram, <<: *SelectBL, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/telegram.svg}
   - {name: Apple Service, <<: *SelectDT, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png}
-  - {name: AI, <<: *SelectUT, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/qwen-color.svg}
+  - {name: AI, type: select, proxies: [美国节点, 香港节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/qwen-color.svg}
 # 媒体策略组
   - {name: Netflix, type: select, proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/netflix.svg}
   - {name: Youtube, type: select, proxies: [美国节点, 香港节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png}
@@ -194,6 +194,7 @@ rules:
   - RULE-SET,苹果中国,DIRECT
   - RULE-SET,微软CDN,DIRECT
   - RULE-SET,微软服务,DIRECT
+  - RULE-SET,人工智能,AI
   - RULE-SET,Netflix,Netflix
   - RULE-SET,Youtube,Youtube
   - RULE-SET,Spotify,Spotify
@@ -209,7 +210,6 @@ rules:
   - RULE-SET,Telegram,Telegram
   - RULE-SET,下载域名集,手动切换
   - RULE-SET,下载,手动切换
-  - RULE-SET,人工智能,AI
   - RULE-SET,全球,国外网站
   - RULE-SET,LAN,DIRECT
   - RULE-SET,国内域名,DIRECT
