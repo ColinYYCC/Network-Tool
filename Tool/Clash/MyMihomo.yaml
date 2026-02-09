@@ -194,6 +194,9 @@ rules:
   - RULE-SET,苹果中国,DIRECT
   - RULE-SET,微软CDN,DIRECT
   - RULE-SET,微软服务,DIRECT
+  - RULE-SET,LAN,DIRECT
+  - RULE-SET,国内域名,DIRECT
+  - RULE-SET,直连,DIRECT
   - RULE-SET,人工智能,AI
   - RULE-SET,Netflix,Netflix
   - RULE-SET,Youtube,Youtube
@@ -211,15 +214,12 @@ rules:
   - RULE-SET,下载域名集,手动切换
   - RULE-SET,下载,手动切换
   - RULE-SET,全球,国外网站
-  - RULE-SET,LAN,DIRECT
-  - RULE-SET,国内域名,DIRECT
-  - RULE-SET,直连,DIRECT
 
 ### IP 类规则
-  - RULE-SET,ASN China,DIRECT
-  - RULE-SET,国际流媒体IP,国外网站
   - RULE-SET,内网IP,DIRECT
   - RULE-SET,国内IP,DIRECT
+  - RULE-SET,ASN China,DIRECT
+  - RULE-SET,国际流媒体IP,国外网站
 
 ### 其他 类规则
   - GEOIP,CN,DIRECT
