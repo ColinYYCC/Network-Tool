@@ -20,7 +20,6 @@ tcp-concurrent: true
 log-level: warning
 bind-address: '*'
 find-process-mode: 'always'
-global-client-fingerprint: chrome
 keep-alive-interval: 15
 keep-alive-idle: 600
 
@@ -185,6 +184,7 @@ rules:
   - RULE-SET,AWAvenue-Ads-Rule,REJECT
   - RULE-SET,Adobe跟踪&SDK打点,REJECT-DROP
   - RULE-SET,视频QUIC&PCDN,REJECT
+  - AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT  # 阻止海外 QUIC
 
 ### 非 IP 类规则
   - RULE-SET,苹果服务,Apple Service
