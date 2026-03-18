@@ -210,8 +210,8 @@ rules:
   - RULE-SET,sogouinput,REJECT
   - RULE-SET,AWAvenue-Ads-Rule,REJECT
   - RULE-SET,Phishing,REJECT
-  - RULE-SET,防止PCDN,REJECT-NO-DROP
-  - RULE-SET,Adobe跟踪&SDK打点,REJECT-DROP
+  - RULE-SET,防止PCDN,REJECT
+  - RULE-SET,Adobe跟踪&SDK打点,REJECT
   - RULE-SET,视频QUIC&PCDN,REJECT
 
 ### 非 IP 类规则
