@@ -52,9 +52,9 @@ geodata-mode: true
 geo-auto-update: true
 geo-update-interval: 24
 geox-url:
-  geoip: 'https://raw.githubusercontent.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat'
-  mmdb: 'https://raw.githubusercontent.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb'
-  asn: 'https://raw.githubusercontent.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb'
+  geoip: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat'
+  mmdb: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb'
+  asn: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb'
 
 ### DNS配置
 dns:
