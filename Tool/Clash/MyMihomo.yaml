@@ -38,8 +38,7 @@ skip-auth-prefixes:
 
 ### 如果使用的是裸核, 需要将下面的注释去掉, 方便ui界面的使用
 # 管理面板配置
-external-ui-url: 'https://raw.githubusercontent.com/Zephyruso/zashboard/releases/latest/download/dist.zip'
-external-ui: ui
+external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
 external-controller: 127.0.0.1:9988
 secret: Mh2026@SecurePass!
 
@@ -47,14 +46,6 @@ secret: Mh2026@SecurePass!
 profile:
   store-selected: true
   store-fake-ip: true
-
-geodata-mode: true
-geo-auto-update: true
-geo-update-interval: 24
-geox-url:
-  geoip: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat'
-  mmdb: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb'
-  asn: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb'
 
 ### DNS配置
 dns:
