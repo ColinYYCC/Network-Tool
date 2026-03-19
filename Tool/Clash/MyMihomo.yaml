@@ -182,7 +182,7 @@ rules:
 ### 拦截规则
   - RULE-SET,sogouinput,REJECT
   - RULE-SET,AWAvenue-Ads-Rule,REJECT
-  - RULE-SET,Adobe跟踪&SDK打点,REJECT-DROP
+  - RULE-SET,Adobe跟踪&SDK打点,REJECT
   - RULE-SET,视频QUIC&PCDN,REJECT
   - AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT  # 阻止海外 QUIC
 
