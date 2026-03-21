@@ -42,18 +42,6 @@ external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download
 external-controller: 127.0.0.1:9988
 secret: Mh2026@SecurePass!
 
-# 配置存储
-profile:
-  store-selected: true
-  store-fake-ip: true
-geodata-mode: true
-geo-auto-update: true
-geo-update-interval: 24
-geox-url:
-  geoip: https://ghfast.top/https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat
-  mmdb: https://ghfast.top/https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb
-  asn: https://ghfast.top/https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb
-
 ### DNS配置
 dns:
   enable: true
@@ -182,8 +170,7 @@ rules:
   - RULE-SET,AWAvenue-Ads-Rule,REJECT
   - RULE-SET,Adobe跟踪&SDK打点,REJECT
   - RULE-SET,视频QUIC&PCDN,REJECT
-  - AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT  # 阻止海外 QUIC
-
+  
 ### 非 IP 类规则
   - RULE-SET,苹果服务,Apple Service
   - RULE-SET,常见静态CDN域名集,手动切换
