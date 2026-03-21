@@ -46,6 +46,13 @@ secret: Mh2026@SecurePass!
 profile:
   store-selected: true
   store-fake-ip: true
+geodata-mode: true
+geo-auto-update: true
+geo-update-interval: 24
+geox-url:
+  geoip: https://ghfast.top/https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat
+  mmdb: https://ghfast.top/https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb
+  asn: https://ghfast.top/https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb
 
 ### DNS配置
 dns:
