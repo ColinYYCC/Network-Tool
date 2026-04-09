@@ -21,11 +21,16 @@ log-level: warning
 bind-address: '*'
 find-process-mode: 'always'
 keep-alive-interval: 15
-keep-alive-idle: 600
+keep-alive-idle: 30
 
 # 实验性功能
 experimental:
-  quic-go-disable-gso: true 
+  quic-go-disable-gso: true
+
+# 缓存配置：记住策略组选择和 fake-ip 映射
+profile:
+  store-selected: true
+  store-fake-ip: true
 
 # 认证配置
 authentication:
@@ -35,6 +40,7 @@ skip-auth-prefixes:
   - 192.168.31.0/24
   - 192.168.100.0/24
   - 127.0.0.1/8
+  - ::1/128
 
 ### 如果使用的是裸核, 需要将下面的注释去掉, 方便ui界面的使用
 # 管理面板配置
@@ -54,6 +60,20 @@ dns:
   nameserver:
     - https://dns.pub/dns-query
     - https://dns.alidns.com/dns-query
+  # 后备 DNS（境外），保证被污染域名的解析结果可信
+  fallback:
+    - tls://8.8.4.4
+    - tls://1.1.1.1
+  # 后备 DNS 筛选条件：国内 IP 结果采用 nameserver，其余视为污染使用 fallback
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite:
+      - gfw
+  # 直连流量专用 DNS，提升直连解析速度和准确性
+  direct-nameserver:
+    - https://dns.pub/dns-query
+    - https://dns.alidns.com/dns-query
   proxy-server-nameserver:
     - https://doh.pub/dns-query
   fake-ip-filter:
@@ -67,10 +87,19 @@ dns:
     - '+.xboxlive.com'
     - 'stun.*'
     - '+.push.apple.com'
+    # 补充：常见需要真实 IP 的域名
+    - '+.msftconnecttest.com'
+    - '+.msftncsi.com'
+    - 'networkcheck.kde.org'
+    - '+.nvidia.com'
+    - '+.stun.l.google.com'
+    - '+.turn.l.google.com'
 
 ### 域名嗅探
 sniffer:
   enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
   sniff:
     HTTP:
       ports: [80, 8080-8880]
@@ -90,7 +119,7 @@ sniffer:
 ### TUN配置
 tun:
   enable: true
-  stack: system
+  stack: mixed
   dns-hijack:
     - "any:53"
     - "tcp://any:53"
@@ -164,6 +193,11 @@ rules:
   - DOMAIN-SUFFIX,zoom.us,国外网站
   - DOMAIN-KEYWORD,todesk,DIRECT
   - DOMAIN-KEYWORD,AnyViewer,DIRECT
+  # Trae IDE 代理规则：确保 Trae 登录和 AI 服务正常访问
+  - DOMAIN-SUFFIX,trae.ai,国外网站
+  - DOMAIN-SUFFIX,trae.com.cn,DIRECT
+  - DOMAIN-SUFFIX,trae.cn,DIRECT
+  - DOMAIN-KEYWORD,trae,国外网站
 
 ### 拦截规则
   - RULE-SET,sogouinput,REJECT
@@ -230,10 +264,10 @@ rule-providers:
 
 # 常见静态 CDN
   常见静态CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/cdn.txt}
-  常见静态CDN: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/cdn.txt}
+  常见静态CDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/cdn.txt}
 
 # 流媒体服务
-  Emby: {<<: *ClassicalY , url: https://raw.githubusercontent.com/Repcz/Tool/raw/X/mihomo/Rules/Emby.list}
+  Emby: {<<: *ClassicalT, url: https://raw.githubusercontent.com/Repcz/Tool/X/mihomo/Rules/Emby.list}
   Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml}
   Youtube: {<<: *DomainM, url: https://raw.githubusercontent.com/666OS/rules/raw/release/mihomo/domain/YouTube.mrs}
   Spotify: {<<: *DomainM, url: https://raw.githubusercontent.com/666OS/rules/raw/release/mihomo/domain/Spotify.mrs}
@@ -247,7 +281,7 @@ rule-providers:
   国际流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream.txt}
 
 # 即时通讯
-  Telegram: {<<: *ClassicalT, url: https://raw.githubusercontent.com/LucaLin233/Luca_Conf/raw/main/Surge/Rule/Telegram.list}
+  Telegram: {<<: *ClassicalT, url: https://raw.githubusercontent.com/LucaLin233/Luca_Conf/main/Surge/Rule/Telegram.list}
 
 # 人工智能 
   人工智能: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/ai.txt}
@@ -263,7 +297,7 @@ rule-providers:
 
 # 下载服务
   下载域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/download.txt}
-  下载: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/download.txt}
+  下载: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/download.txt}
 
 # 网络区域
   LAN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/lan.txt}
@@ -275,4 +309,4 @@ rule-providers:
 # IP 类规则
   内网IP: {<<: *ipcidr, url: https://ruleset.skk.moe/Clash/ip/lan.txt}
   国内IP: {<<: *DomainI, url: https://raw.githubusercontent.com/666OS/rules/raw/release/mihomo/ip/China.mrs}
-  国际流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream.txt}
+  国际流媒体IP: {<<: *ipcidr, url: https://ruleset.skk.moe/Clash/ip/stream.txt}
