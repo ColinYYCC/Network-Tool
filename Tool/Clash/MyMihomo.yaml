@@ -249,8 +249,6 @@ ClassicalT: &ClassicalT {type: http, behavior: classical, interval: 86400, forma
 ClassicalY: &ClassicalY {type: http, behavior: classical, interval: 86400, format: yaml}
 DomainT: &DomainT {type: http, behavior: domain, interval: 86400, format: text}
 DomainY: &DomainY {type: http, behavior: domain, interval: 86400, format: yaml}
-DomainM: &DomainM {type: http, behavior: domain, interval: 86400, format: mrs}
-DomainI: &DomainI {type: http, behavior: ipcidr, interval: 86400, format: mrs}
 ipcidr: &ipcidr {type: http, behavior: ipcidr, interval: 86400, format: text}
 
 
@@ -269,9 +267,9 @@ rule-providers:
 # 流媒体服务
   Emby: {<<: *ClassicalT, url: https://raw.githubusercontent.com/Repcz/Tool/X/mihomo/Rules/Emby.list}
   Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml}
-  Youtube: {<<: *DomainM, url: https://raw.githubusercontent.com/666OS/rules/raw/release/mihomo/domain/YouTube.mrs}
-  Spotify: {<<: *DomainM, url: https://raw.githubusercontent.com/666OS/rules/raw/release/mihomo/domain/Spotify.mrs}
-  Disney: {<<: *DomainM, url: https://raw.githubusercontent.com/666OS/rules/raw/release/mihomo/domain/Disney.mrs}
+  Youtube: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/YouTube.yaml}
+  Spotify: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Spotify.yaml}
+  Disney: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Disney%20Plus.yaml}
   美国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_us.txt}
   欧洲流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_eu.txt}
   日本流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_jp.txt}
