@@ -165,16 +165,16 @@ proxy-groups:
   - {name: 漏网之鱼, <<: *SelectFB, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
 # 分流策略组
   - {name: 国外网站, <<: *SelectBL, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png}
-  - {name: Telegram, <<: *SelectBL, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/telegram.svg}
+  - {name: Telegram, <<: *SelectBL, icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/telegram.png}
   - {name: Apple Service, <<: *SelectDT, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png}
-  - {name: AI, type: select, proxies: [美国节点, 香港节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/qwen-color.svg}
+  - {name: AI, type: select, proxies: [美国节点, 香港节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/zai.png}
 # 媒体策略组
   - {name: Netflix, type: select, proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/netflix.svg}
   - {name: YouTube, type: select, proxies: [美国节点, 香港节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png}
   - {name: Spotify, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/spotify.svg}
-  - {name: Disney+, type: select, proxies: [狮城节点, 香港节点, 台湾节点, 日本节点, 美国节点, 韩国节点], icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/disney-plus.svg}
+  - {name: Disney+, type: select, proxies: [狮城节点, 香港节点, 台湾节点, 日本节点, 美国节点, 韩国节点], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/disney.png}
   - {name: 国际媒体, type: select, proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/disney-plus.svg}
-  - {name: Emby, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/emby.svg}
+  - {name: Emby, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/emby.png}
 # 游戏
   - {name: 游戏, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移], icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/steam.svg}
 # 自动选择
