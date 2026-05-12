@@ -80,6 +80,9 @@ dns:
     - '*.stun.twilio.com'
     - stun.syncthing.net
     - stun.*
+    - '*.trae.com.cn'
+    - '*.toscdn.com'
+    - '*.doubaocdn.com'
     - 127.*.*.*.sslip.io
     - 127-*-*-*.sslip.io
     - '*.127.*.*.*.sslip.io'
@@ -186,6 +189,13 @@ proxy-groups:
 rules:
 # 自定义规则
 ## 您可以在此处插入自定义规则
+## Trae IDE 规则
+  - DOMAIN-SUFFIX,mchost.guru,AI
+  - DOMAIN-SUFFIX,trae.ai,AI
+  - DOMAIN-SUFFIX,trae.design,AI
+  - DOMAIN-SUFFIX,trae.com.cn,DIRECT
+  - DOMAIN-SUFFIX,toscdn.com,DIRECT
+  - DOMAIN-SUFFIX,doubaocdn.com,DIRECT
   - AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT
   - DOMAIN-SUFFIX,zoom.us,国外网站
   - DOMAIN-KEYWORD,todesk,DIRECT
