@@ -194,9 +194,10 @@ rules:
   - DOMAIN-KEYWORD,todesk,DIRECT
   - DOMAIN-KEYWORD,AnyViewer,DIRECT
   # Trae IDE 代理规则：确保 Trae 登录和 AI 服务正常访问
-  - DOMAIN-SUFFIX,trae.ai,国外网站
   - DOMAIN-SUFFIX,trae.com.cn,DIRECT
   - DOMAIN-SUFFIX,trae.cn,DIRECT
+  - DOMAIN-SUFFIX,mchost.guru,DIRECT
+  - DOMAIN-SUFFIX,trae.ai,国外网站
   - DOMAIN-KEYWORD,trae,国外网站
 
 ### 拦截规则
