@@ -210,13 +210,6 @@ rules:
   - RULE-SET,苹果服务,Apple Service
   - RULE-SET,常见静态CDN域名集,手动切换
   - RULE-SET,常见静态CDN,手动切换
-  - RULE-SET,苹果CDN域名集,DIRECT
-  - RULE-SET,苹果中国,DIRECT
-  - RULE-SET,微软CDN,DIRECT
-  - RULE-SET,微软服务,DIRECT
-  - RULE-SET,LAN,DIRECT
-  - RULE-SET,国内域名,DIRECT
-  - RULE-SET,直连,DIRECT
   - RULE-SET,人工智能,AI
   - RULE-SET,Netflix,Netflix
   - RULE-SET,Youtube,YouTube
@@ -234,12 +227,19 @@ rules:
   - RULE-SET,下载域名集,手动切换
   - RULE-SET,下载,手动切换
   - RULE-SET,全球,国外网站
+  - RULE-SET,苹果CDN域名集,DIRECT
+  - RULE-SET,苹果中国,DIRECT
+  - RULE-SET,微软CDN,DIRECT
+  - RULE-SET,微软服务,DIRECT
+  - RULE-SET,LAN,DIRECT
+  - RULE-SET,国内域名,DIRECT
+  - RULE-SET,直连,DIRECT
 
 ### IP 类规则
+  - RULE-SET,国际流媒体IP,国外网站
   - RULE-SET,内网IP,DIRECT
   - RULE-SET,国内IP,DIRECT
   - RULE-SET,ASN China,DIRECT
-  - RULE-SET,国际流媒体IP,国外网站
 
 ### 其他 类规则
   - GEOIP,CN,DIRECT
@@ -283,7 +283,7 @@ rule-providers:
   Telegram: {<<: *ClassicalT, url: https://raw.githubusercontent.com/LucaLin233/Luca_Conf/main/Surge/Rule/Telegram.list}
 
 # 人工智能 
-  人工智能: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/ai.txt}
+  人工智能: {<<: *ClassicalY, url: https://kelee.one/Tool/Clash/Rule/AI.yaml}
 
 # 苹果服务
   苹果CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt}
