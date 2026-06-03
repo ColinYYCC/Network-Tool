@@ -111,7 +111,7 @@ Telegram = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港�
 # Apple
 Apple Service = select,DIRECT,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png
 # Ai
-AI = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/zai_avatar_108x108.png
+AI = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/AutoClaw-108.png
 # Netflix
 Netflix = select,狮城节点,香港节点,台湾节点,日本节点,美国节点,韩国节点,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/netflix.png
 # YouTube
