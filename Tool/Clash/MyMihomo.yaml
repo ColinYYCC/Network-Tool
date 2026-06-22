@@ -48,6 +48,7 @@ external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download
 external-controller: 127.0.0.1:9988
 secret: Mh2026@SecurePass!
 
+### GEOIP 数据模式
 geodata-mode: true
 geox-url:
   geoip: "https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip.dat"
