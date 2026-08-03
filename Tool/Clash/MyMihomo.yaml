@@ -205,6 +205,7 @@ rules:
   - DOMAIN-SUFFIX,trae.com.cn,DIRECT
   - DOMAIN-SUFFIX,trae.cn,DIRECT
   - DOMAIN-SUFFIX,mchost.guru,DIRECT
+  - DOMAIN-SUFFIX,globalwits.cn,DIRECT
   - DOMAIN-SUFFIX,trae.ai,国外网站
   - DOMAIN-KEYWORD,trae,国外网站
 
