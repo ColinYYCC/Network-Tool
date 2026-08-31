@@ -53,8 +53,9 @@ geodata-mode: true
 geox-url:
   geoip: 'https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geoip.dat'
   geosite: 'https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geosite.dat'
-  mmdb: 'https://geodata.kelee.one/Country-Masaiki.mmdb'
-  asn: 'https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb'
+  mmdb: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb'
+  asn: 'https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb'
+
 
 ### DNS配置
 dns:
