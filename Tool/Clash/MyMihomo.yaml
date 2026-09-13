@@ -70,7 +70,7 @@ dns:
     - https://dns.pub/dns-query
     - https://dns.alidns.com/dns-query
     - https://dns.quad9.net/dns-query
-    nameserver-policy:
+  nameserver-policy:
     # > Modify Contents
     "blog.google": "119.29.29.29" # Google Blog
     "googletraveladservices.com": "119.29.29.29" # Google Flights
@@ -292,30 +292,6 @@ dns:
     "upos-sz-mirrorcos??.bilivideo.com": "https://doh.pub/dns-query" # BiliBili upos视频服务器（腾讯云）
     "upos-sz-upcdnbd??.bilivideo.com": "180.76.76.76" # BiliBili upos视频服务器（百度云）
     "upos-sz-upcdntx.bilivideo.com": "https://doh.pub/dns-query" # BiliBili upos视频服务器（腾讯云）
-
-    # > 🇨🇳 CHN
-    # CNNIC SDNS
-    # "+.gov.cn": "1.2.4.8" # 中国政府网
-    # "+.政务": "1.2.4.8" # 中国政府网
-
-    # > 🇭🇰 HKG
-    # PCCW Enterprises Limited
-    # "+.pccw.com": "dns1.pccw.com" # 电讯盈科
-    # "+.1010.com.hk": "dns1.pccw.com" # 1O1O
-    # "+.hkcsl.com": "dns1.pccw.com" # csl.
-    # "+.theclub.com.hk": "dns1.pccw.com" # The CLUB by HKT
-    # "+.now.com": "dns2.pccw.com" # now.com
-    # "+.nowe.com": "dns2.pccw.com" # Now E
-    # "+.now-tv.com": "dns2.pccw.com" # Now TV
-    # "+.moov.hk": "dns3.pccw.com" # MOOV
-    # "+.viu.com": "dns3.pccw.com" # viu
-    # "+.viu.tv": "dns3.pccw.com" # viu tv
-    # Hong Kong Cable Television Limited
-    # "+.hkcable.com.hk": "dns1.hkcable.com.hk" # Hong Kong Cable Television Limited
-    # "+.i-cable.com": "dns2.hkcable.com.hk" # i-CABLE
-    # "+.cabletv.com.hk": "dns2.hkcable.com.hk" # CABLE TV Service
-    # KDDI Hong Kong Limited
-    # "+.hk.kddi.com": "apple.kdd.net.hk" # KDDI Hong Kong
 
     # > 🇹🇼 TWN
     # 中华电信
