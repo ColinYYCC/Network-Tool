@@ -38,14 +38,14 @@ wifi-access-http-port = 7222
 # wifi共享开启时socks5服务的端口
 wifi-access-socks5-port = 7221
 # wifi共享开启时socks5服务的端口
-mitm-on-wifi-access = true
+mitm-on-wifi-access = off
 
 # > 节点延迟测试
 proxy-test-url = http://networkcheck.kde.org
 # > 互联网联通性测试
 internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
 # > 节点测速时的超时秒数
-test-timeout = 2
+test-timeout = 3
 # ------
 
 # ---(高级)---
@@ -70,7 +70,7 @@ interface-mode = auto
 
 # > hijack-dns
 # 有些app会自己使用自定义的DNS over UDP来解析IP, 可以配置相关IP:端口来劫持这些查询, 并返回fakeip的响应
-hijack-dns = 9.9.9.9:53,any:53
+hijack-dns = 9.9.9.9:53
 # > disable-stun
 # 禁用stun是否禁用stun协议的udp数据, 禁用后可以有效解决webrtc的ip泄露
 disable-stun = true
@@ -125,22 +125,22 @@ Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,�
 游戏 = select,DIRECT,🎲 自动选择,🔯 故障转移,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/nintendoswitch.png
 
 # > 白名单模式 PROXY, 黑名单模式 DIRECT
-漏网之鱼 = select,DIRECT,🔯 故障转移,🎲 自动选择,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png
+漏网之鱼 = select,🔯 故障转移,DIRECT,🎲 自动选择,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png
 # ------
 
 # > 节点分流
-🎲 自动选择 = url-test,All,url = http://networkcheck.kde.org,interval = 60,tolerance = 30,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/group/GetSomeFries.png
-🔯 故障转移 = fallback,All,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png
-🔮 负载均衡 = load-balance,All,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,algorithm = pcc,img-url = https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png
+🎲 自动选择 = url-test,All,url = http://networkcheck.kde.org,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/group/GetSomeFries.png
+🔯 故障转移 = fallback,All,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png
+🔮 负载均衡 = load-balance,All,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,algorithm = pcc,img-url = https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png
 # ------
 
 # 地区策略组
-香港节点 = fallback,HK,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png
-美国节点 = fallback,US,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png
-狮城节点 = fallback,SG,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png
-日本节点 = fallback,JP,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png
-韩国节点 = fallback,KR,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png
-台湾节点 = fallback,TW,url = http://networkcheck.kde.org,interval = 60,max-timeout = 1000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png
+香港节点 = fallback,HK,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png
+美国节点 = fallback,US,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png
+狮城节点 = fallback,SG,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png
+日本节点 = fallback,JP,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png
+韩国节点 = fallback,KR,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png
+台湾节点 = fallback,TW,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png
 # ------
 
 [Rule]
@@ -222,7 +222,7 @@ https://ruleset.skk.moe/List/ip/stream.conf, policy=国外网站, tag=Streaming 
 # > 国外网站
 https://ruleset.skk.moe/List/non_ip/global.conf, policy=🥡 节点选择, tag=国外网站, enabled=true
 # Telegram 电报
-https://github.com/LucaLin233/Luca_Conf/raw/main/Surge/Rule/Telegram.list?raw = true, policy=Telegram, tag=Telegram 电报, enabled=true
+https://github.com/LucaLin233/Luca_Conf/raw/main/Surge/Rule/Telegram.list?raw=true, policy=Telegram, tag=Telegram 电报, enabled=true
 
 # > 👾Game 游戏(不仅限于UDP, 包括相关CDN)
 # GameList
@@ -253,11 +253,8 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Xbox/Xbox.list, policy=游戏, tag=Xbox, enabled=true
 
 # > 中国直连
-https://ruleset.skk.moe/List/non_ip/lan.conf, policy=DIRECT, tag=局域网, enabled=true  
 https://ruleset.skk.moe/List/non_ip/domestic.conf, policy=DIRECT, tag=国內直连, enabled=true
 https://ruleset.skk.moe/List/non_ip/direct.conf, policy=DIRECT, tag=国內直连, enabled=true
-https://kelee.one/Tool/Loon/Lsr/LAN_SPLITTER, policy=DIRECT, tag=China 局域网 (IP), enabled=true
-https://ruleset.skk.moe/List/ip/domestic.conf, policy=DIRECT, tag=China 中国直连 (IP), enabled=true
 https://ruleset.skk.moe/List/ip/china_ip.conf, policy=DIRECT, tag=China 中国直连 (IP), enabled=true
 https://kelee.one/Tool/Loon/Lsr/REGION_SPLITTER.lsr, policy=DIRECT, tag=CN REGION, enabled=true
 # ------
@@ -329,7 +326,7 @@ https://kelee.one/Tool/Loon/Lpx/Script-Hub.lpx, policy=漏网之鱼, enabled=tru
 hostname = -gateway.icloud.com,-weather-data.apple.com,-buy.itunes.apple.com,-pan.baidu.com,www.google.cn
 ca-p12 = 
 ca-passphrase = 
-skip-server-cert-verify = true
+skip-server-cert-verify = false
 # ------
 
 [Script]
