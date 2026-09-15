@@ -532,7 +532,7 @@ rule-providers:
   国际流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream.txt}
 
 # 即时通讯
-  Telegram: {<<: *ClassicalT, url: https://raw.githubusercontent.com/LucaLin233/Luca_Conf/main/Surge/Rule/Telegram.list?raw=true}
+  Telegram: {<<: *ClassicalT, url: "https://raw.githubusercontent.com/LucaLin233/Luca_Conf/main/Surge/Rule/Telegram.list?raw=true"}
 
 # 人工智能
   人工智能: {<<: *ClassicalY, url: https://kelee.one/Tool/Clash/Rule/AI.yaml}
