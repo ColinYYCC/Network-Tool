@@ -145,8 +145,10 @@ dns:
     "tb.cn": "https://dns.alidns.com/dns-query" # 淘宝短网址
 
     # > 阿里云
-    "+.aliyun.+": "https://dns.alidns.com/dns-query" # 阿里云
-    "+.aliyuncdn.+": "https://dns.alidns.com/dns-query" # 阿里云 CDN
+    "+.aliyun.com": "https://dns.alidns.com/dns-query"     # 阿里云
+    "+.aliyun.com.cn": "https://dns.alidns.com/dns-query"  # 阿里云 中国站
+    "+.aliyun.cn": "https://dns.alidns.com/dns-query"      # 阿里云
+    "+.aliyuncdn.com": "https://dns.alidns.com/dns-query"  # 阿里云 CDN
     "+.aliyuncs.com": "https://dns.alidns.com/dns-query" # 阿里云 API 服务
     "+.aliyunddos????.com": "https://dns.alidns.com/dns-query" # 阿里云 DDoS防护
     "+.aliyundrive.com": "https://dns.alidns.com/dns-query" # 阿里云 阿里云盘
