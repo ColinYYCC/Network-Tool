@@ -245,8 +245,6 @@ rules:
   - RULE-SET,国际流媒体IP,国外网站
   - RULE-SET,内网IP,DIRECT
   - RULE-SET,国内IP,DIRECT
-  # ASN China 可选，已与 china_ip + GEOIP 重叠，默认保留
-  - RULE-SET,ASN China,DIRECT
 
 ### 其他
   - GEOIP,CN,DIRECT
