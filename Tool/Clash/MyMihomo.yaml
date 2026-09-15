@@ -49,7 +49,7 @@ external-controller: 127.0.0.1:9988
 secret: Mh2026@SecurePass!
 
 ### GEOIP 数据模式
-geodata-mode: true
+geodata-mode: false
 geox-url:
   geoip: 'https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geoip.dat'
   geosite: 'https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geosite.dat'
