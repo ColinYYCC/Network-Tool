@@ -73,7 +73,7 @@ dns:
   direct-nameserver:
     - https://dns.pub/dns-query
     - https://dns.alidns.com/dns-query
-      nameserver-policy:
+  nameserver-policy:
     # > Modify Contents
     "blog.google": "119.29.29.29" # Google Blog
     "googletraveladservices.com": "119.29.29.29" # Google Flights
@@ -298,7 +298,7 @@ dns:
 
     # > 🇹🇼 TWN
     # 中华电信
-    "+.cht.com.tw ": "https://dns.hinet.net/dns-query" # 中华电信
+    "+.cht.com.tw": "https://dns.hinet.net/dns-query" # 中华电信
     "+.hinet.net": "https://dns.hinet.net/dns-query" # 中华电信HiNet
     "+.emome.net": "https://dns.hinet.net/dns-query" # 中华电信emome
     # So-net
