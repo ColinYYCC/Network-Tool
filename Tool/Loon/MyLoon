@@ -150,6 +150,9 @@ Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,�
 ## 您可以在此处插入自定义规则
 # 阻止海外 QUIC
 AND,((NOT,((GEOIP,CN))),(PROTOCOL,UDP),(DEST-PORT,443)),REJECT
+# DEST-PORT 端口规则
+OR,((DEST-PORT,25),(DEST-PORT,110),(DEST-PORT,143),(DEST-PORT,465),(DEST-PORT,587)),DIRECT // 邮件服务默认端口
+AND,((OR,((DOMAIN,time-ios.apple.com),(DOMAIN,time.apple.com))),(DEST-PORT,123)),DIRECT // NTP服务默认端口
 # Zoom
 DOMAIN-SUFFIX,zoom.us,国外网站
 # Todesk
@@ -177,10 +180,7 @@ DOMAIN-SUFFIX,vercel.app,国外网站
 # 自动 REJECT 保护丢包，防止应用循环请求
 IP-CIDR,0.0.0.0/32,REJECT 
 
-# DEST-PORT 端口规则
-OR,((DEST-PORT,25),(DEST-PORT,110),(DEST-PORT,143),(DEST-PORT,465),(DEST-PORT,587)),DIRECT // 邮件服务默认端口
-AND,((OR,((DOMAIN,time-ios.apple.com),(DOMAIN,time.apple.com))),(DEST-PORT,123)),DIRECT // NTP服务默认端口
-
+GEOIP,CN,DIRECT
 FINAL,漏网之鱼
 # ------
 
@@ -257,7 +257,6 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/
 https://ruleset.skk.moe/List/non_ip/domestic.conf, policy=DIRECT, tag=国內直连, enabled=true
 https://ruleset.skk.moe/List/non_ip/direct.conf, policy=DIRECT, tag=国內直连, enabled=true
 https://ruleset.skk.moe/List/ip/china_ip.conf, policy=DIRECT, tag=China 中国直连 (IP), enabled=true
-https://kelee.one/Tool/Loon/Lsr/REGION_SPLITTER.lsr, policy=DIRECT, tag=CN REGION, enabled=true
 # ------
 
 [Rewrite]
