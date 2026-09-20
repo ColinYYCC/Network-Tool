@@ -420,12 +420,12 @@ proxy-groups:
 # 游戏（对齐 Loon：DIRECT 优先）
   - {name: 游戏, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/nintendoswitch.png}
 # 地区节点（使用 fallback，与 Loon 一致）
-  - {name: 香港节点, <<: *FallBack, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png, hidden: true}
-  - {name: 日本节点, <<: *FallBack, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png, hidden: true}
-  - {name: 韩国节点, <<: *FallBack, include-all: true, filter: *FilterKR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png, hidden: true}
-  - {name: 狮城节点, <<: *FallBack, include-all: true, filter: *FilterSG, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png, hidden: true}
-  - {name: 美国节点, <<: *FallBack, include-all: true, filter: *FilterUS, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png, hidden: true}
-  - {name: 台湾节点, <<: *FallBack, include-all: true, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png, hidden: true}
+  - {name: 香港节点, <<: *UrlTest, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png, hidden: true}
+  - {name: 日本节点, <<: *UrlTest, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png, hidden: true}
+  - {name: 韩国节点, <<: *UrlTest, include-all: true, filter: *FilterKR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png, hidden: true}
+  - {name: 狮城节点, <<: *UrlTest, include-all: true, filter: *FilterSG, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png, hidden: true}
+  - {name: 美国节点, <<: *UrlTest, include-all: true, filter: *FilterUS, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png, hidden: true}
+  - {name: 台湾节点, <<: *UrlTest, include-all: true, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png, hidden: true}
 
 # 分流规则
 rules:
