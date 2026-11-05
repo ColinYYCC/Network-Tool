@@ -1,0 +1,593 @@
+# Stash 配置（由 Mihomo 配置转换）
+# 配置作者：Colin(@ColinYYCC)
+# 适用：Stash (iOS / macOS)
+# 说明：已针对 Stash 官方推荐与内存限制做适配
+# 状态：已通过多轮全量语法与逻辑检查
+
+### 节点配置
+NodeParam: &NodeParam
+  type: http
+  interval: 86400
+  proxy: DIRECT
+  health-check:
+    enable: true
+    url: https://networkcheck.kde.org
+    interval: 600
+  filter: '^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|COM|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$'
+
+# 节点订阅
+proxy-providers:
+  MyMihomo:
+    <<: *NodeParam
+    url: '替换订阅链接'
+  MyBackup:
+    <<: *NodeParam
+    url: '替换订阅链接'
+
+### 核心配置
+mode: rule
+log-level: warning
+ipv6: true
+unified-delay: true
+tcp-concurrent: true
+find-process-mode: strict
+global-client-fingerprint: chrome
+keep-alive-interval: 15
+keep-alive-idle: 30
+
+# 缓存配置
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+### GEO 数据
+geodata-mode: false
+geox-url:
+  geoip: 'https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip.dat'
+  geosite: 'https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geosite.dat'
+  mmdb: "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb"
+  asn: "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb"
+
+### DNS 配置
+dns:
+  enable: true
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://dns.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  direct-nameserver:
+    - https://dns.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  nameserver-policy:
+    "blog.google": "119.29.29.29"
+    "googletraveladservices.com": "119.29.29.29"
+    "dl.google.com": "119.29.29.29"
+    "dl.l.google.com": "119.29.29.29"
+    "clientservices.googleapis.com": "119.29.29.29"
+    "update.googleapis.com": "119.29.29.29"
+    "translate.googleapis.com": "119.29.29.29"
+    "fonts.googleapis.com": "119.29.29.29"
+    "fonts.gstatic.com": "119.29.29.29"
+    "stun.l.google.com": system
+    "stun?.l.google.com": system
+    "+.id.ui.direct": system
+    "unifi.local": system
+    "amplifi.lan": system
+    "router.synology.com": system
+    "sila.razer.com": system
+    "router.asus.com": system
+    "routerlogin.net": system
+    "orbilogin.com": system
+    "www.LinksysSmartWiFi.com": system
+    "LinksysSmartWiFi.com": system
+    "myrouter.local": system
+    "instant.arubanetworks.com": system
+    "setmeup.arubanetworks.com": system
+    "www.miwifi.com": system
+    "miwifi.com": system
+    "mediarouter.home": system
+    "tplogin.cn": system
+    "tplinklogin.net": system
+    "tplinkwifi.net": system
+    "melogin.cn": system
+    "falogin.cn": system
+    "tendawifi.com": system
+    "leike.cc": system
+    "zte.home": system
+    "p.to": system
+    "phicomm.me": system
+    "hiwifi.com": system
+    "peiluyou.com": system
+    "_hotspot_.m2m": system
+    "hotspot.cslwifi.com": system
+    "networking.apple": "https://doh.dns.apple.com/dns-query"
+    "+.icloud.com": "https://doh.dns.apple.com/dns-query"
+    "+.alibaba.cn": "https://dns.alidns.com/dns-query"
+    "+.alibaba.com.cn": "https://dns.alidns.com/dns-query"
+    "+.china.alibaba.com": "https://dns.alidns.com/dns-query"
+    "+.1688.com": "https://dns.alidns.com/dns-query"
+    "+.taobao.com": "https://dns.alidns.com/dns-query"
+    "+.tbcache.com": "https://dns.alidns.com/dns-query"
+    "+.tmall.com": "https://dns.alidns.com/dns-query"
+    "+.alicdn.com": "https://dns.alidns.com/dns-query"
+    "+.alikunlun.com": "https://dns.alidns.com/dns-query"
+    "+.aliapp.com": "https://dns.alidns.com/dns-query"
+    "+.aliapp.org": "https://dns.alidns.com/dns-query"
+    "+.alibabausercontent.com": "https://dns.alidns.com/dns-query"
+    "+.mmstat.com": "https://dns.alidns.com/dns-query"
+    "tb.cn": "https://dns.alidns.com/dns-query"
+    "+.aliyun.com": "https://dns.alidns.com/dns-query"
+    "+.aliyun.com.cn": "https://dns.alidns.com/dns-query"
+    "+.aliyun.cn": "https://dns.alidns.com/dns-query"
+    "+.aliyuncdn.com": "https://dns.alidns.com/dns-query"
+    "+.aliyuncs.com": "https://dns.alidns.com/dns-query"
+    "+.aliyundrive.com": "https://dns.alidns.com/dns-query"
+    "+.aliyundun.com": "https://dns.alidns.com/dns-query"
+    "+.aliyundunwaf.com": "https://dns.alidns.com/dns-query"
+    "+.aliyun-inc.com": "https://dns.alidns.com/dns-query"
+    "+.antgroup.com": "https://dns.alidns.com/dns-query"
+    "+.antfin.com": "https://dns.alidns.com/dns-query"
+    "+.antfinancial.com": "https://dns.alidns.com/dns-query"
+    "+.alipay.com": "https://dns.alidns.com/dns-query"
+    "+.alipay.com.cn": "https://dns.alidns.com/dns-query"
+    "+.alipaydns.com": "https://dns.alidns.com/dns-query"
+    "+.alipayeshop.com": "https://dns.alidns.com/dns-query"
+    "+.alipaylog.com": "https://dns.alidns.com/dns-query"
+    "+.alipayobjects.com": "https://dns.alidns.com/dns-query"
+    "+.alipay-eco.com": "https://dns.alidns.com/dns-query"
+    "+.tencent.com": "https://doh.pub/dns-query"
+    "+.qcloud.com": "https://doh.pub/dns-query"
+    "+.qcloudcdn.cn": "https://doh.pub/dns-query"
+    "+.qcloudcdn.com": "https://doh.pub/dns-query"
+    "+.qcloudcos.com": "https://doh.pub/dns-query"
+    "+.qcloudimg.com": "https://doh.pub/dns-query"
+    "+.myqcloud.com": "https://doh.pub/dns-query"
+    "+.tencent-cloud.net": "https://doh.pub/dns-query"
+    "+.tencentcloudapi.com": "https://doh.pub/dns-query"
+    "+.qq.com": "https://doh.pub/dns-query"
+    "+.qlogo.cn": "https://doh.pub/dns-query"
+    "+.qpic.cn": "https://doh.pub/dns-query"
+    "+.weixin.qq.com": "https://doh.pub/dns-query"
+    "+.wx.qq.com": "https://doh.pub/dns-query"
+    "+.weixin.com": "https://doh.pub/dns-query"
+    "+.weixinbridge.com": "https://doh.pub/dns-query"
+    "+.wechat.com": "https://doh.pub/dns-query"
+    "+.servicewechat.com": "https://doh.pub/dns-query"
+    "+.weiyun.com": "https://doh.pub/dns-query"
+    "+.gtimg.cn": "https://doh.pub/dns-query"
+    "+.idqqimg.com": "https://doh.pub/dns-query"
+    "+.cdn-go.cn": "https://doh.pub/dns-query"
+    "+.smtcdns.com": "https://doh.pub/dns-query"
+    "+.smtcdns.net": "https://doh.pub/dns-query"
+    "url.cn": "https://doh.pub/dns-query"
+    "+.baidu": "180.76.76.76"
+    "+.baidu.com": "180.76.76.76"
+    "+.bdimg.com": "180.76.76.76"
+    "+.bdstatic.com": "180.76.76.76"
+    "+.baidupcs.*": "180.76.76.76"
+    "+.baiduyuncdn.*": "180.76.76.76"
+    "+.baiduyundns.*": "180.76.76.76"
+    "+.bdydns.*": "180.76.76.76"
+    "+.bdycdn.*": "180.76.76.76"
+    "+.bdysite.com": "180.76.76.76"
+    "+.bdysites.com": "180.76.76.76"
+    "+.baidubce.*": "180.76.76.76"
+    "+.bcedns.*": "180.76.76.76"
+    "+.bcebos.com": "180.76.76.76"
+    "+.bcevod.com": "180.76.76.76"
+    "+.bceimg.com": "180.76.76.76"
+    "+.bcehost.com": "180.76.76.76"
+    "+.bcehosts.com": "180.76.76.76"
+    "dwz.cn": "180.76.76.76"
+    "+.360.cn": "https://doh.360.cn/dns-query"
+    "+.360safe.com": "https://doh.360.cn/dns-query"
+    "+.360kuai.com": "https://doh.360.cn/dns-query"
+    "+.so.com": "https://doh.360.cn/dns-query"
+    "+.360webcache.com": "https://doh.360.cn/dns-query"
+    "+.qihuapi.com": "https://doh.360.cn/dns-query"
+    "+.qhimg.com": "https://doh.360.cn/dns-query"
+    "+.qhimgs.com": "https://doh.360.cn/dns-query"
+    "+.qhimgs?.com": "https://doh.360.cn/dns-query"
+    "+.qhmsg.com": "https://doh.360.cn/dns-query"
+    "+.qhres.com": "https://doh.360.cn/dns-query"
+    "+.qhres?.com": "https://doh.360.cn/dns-query"
+    "+.dhrest.com": "https://doh.360.cn/dns-query"
+    "+.qhupdate.com": "https://doh.360.cn/dns-query"
+    "+.yunpan.cn": "https://doh.360.cn/dns-query"
+    "+.yunpan.com.cn": "https://doh.360.cn/dns-query"
+    "+.yunpan.com": "https://doh.360.cn/dns-query"
+    "urlqh.cn": "https://doh.360.cn/dns-query"
+    "+.amemv.com": "180.184.1.1"
+    "+.bdxiguaimg.com": "180.184.1.1"
+    "+.bdxiguastatic.com": "180.184.1.1"
+    "+.byted-static.com": "180.184.1.1"
+    "+.bytedance.*": "180.184.1.1"
+    "+.bytedns.net": "180.184.1.1"
+    "+.bytednsdoc.com": "180.184.1.1"
+    "+.bytegoofy.com": "180.184.1.1"
+    "+.byteimg.com": "180.184.1.1"
+    "+.bytescm.com": "180.184.1.1"
+    "+.bytetos.com": "180.184.1.1"
+    "+.bytexservice.com": "180.184.1.1"
+    "+.douyin.com": "180.184.1.1"
+    "+.douyinpic.com": "180.184.1.1"
+    "+.douyinstatic.com": "180.184.1.1"
+    "+.douyinvod.com": "180.184.1.1"
+    "+.feelgood.cn": "180.184.1.1"
+    "+.feiliao.com": "180.184.1.1"
+    "+.gifshow.com": "180.184.1.1"
+    "+.huoshan.com": "180.184.1.1"
+    "+.huoshanzhibo.com": "180.184.1.1"
+    "+.ibytedapm.com": "180.184.1.1"
+    "+.iesdouyin.com": "180.184.1.1"
+    "+.ixigua.com": "180.184.1.1"
+    "+.kspkg.com": "180.184.1.1"
+    "+.pstatp.com": "180.184.1.1"
+    "+.snssdk.com": "180.184.1.1"
+    "+.toutiao.com": "180.184.1.1"
+    "+.toutiao13.com": "180.184.1.1"
+    "+.toutiaocloud.cn": "180.184.1.1"
+    "+.toutiaocloud.com": "180.184.1.1"
+    "+.toutiaopage.com": "180.184.1.1"
+    "+.wukong.com": "180.184.1.1"
+    "+.zijieapi.com": "180.184.1.1"
+    "+.zijieimg.com": "180.184.1.1"
+    "+.zjbyte.com": "180.184.1.1"
+    "+.zjcdn.com": "180.184.1.1"
+    "upos-sz-mirrorali.bilivideo.com": "https://dns.alidns.com/dns-query"
+    "upos-sz-mirrorali?.bilivideo.com": "https://dns.alidns.com/dns-query"
+    "upos-sz-mirrorali??.bilivideo.com": "https://dns.alidns.com/dns-query"
+    "upos-sz-mirrorbos.bilivideo.com": "180.76.76.76"
+    "upos-sz-mirrorcos.bilivideo.com": "https://doh.pub/dns-query"
+    "upos-sz-mirrorcos?.bilivideo.com": "https://doh.pub/dns-query"
+    "upos-sz-mirrorcos??.bilivideo.com": "https://doh.pub/dns-query"
+    "upos-sz-upcdnbd??.bilivideo.com": "180.76.76.76"
+    "upos-sz-upcdntx.bilivideo.com": "https://doh.pub/dns-query"
+    "+.cht.com.tw": "https://dns.hinet.net/dns-query"
+    "+.hinet.net": "https://dns.hinet.net/dns-query"
+    "+.emome.net": "https://dns.hinet.net/dns-query"
+    "+.tw": "https://dns.twnic.tw/dns-query"
+    "+.taipei": "https://dns.twnic.tw/dns-query"
+    "+.he.net": "https://ordns.he.net/dns-query"
+  fallback:
+    - tls://8.8.4.4
+    - tls://1.1.1.1
+    - tls://9.9.9.9
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite:
+      - gfw
+  fake-ip-filter:
+    - '+.lan'
+    - '+.local'
+    - '+.internal'
+    - 'localhost.ptlogin2.qq.com'
+    - '+.srv.nintendo.net'
+    - '+.stun.playstation.net'
+    - 'xbox.*.microsoft.com'
+    - '+.xboxlive.com'
+    - 'stun.*'
+    - '+.push.apple.com'
+    - '+.msftconnecttest.com'
+    - '+.msftncsi.com'
+    - 'networkcheck.kde.org'
+    - '+.nvidia.com'
+    - '+.stun.l.google.com'
+    - '+.turn.l.google.com'
+    - 'dns.msftncsi.com'
+
+### 域名嗅探
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:
+    - Mijia Cloud
+    - +.push.apple.com
+    - +.mzstatic.com
+    - +.icloud.com
+    - +.icloud-content.com
+    - gamecenter.apple.com
+
+#### 节点组参数锚点
+UrlTest: &UrlTest
+  type: url-test
+  url: https://networkcheck.kde.org
+  interval: 600
+  lazy: true
+  tolerance: 50
+  timeout: 3000
+  disable-udp: false
+  max-failed-times: 3
+  hidden: true
+
+FallBack: &FallBack
+  type: fallback
+  url: https://networkcheck.kde.org
+  interval: 600
+  lazy: true
+  tolerance: 50
+  timeout: 3000
+  disable-udp: false
+  max-failed-times: 3
+  hidden: true
+
+LoadBalance: &LoadBalance
+  type: load-balance
+  url: https://networkcheck.kde.org
+  interval: 600
+  lazy: true
+  disable-udp: false
+  strategy: consistent-hashing
+  timeout: 3000
+  max-failed-times: 3
+  hidden: true
+
+# 节点筛选正则
+FilterHK: &FilterHK '^(?=.*(香港|HK|Hong|🇭🇰))(?!.*(回国|校园|游戏|🎮|网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterJP: &FilterJP '^(?=.*(日本|JP|Japan|🇯🇵|川日|东京|大阪|泉日|埼玉))(?!.*(回国|校园|游戏|🎮|网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterKR: &FilterKR '^(?=.*(韩国|韓|KR|Korea|🇰🇷|首尔))(?!.*(回国|校园|游戏|🎮|网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterSG: &FilterSG '^(?=.*(新加坡|狮城|SG|Singapore|🇸🇬))(?!.*(回国|校园|游戏|🎮|网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterUS: &FilterUS '^(?=.*(美国|US|United States|America|🇺🇸|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥))(?!.*(回国|校园|游戏|🎮|网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterTW: &FilterTW '^(?=.*(台湾|TW|Taiwan|Wan|🇹🇼))(?!.*(回国|校园|游戏|🎮|网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
+FilterAll: &FilterAL '^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$'
+
+# 策略组代理列表模板
+SelectBL: &SelectBL
+  type: select
+  proxies: [🔮 负载均衡, 🛰️ 自动选择, 🔯 故障转移, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点, DIRECT]
+SelectFB: &SelectFB
+  type: select
+  proxies: [🔯 故障转移, 🛰️ 自动选择, 🔮 负载均衡, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点, DIRECT]
+SelectUT: &SelectUT
+  type: select
+  proxies: [🛰️ 自动选择, 🔮 负载均衡, 🔯 故障转移, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点, DIRECT]
+SelectDT: &SelectDT
+  type: select
+  proxies: [DIRECT, 🛰️ 自动选择, 🔮 负载均衡, 🔯 故障转移, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点]
+
+# 节点组
+proxy-groups:
+  - name: 🛰️ 自动选择
+    <<: *UrlTest
+    include-all: true
+    filter: *FilterAL
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(3).png
+  - name: 🔯 故障转移
+    <<: *FallBack
+    include-all: true
+    filter: *FilterAL
+    icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png
+  - name: 🔮 负载均衡
+    <<: *LoadBalance
+    include-all: true
+    filter: *FilterAL
+    icon: https://raw.githubusercontent.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png
+  - name: 手动切换
+    <<: *SelectUT
+    icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png
+  - name: 漏网之鱼
+    <<: *SelectFB
+    icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png
+  - name: 国外网站
+    <<: *SelectUT
+    icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png
+  - name: Telegram
+    <<: *SelectUT
+    icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/telegram.png
+  - name: Apple Service
+    <<: *SelectDT
+    icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png
+  - name: AI
+    type: select
+    proxies: [韩国节点, 美国节点, 香港节点, 狮城节点, 日本节点, 台湾节点, DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡]
+    icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/AutoClaw-108.png
+  - name: Netflix
+    type: select
+    proxies: [狮城节点, 香港节点, 台湾节点, 日本节点, 美国节点, 韩国节点, DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡]
+    icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/netflix.png
+  - name: YouTube
+    type: select
+    proxies: [香港节点, 台湾节点, 狮城节点, 日本节点, 美国节点, 韩国节点, DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡]
+    icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png
+  - name: Spotify
+    type: select
+    proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡]
+    icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/spotify.png
+  - name: Disney+
+    type: select
+    proxies: [狮城节点, 香港节点, 台湾节点, 日本节点, 美国节点, 韩国节点, DIRECT]
+    icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/disney.png
+  - name: 国际媒体
+    type: select
+    proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡]
+  - name: Emby
+    type: select
+    proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡]
+    icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/emby.png
+  - name: 游戏
+    type: select
+    proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移]
+    icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/nintendoswitch.png
+  - name: 香港节点
+    <<: *UrlTest
+    include-all: true
+    filter: *FilterHK
+    icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png
+    hidden: true
+  - name: 日本节点
+    <<: *UrlTest
+    include-all: true
+    filter: *FilterJP
+    icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png
+    hidden: true
+  - name: 韩国节点
+    <<: *UrlTest
+    include-all: true
+    filter: *FilterKR
+    icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png
+    hidden: true
+  - name: 狮城节点
+    <<: *UrlTest
+    include-all: true
+    filter: *FilterSG
+    icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png
+    hidden: true
+  - name: 美国节点
+    <<: *UrlTest
+    include-all: true
+    filter: *FilterUS
+    icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png
+    hidden: true
+  - name: 台湾节点
+    <<: *UrlTest
+    include-all: true
+    filter: *FilterTW
+    icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png
+    hidden: true
+
+# 分流规则
+rules:
+  - DOMAIN-SUFFIX,zoom.us,国外网站
+  - DOMAIN-KEYWORD,todesk,DIRECT
+  - DOMAIN-KEYWORD,anyviewer,DIRECT
+  - DOMAIN-SUFFIX,globalwits.cn,DIRECT
+  - DOMAIN-SUFFIX,cmbchina.com,DIRECT
+  - DOMAIN-SUFFIX,trae.com.cn,DIRECT
+  - DOMAIN-SUFFIX,trae.cn,DIRECT
+  - DOMAIN-SUFFIX,mchost.guru,DIRECT
+  - DOMAIN-SUFFIX,trae.ai,国外网站
+  - DOMAIN-KEYWORD,trae,国外网站
+  - DOMAIN,yasd.royli.dev,DIRECT
+  - DOMAIN,clash.razord.top,DIRECT
+  - DOMAIN,yacd.haishan.me,DIRECT
+  - DOMAIN,boxjs.com,DIRECT
+  - DOMAIN,boxjs.net,DIRECT
+  - DOMAIN-SUFFIX,vercel.app,国外网站
+  - IP-CIDR,0.0.0.0/32,REJECT
+  - AND,((OR,((DST-PORT,25),(DST-PORT,110),(DST-PORT,143),(DST-PORT,465),(DST-PORT,587)))),DIRECT
+  - AND,((OR,((DOMAIN,time-ios.apple.com),(DOMAIN,time.apple.com))),(DST-PORT,123)),DIRECT
+  - AND,((NOT,((GEOIP,CN))),(NETWORK,UDP),(DST-PORT,443)),REJECT
+  - RULE-SET,sogouinput,REJECT
+  - RULE-SET,AWAvenue-Ads-Rule,REJECT
+  - RULE-SET,Adobe跟踪&SDK打点,REJECT
+  - RULE-SET,视频QUIC&PCDN,REJECT
+  - RULE-SET,苹果服务,Apple Service
+  - RULE-SET,常见静态CDN域名集,手动切换
+  - RULE-SET,常见静态CDN,手动切换
+  - RULE-SET,人工智能,AI
+  - RULE-SET,Netflix,Netflix
+  - RULE-SET,Youtube,YouTube
+  - RULE-SET,Spotify,Spotify
+  - RULE-SET,Emby,Emby
+  - RULE-SET,Disney,Disney+
+  - RULE-SET,美国流媒体,美国节点
+  - RULE-SET,欧洲流媒体,国外网站
+  - RULE-SET,日本流媒体,日本节点
+  - RULE-SET,韩国流媒体,韩国节点
+  - RULE-SET,香港流媒体,香港节点
+  - RULE-SET,台湾流媒体,台湾节点
+  - RULE-SET,国际流媒体,国外网站
+  - RULE-SET,Telegram,Telegram
+  - RULE-SET,下载域名集,手动切换
+  - RULE-SET,下载,手动切换
+  - RULE-SET,全球,国外网站
+  - RULE-SET,苹果CDN域名集,DIRECT
+  - RULE-SET,苹果中国,DIRECT
+  - RULE-SET,微软CDN,DIRECT
+  - RULE-SET,微软服务,DIRECT
+  - RULE-SET,国内域名,DIRECT
+  - RULE-SET,直连,DIRECT
+  - RULE-SET,国际流媒体IP,国外网站
+  - RULE-SET,内网IP,DIRECT
+  - RULE-SET,国内IP,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,漏网之鱼
+
+# 规则配置锚点
+ClassicalT: &ClassicalT {type: http, behavior: classical, interval: 86400, format: text}
+ClassicalY: &ClassicalY {type: http, behavior: classical, interval: 86400, format: yaml}
+DomainT: &DomainT {type: http, behavior: domain, interval: 86400, format: text}
+DomainY: &DomainY {type: http, behavior: domain, interval: 86400, format: yaml}
+ipcidr: &ipcidr {type: http, behavior: ipcidr, interval: 86400, format: text}
+
+# 订阅规则
+rule-providers:
+  sogouinput: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt}
+  AWAvenue-Ads-Rule: {<<: *DomainY, url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml}
+  Adobe跟踪&SDK打点: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt}
+  视频QUIC&PCDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt}
+  常见静态CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/cdn.txt}
+  常见静态CDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/cdn.txt}
+  Emby: {<<: *ClassicalT, url: https://raw.githubusercontent.com/Repcz/Tool/X/mihomo/Rules/Emby.list}
+  Netflix: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Netflix.yaml}
+  Youtube: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/YouTube.yaml}
+  Spotify: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Spotify.yaml}
+  Disney: {<<: *ClassicalY, url: https://raw.githubusercontent.com/dler-io/Rules/main/Clash/Provider/Media/Disney%20Plus.yaml}
+  美国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_us.txt}
+  欧洲流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_eu.txt}
+  日本流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_jp.txt}
+  韩国流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_kr.txt}
+  香港流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_hk.txt}
+  台湾流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream_tw.txt}
+  国际流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream.txt}
+  Telegram: {<<: *ClassicalT, url: "https://github.com/LucaLin233/Proxy/blob/main/surge/rules/telegram.list?raw=true"}
+  人工智能: {<<: *ClassicalY, url: https://kelee.one/Tool/Clash/Rule/AI.yaml}
+  苹果CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt}
+  苹果服务: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/apple_services.txt}
+  苹果中国: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt}
+  微软CDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/microsoft_cdn.txt}
+  微软服务: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/microsoft.txt}
+  下载域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/download.txt}
+  下载: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/download.txt}
+  国内域名: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/domestic.txt}
+  直连: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/direct.txt}
+  全球: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/global.txt}
+  内网IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/lan.txt}
+  国内IP: {<<: *ipcidr, url: https://ruleset.skk.moe/Clash/ip/china_ip.txt}
+  国际流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream.txt}
+
+hosts:
+  "ip6-localhost": "::1"
+  "ip6-loopback": "::1"
+  "ip6-localnet": "fe00::0"
+  "ip6-mcastprefix": "ff00::0"
+  "ip6-allnodes": "ff02::1"
+  "ip6-allrouters": "ff02::2"
+  "ip6-allhosts": "ff02::3"
+  "dns.google": "8.8.8.8"
+  "dns64.dns.google": "2001:4860:4860::6464"
+  "cloudflare-dns.com": "104.16.249.249"
+  "1dot1dot1dot1.cloudflare-dns.com": "1.1.1.1"
+  "one.one.one.one": "1.1.1.1"
+  "dns.alidns.com": "223.5.5.5"
+  "doh.pub": "1.12.12.12"
+  "dot.pub": "1.12.12.12"
+  "doh.360.cn": "23.6.48.18"
+  "dot.360.cn": "101.198.198.198"
+  "dns.twnic.tw": "101.101.101.101"
+  "ordns.he.net": "74.82.42.42"
+  "talk.google.com": "108.177.125.188"
+  "mtalk.google.com": "108.177.125.188"
+  "alt1-mtalk.google.com": "3.3.3.3"
+  "alt2-mtalk.google.com": "3.3.3.3"
+  "alt3-mtalk.google.com": "74.125.200.188"
+  "alt4-mtalk.google.com": "74.125.200.188"
+  "alt5-mtalk.google.com": "3.3.3.3"
+  "alt6-mtalk.google.com": "3.3.3.3"
+  "alt7-mtalk.google.com": "74.125.200.188"
+  "alt8-mtalk.google.com": "3.3.3.3"
