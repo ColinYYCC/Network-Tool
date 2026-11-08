@@ -20,7 +20,6 @@ tcp-concurrent: true
 log-level: warning
 bind-address: '*'
 find-process-mode: strict
-global-client-fingerprint: chrome
 keep-alive-interval: 15
 keep-alive-idle: 30
 
