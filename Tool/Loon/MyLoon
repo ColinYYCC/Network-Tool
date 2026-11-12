@@ -70,7 +70,8 @@ interface-mode = auto
 
 # > hijack-dns
 # 有些app会自己使用自定义的DNS over UDP来解析IP, 可以配置相关IP:端口来劫持这些查询, 并返回fakeip的响应
-hijack-dns = 9.9.9.9:53
+# 劫持所有目标 53 端口的 UDP DNS（Loon 3.2.5+），只写 9.9.9.9:53 会漏掉用 8.8.8.8/1.1.1.1 的 App
+hijack-dns = *:53
 # > disable-stun
 # 禁用stun是否禁用stun协议的udp数据, 禁用后可以有效解决webrtc的ip泄露
 disable-stun = true
@@ -117,7 +118,7 @@ Netflix = select,狮城节点,香港节点,台湾节点,日本节点,美国节�
 # YouTube
 YouTube = select,香港节点,台湾节点,狮城节点,日本节点,美国节点,韩国节点,DIRECT,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png
 # Disney+
-Disney+ = select,狮城节点,香港节点,台湾节点,日本节点,美国节点,韩国节点,DIRECT,img-url = http://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/disney.png
+Disney+ = select,狮城节点,香港节点,台湾节点,日本节点,美国节点,韩国节点,DIRECT,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/disney.png
 # Spotify
 Spotify = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/spotify.png
 # Emby
@@ -222,6 +223,9 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/
 # Streaming 国际流媒体服务
 https://ruleset.skk.moe/List/non_ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体, enabled=true
 https://ruleset.skk.moe/List/ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体(IP), enabled=true
+
+# > AI（原来 AI 策略组没有任何规则指向，等于没用）
+https://ruleset.skk.moe/List/non_ip/ai.conf, policy=AI, tag=AI, enabled=true
 
 # > 国外网站
 https://ruleset.skk.moe/List/non_ip/global.conf, policy=🥡 节点选择, tag=国外网站, enabled=true
