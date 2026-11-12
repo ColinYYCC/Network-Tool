@@ -62,17 +62,30 @@ dns:
   ipv6: true
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '+.lan'
+    - '+.local'
+    - '+.internal'
+    - 'localhost.ptlogin2.qq.com'
+    - '+.srv.nintendo.net'
+    - '+.stun.playstation.net'
+    - 'xbox.*.microsoft.com'
+    - '+.xboxlive.com'
+    - 'stun.*'
+    - '+.push.apple.com'
+    - '+.msftconnecttest.com'
+    - '+.msftncsi.com'
+    - 'networkcheck.kde.org'
+    - '+.nvidia.com'
+    - '+.stun.l.google.com'
+    - '+.turn.l.google.com'
+    - 'dns.msftncsi.com'
   default-nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
-    - 9.9.9.9
-  nameserver:
-    - https://dns.pub/dns-query
     - https://dns.alidns.com/dns-query
-    - https://dns.quad9.net/dns-query
+    - https://doh.360.cn/dns-query
   direct-nameserver:
-    - https://dns.pub/dns-query
     - https://dns.alidns.com/dns-query
+    - https://doh.360.cn/dns-query  # 后备 DNS（境外）
   nameserver-policy:
     # > Modify Contents
     "blog.google": "119.29.29.29" # Google Blog
@@ -313,34 +326,20 @@ dns:
     # > 🇺🇸 USA
     # Hurricane Electric
     "+.he.net": "https://ordns.he.net/dns-query" # HE.net
-  # 后备 DNS（境外）
-  fallback:
-    - tls://8.8.4.4
-    - tls://1.1.1.1
-    - tls://9.9.9.9
-  fallback-filter:
-    geoip: true
-    geoip-code: CN
-    geosite:
-      - gfw
-  fake-ip-filter:
-    - '+.lan'
-    - '+.local'
-    - '+.internal'
-    - 'localhost.ptlogin2.qq.com'
-    - '+.srv.nintendo.net'
-    - '+.stun.playstation.net'
-    - 'xbox.*.microsoft.com'
-    - '+.xboxlive.com'
-    - 'stun.*'
-    - '+.push.apple.com'
-    - '+.msftconnecttest.com'
-    - '+.msftncsi.com'
-    - 'networkcheck.kde.org'
-    - '+.nvidia.com'
-    - '+.stun.l.google.com'
-    - '+.turn.l.google.com'
-    - 'dns.msftncsi.com'
+    
+### TUN配置
+tun:
+  enable: true
+  stack: mixed
+  auto-route: true
+  auto-detect-interface: true
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  auto-redirect: true
+  strict-route: true
+# 如果有使用 zerotier / headscale 等, 自行取消注释并填写
+# route-exclude-address: ['192.168.110.0/24']
 
 ### 域名嗅探
 sniffer:
@@ -362,20 +361,6 @@ sniffer:
     - +.icloud.com
     - +.icloud-content.com
     - gamecenter.apple.com
-
-### TUN配置
-tun:
-  enable: true
-  stack: mixed
-  dns-hijack:
-    - "any:53"
-    - "tcp://any:53"
-  auto-route: true
-  auto-redirect: true
-  auto-detect-interface: true
-  strict-route: true
-# 如果有使用 zerotier / headscale 等, 自行取消注释并填写
-# route-exclude-address: ['192.168.110.0/24']
 
 #### 节点组参数锚点
 UrlTest: &UrlTest {type: url-test, url: https://networkcheck.kde.org, interval: 600, lazy: true, tolerance: 50, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
