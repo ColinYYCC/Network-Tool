@@ -59,6 +59,11 @@ geox-url:
   asn: "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb"
 
 ### DNS配置
+# 2026-11-12 用 https://dns.1ms.dog/zh-cn/ 实测（本机、DoH）：
+#   直连最快：AliDNS 18ms > 360 35ms > DNSPod 42ms > Cloudflare 201ms > Quad9 207ms > Google 211ms
+# 说明：境外 DoH 的 200ms 是"经代理"的延迟；直连境外 DoH 在境内不可用，所以必须 respect-rules。
+# 分流原则：直连域名用国内 DoH（18ms），走代理的域名用境外 DoH（约 200ms，换来解析地不暴露）。
+# 全部条目均为加密 DoH（含 default-nameserver 的 IP 形式），配置里没有明文 DNS。
 dns:
   enable: true
   ipv6: true
@@ -86,27 +91,26 @@ dns:
     - '+.stun.l.google.com'
     - '+.turn.l.google.com'
     - 'dns.msftncsi.com'
-  # 仅用于引导解析下面 DoH 服务器的域名：必须写 IP，不能写域名
-  # 可以写 IP 形式的加密 DNS，例如 https://223.5.5.5/dns-query
+  # 仅用于引导解析下面 DoH 服务器的域名：必须写 IP，不能写域名。
+  # 这里也用加密形式：AliDNS 证书含 223.5.5.5/223.6.6.6 的 IP SAN，可直接验证通过。
   default-nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
-    - 180.76.76.76
+    - "https://223.5.5.5/dns-query"
+    - "https://223.6.6.6/dns-query"
   # 解析节点服务器域名，必须直连，否则"解析节点 -> 走代理 -> 再解析节点"会死循环
   proxy-server-nameserver:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
-  # 直连（国内）流量使用的解析器，DoH + 纯 UDP 各留一路兜底
+  # 直连（国内）流量：1ms.dog 实测 DoH 延迟 AliDNS 18ms / 360 35ms / DNSPod 42ms，全部加密
   direct-nameserver:
     - https://dns.alidns.com/dns-query
+    - https://doh.360.cn/dns-query
     - https://doh.pub/dns-query
-    - 223.5.5.5
-    - 119.29.29.29
-  # 走代理的域名默认交给境外 DoH：国内解析器看不到你的真实访问，也不会返回被污染的地址
+  # 走代理的域名必须用境外 DoH，否则解析地暴露在国内。
+  # 1ms.dog 实测（经代理）：Cloudflare 201ms / Quad9 207ms / Google 211ms
   nameserver:
     - https://dns.cloudflare.com/dns-query
-    - https://dns.google/dns-query
     - https://dns.quad9.net/dns-query
+    - https://dns.google/dns-query
   nameserver-policy:
     # 直连流量由 direct-nameserver 解析（follow-policy 默认 false），这里只处理走代理的域名
     # 注意：不要用 geosite:cn 兜底，它包含 google-cn 等境内可达的 Google 域名，
@@ -234,25 +238,25 @@ dns:
 
     # > 百度
     # refer: https://dudns.baidu.com/support/localdns/Address/index.html
-    "+.baidu": "180.76.76.76" # 百度
-    "+.baidu.com": "180.76.76.76" # 百度
-    "+.bdimg.com": "180.76.76.76" # 百度 静态资源
-    "+.bdstatic.com": "180.76.76.76" # 百度 静态资源
-    "+.baidupcs.*": "180.76.76.76" # 百度网盘
-    "+.baiduyuncdn.*": "180.76.76.76" # 百度云CDN
-    "+.baiduyundns.*": "180.76.76.76" # 百度云DNS
-    "+.bdydns.*": "180.76.76.76" # 百度云 DNS
-    "+.bdycdn.*": "180.76.76.76" # 百度云 CDN
-    "+.bdysite.com": "180.76.76.76" # 百度云 域名
-    "+.bdysites.com": "180.76.76.76" # 百度云 域名
-    "+.baidubce.*": "180.76.76.76" # 百度智能云
-    "+.bcedns.*": "180.76.76.76" # 百度智能云 DNS
-    "+.bcebos.com": "180.76.76.76" # 百度智能云 对象存储BOS
-    "+.bcevod.com": "180.76.76.76" # 百度智能云 播放器服务
-    "+.bceimg.com": "180.76.76.76" # 百度智能云 图片服务
-    "+.bcehost.com": "180.76.76.76" # 百度智能云 主机
-    "+.bcehosts.com": "180.76.76.76" # 百度智能云 主机
-    "dwz.cn": "180.76.76.76" # 百度短网址
+    "+.baidu": "https://dns.alidns.com/dns-query" # 百度
+    "+.baidu.com": "https://dns.alidns.com/dns-query" # 百度
+    "+.bdimg.com": "https://dns.alidns.com/dns-query" # 百度 静态资源
+    "+.bdstatic.com": "https://dns.alidns.com/dns-query" # 百度 静态资源
+    "+.baidupcs.*": "https://dns.alidns.com/dns-query" # 百度网盘
+    "+.baiduyuncdn.*": "https://dns.alidns.com/dns-query" # 百度云CDN
+    "+.baiduyundns.*": "https://dns.alidns.com/dns-query" # 百度云DNS
+    "+.bdydns.*": "https://dns.alidns.com/dns-query" # 百度云 DNS
+    "+.bdycdn.*": "https://dns.alidns.com/dns-query" # 百度云 CDN
+    "+.bdysite.com": "https://dns.alidns.com/dns-query" # 百度云 域名
+    "+.bdysites.com": "https://dns.alidns.com/dns-query" # 百度云 域名
+    "+.baidubce.*": "https://dns.alidns.com/dns-query" # 百度智能云
+    "+.bcedns.*": "https://dns.alidns.com/dns-query" # 百度智能云 DNS
+    "+.bcebos.com": "https://dns.alidns.com/dns-query" # 百度智能云 对象存储BOS
+    "+.bcevod.com": "https://dns.alidns.com/dns-query" # 百度智能云 播放器服务
+    "+.bceimg.com": "https://dns.alidns.com/dns-query" # 百度智能云 图片服务
+    "+.bcehost.com": "https://dns.alidns.com/dns-query" # 百度智能云 主机
+    "+.bcehosts.com": "https://dns.alidns.com/dns-query" # 百度智能云 主机
+    "dwz.cn": "https://dns.alidns.com/dns-query" # 百度短网址
 
     # > 360
     # refer: https://sdns.360.net/dnsPublic.html#course
@@ -277,54 +281,54 @@ dns:
 
     # > Bytedance
     # refer: https://www.volcengine.com/docs/6758/179060
-    "+.amemv.com": "180.184.1.1" # 艾特迷
-    "+.bdxiguaimg.com": "180.184.1.1" # 西瓜 图片服务
-    "+.bdxiguastatic.com": "180.184.1.1" # 西瓜 静态资源
-    "+.byted-static.com": "180.184.1.1" # 字节跳动 UNPKG
-    "+.bytedance.*": "180.184.1.1" # 字节跳动
-    "+.bytedns.net": "180.184.1.1" # 字节跳动 DNS
-    "+.bytednsdoc.com": "180.184.1.1" # 字节跳动 CDN 文件存储
-    "+.bytegoofy.com": "180.184.1.1" # 字节跳动 Goofy
-    "+.byteimg.com": "180.184.1.1" # 字节跳动 图片服务
-    "+.bytescm.com": "180.184.1.1" # 字节跳动 SCM
-    "+.bytetos.com": "180.184.1.1" # 字节跳动 TOS
-    "+.bytexservice.com": "180.184.1.1" # 飞书企业服务平台
-    "+.douyin.com": "180.184.1.1" # 抖音
-    "+.douyinpic.com": "180.184.1.1" # 抖音 静态资源
-    "+.douyinstatic.com": "180.184.1.1" # 抖音 静态资源
-    "+.douyinvod.com": "180.184.1.1" # 抖音 静态资源
-    "+.feelgood.cn": "180.184.1.1" # FeelGood平台
-    "+.feiliao.com": "180.184.1.1" # 飞聊官网
-    "+.gifshow.com": "180.184.1.1" # 快手
-    "+.huoshan.com": "180.184.1.1" # 火山网
-    "+.huoshanzhibo.com": "180.184.1.1" # 火山直播
-    "+.ibytedapm.com": "180.184.1.1" # 抖音 dapm
-    "+.iesdouyin.com": "180.184.1.1" # 抖音 CDN
-    "+.ixigua.com": "180.184.1.1" # 西瓜视频
-    "+.kspkg.com": "180.184.1.1" # 快手
-    "+.pstatp.com": "180.184.1.1" # 抖音 静态资源
-    "+.snssdk.com": "180.184.1.1" # 今日头条
-    "+.toutiao.com": "180.184.1.1" # 今日头条
-    "+.toutiao13.com": "180.184.1.1" # 今日头条
-    "+.toutiao???.???": "180.184.1.1" # 今日头条 静态资源
-    "+.toutiaocloud.cn": "180.184.1.1" # 头条云
-    "+.toutiaocloud.com": "180.184.1.1" # 头条云
-    "+.toutiaopage.com": "180.184.1.1" # 今日头条 建站
-    "+.wukong.com": "180.184.1.1" # 悟空
-    "+.zijieapi.com": "180.184.1.1" # 字节跳动 API
-    "+.zijieimg.com": "180.184.1.1" # 字节跳动 图片服务
-    "+.zjbyte.com": "180.184.1.1" # 今日头条 网页版
-    "+.zjcdn.com": "180.184.1.1" # 字节跳动 CDN
+    "+.amemv.com": "https://dns.alidns.com/dns-query" # 艾特迷
+    "+.bdxiguaimg.com": "https://dns.alidns.com/dns-query" # 西瓜 图片服务
+    "+.bdxiguastatic.com": "https://dns.alidns.com/dns-query" # 西瓜 静态资源
+    "+.byted-static.com": "https://dns.alidns.com/dns-query" # 字节跳动 UNPKG
+    "+.bytedance.*": "https://dns.alidns.com/dns-query" # 字节跳动
+    "+.bytedns.net": "https://dns.alidns.com/dns-query" # 字节跳动 DNS
+    "+.bytednsdoc.com": "https://dns.alidns.com/dns-query" # 字节跳动 CDN 文件存储
+    "+.bytegoofy.com": "https://dns.alidns.com/dns-query" # 字节跳动 Goofy
+    "+.byteimg.com": "https://dns.alidns.com/dns-query" # 字节跳动 图片服务
+    "+.bytescm.com": "https://dns.alidns.com/dns-query" # 字节跳动 SCM
+    "+.bytetos.com": "https://dns.alidns.com/dns-query" # 字节跳动 TOS
+    "+.bytexservice.com": "https://dns.alidns.com/dns-query" # 飞书企业服务平台
+    "+.douyin.com": "https://dns.alidns.com/dns-query" # 抖音
+    "+.douyinpic.com": "https://dns.alidns.com/dns-query" # 抖音 静态资源
+    "+.douyinstatic.com": "https://dns.alidns.com/dns-query" # 抖音 静态资源
+    "+.douyinvod.com": "https://dns.alidns.com/dns-query" # 抖音 静态资源
+    "+.feelgood.cn": "https://dns.alidns.com/dns-query" # FeelGood平台
+    "+.feiliao.com": "https://dns.alidns.com/dns-query" # 飞聊官网
+    "+.gifshow.com": "https://dns.alidns.com/dns-query" # 快手
+    "+.huoshan.com": "https://dns.alidns.com/dns-query" # 火山网
+    "+.huoshanzhibo.com": "https://dns.alidns.com/dns-query" # 火山直播
+    "+.ibytedapm.com": "https://dns.alidns.com/dns-query" # 抖音 dapm
+    "+.iesdouyin.com": "https://dns.alidns.com/dns-query" # 抖音 CDN
+    "+.ixigua.com": "https://dns.alidns.com/dns-query" # 西瓜视频
+    "+.kspkg.com": "https://dns.alidns.com/dns-query" # 快手
+    "+.pstatp.com": "https://dns.alidns.com/dns-query" # 抖音 静态资源
+    "+.snssdk.com": "https://dns.alidns.com/dns-query" # 今日头条
+    "+.toutiao.com": "https://dns.alidns.com/dns-query" # 今日头条
+    "+.toutiao13.com": "https://dns.alidns.com/dns-query" # 今日头条
+    "+.toutiao???.???": "https://dns.alidns.com/dns-query" # 今日头条 静态资源
+    "+.toutiaocloud.cn": "https://dns.alidns.com/dns-query" # 头条云
+    "+.toutiaocloud.com": "https://dns.alidns.com/dns-query" # 头条云
+    "+.toutiaopage.com": "https://dns.alidns.com/dns-query" # 今日头条 建站
+    "+.wukong.com": "https://dns.alidns.com/dns-query" # 悟空
+    "+.zijieapi.com": "https://dns.alidns.com/dns-query" # 字节跳动 API
+    "+.zijieimg.com": "https://dns.alidns.com/dns-query" # 字节跳动 图片服务
+    "+.zjbyte.com": "https://dns.alidns.com/dns-query" # 今日头条 网页版
+    "+.zjcdn.com": "https://dns.alidns.com/dns-query" # 字节跳动 CDN
 
     # > BiliBili
     "upos-sz-mirrorali.bilivideo.com": "https://dns.alidns.com/dns-query" # BiliBili upos视频服务器（阿里云）
     "upos-sz-mirrorali?.bilivideo.com": "https://dns.alidns.com/dns-query" # BiliBili upos视频服务器（阿里云）
     "upos-sz-mirrorali??.bilivideo.com": "https://dns.alidns.com/dns-query" # BiliBili upos视频服务器（阿里云）
-    "upos-sz-mirrorbos.bilivideo.com": "180.76.76.76" # BiliBili upos视频服务器（百度云）
+    "upos-sz-mirrorbos.bilivideo.com": "https://dns.alidns.com/dns-query" # BiliBili upos视频服务器（百度云）
     "upos-sz-mirrorcos.bilivideo.com": "https://doh.pub/dns-query" # BiliBili upos视频服务器（腾讯云）
     "upos-sz-mirrorcos?.bilivideo.com": "https://doh.pub/dns-query" # BiliBili upos视频服务器（腾讯云）
     "upos-sz-mirrorcos??.bilivideo.com": "https://doh.pub/dns-query" # BiliBili upos视频服务器（腾讯云）
-    "upos-sz-upcdnbd??.bilivideo.com": "180.76.76.76" # BiliBili upos视频服务器（百度云）
+    "upos-sz-upcdnbd??.bilivideo.com": "https://dns.alidns.com/dns-query" # BiliBili upos视频服务器（百度云）
     "upos-sz-upcdntx.bilivideo.com": "https://doh.pub/dns-query" # BiliBili upos视频服务器（腾讯云）
 
     # > 🇹🇼 TWN
