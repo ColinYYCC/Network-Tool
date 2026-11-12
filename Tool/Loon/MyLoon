@@ -18,12 +18,12 @@ real-ip = dns.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.m
 dns-server = 9.9.9.9, 2620:fe::fe, 223.5.5.5, 119.29.29.29
 # 加密 DNS 服务器设置
 doh-server = https://dns.quad9.net/dns-query, https://dns.alidns.com/dns-query, https://dns.pub/dns-query
-doq-server = quic://223.5.5.5, quic://223.6.6.6
+doq-server = quic://223.5.5.5:853, quic://223.6.6.6:853
 # ip-mode 支持（默认dual: IPv4&IPv6）
 ip-mode = dual
 ipv6-vif = auto
 # 在DNS阶段拒绝域名时采用的方式
-dns-reject-mode = LoopbackIP
+dns-reject-mode = LOOPBACKIP
 # 域名拒绝规则执行的阶段
 domain-reject-mode = DNS
 
@@ -51,8 +51,7 @@ test-timeout = 3
 # ---(高级)---
 # 高级设置
 
-# > 一个节点连续失败几次后进行节点切换
-switch-node-after-failure-times = 2
+# 节点切换由 Loon 自动检测（switch-node-after-failure-times 已弃用，已删除）
 # 策略切换时关闭连接
 disconnect-on-policy-change = true
 # SNI辅助规则匹配
@@ -110,7 +109,7 @@ Game = NameRegex, FilterKey = "^(?=.*((?i)游戏|🎮|(\b(GAME)\b)))(?!.*((?i)�
 # Telegram
 Telegram = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/telegram.png
 # Apple
-Apple Service = select,DIRECT,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png
+Apple Service = select,DIRECT,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png
 # Ai
 AI = select,韩国节点,香港节点,美国节点,狮城节点,日本节点,台湾节点,DIRECT,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/AutoClaw-108.png
 # Netflix
@@ -133,7 +132,7 @@ Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,�
 # > 节点分流
 🎲 自动选择 = url-test,All,url = http://networkcheck.kde.org,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/group/GetSomeFries.png
 🔯 故障转移 = fallback,All,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png
-🔮 负载均衡 = load-balance,All,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,algorithm = pcc,img-url = https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png
+🔮 负载均衡 = load-balance,All,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,algorithm = PCC,img-url = https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png
 # ------
 
 # 地区策略组
@@ -152,8 +151,10 @@ Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,�
 # 阻止海外 QUIC
 AND,((NOT,((GEOIP,CN))),(PROTOCOL,UDP),(DEST-PORT,443)),REJECT
 # DEST-PORT 端口规则
-OR,((DEST-PORT,25),(DEST-PORT,110),(DEST-PORT,143),(DEST-PORT,465),(DEST-PORT,587)),DIRECT // 邮件服务默认端口
-AND,((OR,((DOMAIN,time-ios.apple.com),(DOMAIN,time.apple.com))),(DEST-PORT,123)),DIRECT // NTP服务默认端口
+# 邮件服务默认端口
+OR,((DEST-PORT,25),(DEST-PORT,110),(DEST-PORT,143),(DEST-PORT,465),(DEST-PORT,587)),DIRECT
+# NTP 服务默认端口
+AND,((OR,((DOMAIN,time-ios.apple.com),(DOMAIN,time.apple.com))),(DEST-PORT,123)),DIRECT
 # Zoom
 DOMAIN-SUFFIX,zoom.us,国外网站
 # Todesk
@@ -189,7 +190,7 @@ FINAL,漏网之鱼
 # > ADs
 https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge.list, policy=REJECT, tag=秋风广告规则, enabled=true
 https://ruleset.skk.moe/List/domainset/reject_phishing.conf, policy=REJECT, tag=Phiishing 拦截, enabled=true
-https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf, policy=REJECT-NO-DROP, tag=防止PCDN, enabled=true
+https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf, policy=REJECT, tag=防止PCDN, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject-drop.conf, policy=REJECT-DROP, tag=Adobe 系列软件内部的跟踪, enabled=true
 #https://ruleset.skk.moe/List/ip/reject.conf, policy = REJECT-DROP, tag = 广告拦截 IP, enabled = false
 
@@ -198,7 +199,7 @@ https://dns.1ms.dog/rules/loon.list, policy=DIRECT, tag=DNS Test, enabled=true
 
 # > CDN
 https://ruleset.skk.moe/List/domainset/cdn.conf, policy=国外网站, tag=SukkaW静态CDN域名, enabled=true
-https://ruleset.skk.moe/List/non_ip/cdn.conf, policy=国外网站, tag=SukkaW静态CDN域名, enabled=true
+https://ruleset.skk.moe/List/non_ip/cdn.conf, policy=国外网站, tag=SukkaW静态CDN规则, enabled=true
 https://ruleset.skk.moe/List/non_ip/apple_cdn.conf, policy=DIRECT, tag=Apple 国內CDN, enabled=true
 
 # > Apple CN 域名
@@ -217,7 +218,7 @@ https://github.com/Repcz/Tool/raw/X/Surge/Rules/Emby.list, policy=Emby, tag=Emby
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Netflix/Netflix.list, policy=Netflix, tag=Netflix, enabled=true
 # YouTube
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTube/YouTube.list, policy=YouTube, tag=YouTube, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTubeMusic/YouTubeMusic.list, policy=YouTube, tag=YouTube, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTubeMusic/YouTubeMusic.list, policy=YouTube, tag=YouTube Music, enabled=true
 # Spotify
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Spotify/Spotify.list, policy=Spotify, tag=Spotify, enabled=true
 # Streaming 国际流媒体服务
@@ -262,7 +263,7 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/
 
 # > 中国直连
 https://ruleset.skk.moe/List/non_ip/domestic.conf, policy=DIRECT, tag=国內直连, enabled=true
-https://ruleset.skk.moe/List/non_ip/direct.conf, policy=DIRECT, tag=国內直连, enabled=true
+https://ruleset.skk.moe/List/non_ip/direct.conf, policy=DIRECT, tag=国內直连 (域名), enabled=true
 https://ruleset.skk.moe/List/ip/china_ip.conf, policy=DIRECT, tag=China 中国直连 (IP), enabled=true
 # ------
 
@@ -338,7 +339,7 @@ skip-server-cert-verify = false
 # ------
 
 [Script]
-cron "7 7 7 ? * *" script-path=https://raw.githubusercontent.com/deezertidal/private/main/oil.js, timeout=10, tag=油价提醒, argument="重庆"
+cron "7 7 7 * * *" script-path=https://raw.githubusercontent.com/deezertidal/private/main/oil.js, timeout=10, tag=油价提醒, argument="重庆"
 # ------
 
 [Host]
