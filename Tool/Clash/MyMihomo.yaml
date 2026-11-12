@@ -448,6 +448,7 @@ rules:
   - RULE-SET,视频QUIC&PCDN,REJECT
 
 ### 非 IP 类规则
+  - RULE-SET,DNS Test,DIRECT
   - RULE-SET,苹果服务,Apple Service
   - RULE-SET,常见静态CDN域名集,手动切换
   - RULE-SET,常见静态CDN,手动切换
@@ -499,6 +500,9 @@ rule-providers:
   AWAvenue-Ads-Rule: {<<: *DomainY, url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml}
   Adobe跟踪&SDK打点: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt}
   视频QUIC&PCDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt}
+
+# 测试类
+  DNS Test: {<<: *ClassicalT, url: https://dns.1ms.dog/rules/loon.lis}
 
 # 静态 CDN
   常见静态CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/cdn.txt}
