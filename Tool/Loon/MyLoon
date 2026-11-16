@@ -163,9 +163,6 @@ DOMAIN-KEYWORD,todesk,DIRECT
 DOMAIN-KEYWORD,anyviewer,DIRECT
 # 环球慧思
 DOMAIN-SUFFIX,globalwits.cn,DIRECT
-
-DOMAIN-SUFFIX,cmbchina.com,DIRECT
-
 # Web Controller 网页控制器规则
 # > Surge
 DOMAIN,yasd.royli.dev,DIRECT
