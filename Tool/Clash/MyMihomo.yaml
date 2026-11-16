@@ -453,13 +453,13 @@ rules:
   - DOMAIN,boxjs.com,DIRECT
   - DOMAIN,boxjs.net,DIRECT
   - DOMAIN-SUFFIX,vercel.app,国外网站
-  # 保护丢包
-  - IP-CIDR,0.0.0.0/32,REJECT
   # 邮件 / NTP
   - AND,((OR,((DST-PORT,25),(DST-PORT,110),(DST-PORT,143),(DST-PORT,465),(DST-PORT,587)))),DIRECT
   - AND,((OR,((DOMAIN,time-ios.apple.com),(DOMAIN,time.apple.com))),(DST-PORT,123)),DIRECT
   # 阻止海外 QUIC（对齐 Loon）
   - AND,((NOT,((GEOIP,CN))),(NETWORK,UDP),(DST-PORT,443)),REJECT
+  # 保护丢包
+  - IP-CIDR,0.0.0.0/32,REJECT
 
 ### 拦截规则
   - RULE-SET,sogouinput,REJECT
@@ -497,9 +497,9 @@ rules:
   - RULE-SET,直连,DIRECT
 
 ### IP 类规则
-  - RULE-SET,国际流媒体IP,国外网站
-  - RULE-SET,内网IP,DIRECT
-  - RULE-SET,国内IP,DIRECT
+  - RULE-SET,国际流媒体IP,国外网站,no-resolve
+  - RULE-SET,内网IP,DIRECT,no-resolve
+  - RULE-SET,国内IP,DIRECT,no-resolve
 
 ### 其他
   - GEOIP,CN,DIRECT
