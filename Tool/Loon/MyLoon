@@ -209,7 +209,7 @@ https://ruleset.skk.moe/List/non_ip/ai.conf, policy=AI, tag=AI, enabled=true
 # > Telegram 电报
 https://raw.githubusercontent.com/LucaLin233/Proxy/main/surge/rules/telegram.list, policy=Telegram, tag=Telegram 电报, enabled=true
 
-# > Apple 服务（默认 DIRECT；放在 AppleTV/流媒体之后，避免抢 tv.apple.com）
+# > Apple 服务
 https://ruleset.skk.moe/List/non_ip/apple_services.conf, policy=Apple Service, tag=🍎 苹果服务, enabled=true
 
 # > 👾Game 游戏
