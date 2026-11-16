@@ -1,868 +1,319 @@
-# 参考 薯薯（@VirgilClyne）&整点猫仔（@GetSomeCat）&SakkuW（@SukkaW）&Lucy（@Repcz）&深巷有喵（@Rabbit-Spec）配置
-# 官方手册 - https://manual.nssurge.com/
-# 理解原理 - https://manual.nssurge.com/book/understanding-surge/cn/
-# 帮助中心 - https://nssurge.zendesk.com/
-# 技术社区 - https://community.nssurge.com
-# Surge 使用手册 - https://surge.mitsea.com/
-# 以"#" ";" 和 "//" 开头的行为注释行
-# 本配置主要参考 薯薯（@VirgilClyne）特别感谢！
-# 本配置使用方法：在自动选择将[输入你的机场订阅链接]替换成你的机场提供的订阅网址即可。
-
 [General]
-# --- 通用 ---
-# 通用设置
-# > 警告信息
-# 不显示警告信息
-# no-alert=true
-
-# > 增强版 Wi-Fi 助理
-# (在 Wi-Fi 网络不佳时尝试使用数据网络建立连接，请仅当使用不限量的数据流量时开启)
-wifi-assist = false
-
-# > Internet 测试 URL
-internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
-# > 代理测速 URL
-proxy-test-url = https://networkcheck.kde.org
-# > 代理测试 UDP
-proxy-test-udp = www.apple.com@64.6.64.6
-# > 测试超时（秒）
-test-timeout = 3
-
-# > TLS 引擎
-# TLS Provider: default, secure-transport, network-framework, openssl
-# tls-provider = default
-
-# > 自定义 GeoIP 数据库
-geoip-maxmind-url = https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb
-# GeoIP 禁用自动更新
-disable-geoip-db-auto-update = false
-
-# > IPv6 支持（默认关闭）
-# 是否启动完整的 IPv6 支持 (默认值: false)
-ipv6 = false
-# Surge VIF IPv6 Stack
-# 允许 IPv6 通过 Surge VIF。当希望 Surge 处理连接到 IPv6 地址的原始 TCP 连接时非常有用。可选项：true，false，auto，always
-ipv6-vif = off
-# ------
-
-# --- Wi-Fi 访问 ---
-# > 允许 Wi-Fi 访问 (仅 iOS，若允许远程访问将「false」改为「true」)
+skip-proxy = localhost, *.local, e.crashlytics.com, *.gov.cn, *.12306.cn, *.psbc.com, *.bankofchina.com, *.icbc.com.cn, *.ccb.com, *.cmbchina.com, 0.0.0.0/8, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24, 192.168.0.0/16, 224.0.0.0/4, ::1/128, fc00::/7, fe80::/10
+tun-excluded-routes = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, 224.0.0.0/4, 255.255.255.255/32
+always-real-ip = dns.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.turn.twilio.com, *.stun.twilio.com, stun.syncthing.net, stun.*, 127.*.*.*.sslip.io, 127-*-*-*.sslip.io, *.127.*.*.*.sslip.io, *-127-*-*-*.sslip.io, 127.*.*.*.nip.io, 127-*-*-*.nip.io, *.127.*.*.*.nip.io, *-127-*-*-*.nip.io
+dns-server = 223.5.5.5, 119.29.29.29
+encrypted-dns-server = https://dns.alidns.com/dns-query, https://doh.pub/dns-query, quic://223.5.5.5:853, quic://223.6.6.6:853
+ipv6 = true
+ipv6-vif = auto
 allow-wifi-access = true
-# > 允许个人热点访问 (仅 iOS，若允许个人热点访问将「false」改为「true」)
-allow-hotspot-access = true
-# Surge iOS 供外网访问的服务端口
-# HTTP 服务端口 (默认值: 6152)
 wifi-access-http-port = 7222
-# SOCKS5 服务端口 (默认值: 6153)
 wifi-access-socks5-port = 7221
-
-# > 允许 Wi-Fi 访问 (仅 macOS，若允许远程访问将「127.0.0.1」改为「0.0.0.0」)
-# Surge Mac 供外网访问的服务端口
-# HTTP 服务端口 (默认值: 6152)
-http-listen = 0.0.0.0:6152
-# SOCKS5 服务端口 (默认值: 6153)
-socks5-listen = 0.0.0.0:6153
-# ------
-
-# --- 远程控制器 ---
-# 允许 Surge 请求查看器或 Surge CLI 进行管理控制。
-# 如果允许由 Wi-Fi 控制则将「127.0.0.1」修改为「0.0.0.0」
-external-controller-access = Colin@0.0.0.0:6170
-# ------
-
-# --- HTTP API ---
-# 仅Surge iOS 4.4.0 和 Surge Mac 4.0.0 以上版本支持通过 HTTP API 控制 Surge。
-http-api = Colin@0.0.0.0:6171
-http-api-tls = false
-# Web Dashboard
-# control Surge via a web browser on local or remote devices
-http-api-web-dashboard = true
-# ------
-
-# --- 兼容性 ---
-# > 兼容模式 (仅 iOS)
-compatibility-mode = 0
-# > 跳过代理
-# 跳过某个域名或者 IP 段，这些目标主机将不会由 Surge Proxy 处理。
-# (macOS 版本中，如果启用了 Set as System Proxy, 这些值会被写入到系统网络代理设置.)
-# skip-proxy = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 162.14.0.0/16, 162.159.192.0/24, 162.159.193.0/24, 162.159.195.0/24, 172.16.0.0/12, 192.168.0.0/16, 211.99.96.0/19, fc00::/7, fe80::/10, localhost, *.local, captive.apple.com, passenger.t3go.cn, *.ccb.com, wxh.wo.cn, *.abcchina.com, *.abcchina.com.cn
-skip-proxy = localhost, *.local, captive.apple.com, sequoia.apple.com, seed-sequoia.siri.apple.com, *.gov.cn, *.12306.cn, *.ccb.com, *.icbc.com.cn, *.cmbchina.com, *.bankofchina.com, *.abchina.com.cn, *.psbc.com, *.bankcomm.com, *.cmbc.com.cn, *.citicbank.com, *.spdb.com.cn, *.cib.com.cn, *.cebbank.com, *.hxb.com.cn, *.cgbchina.com.cn, *.pingan.com.cn, *.alipay.com, *.weixin.qq.com, *.baidu.com, *.taobao.com, *.tmall.com, *.jd.com, *.163.com, *.sina.com.cn, *.bilibili.com, *.douyin.com, *.bytedance.com, *.chinaunicom.com, *.chinamobile.com, *.10086.cn, *.wo.cn, *.ctyun.cn, *.cnnic.cn, *.qq.com, *.miit.gov.cn, *.cae.cn, *.nsfc.gov.cn, 127.0.0.1, ::1/128, 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 100.64.0.0/10, 169.254.0.0/16, fc00::/7, fd00::/8, fe80::/10
-
-
-# 代理接管优先 （原来的兼容性已经移除）
-# > 排除简单主机名
-exclude-simple-hostnames = true
-
-# --- 实验性功能 ---
-# > Network framwork
-# network-framework = false
-# ------
-
-# --- DNS 服务器 ---
-# > DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
-# 传统 DNS 服务器设置
-dns-server = 9.9.9.9, 223.5.5.5, 119.29.29.29
-# 加密 DNS 服务器设置
-encrypted-dns-server = https://dns.quad9.net/dns-query, https://dns.alidns.com/dns-query, https://dns.pub/dns-query
-
-# > 从 /etc/hosts 读取 DNS 记录
-read-etc-hosts = true
-# > 通过代理请求使用本地DNS映射结果
-use-local-host-item-for-proxy = true
-
-# > 加密DNS服务器
-# 使加密DNS请求通过代理策略执行
-encrypted-dns-follow-outbound-mode = true
-# 使加密DNS跳过证书验证
-encrypted-dns-skip-cert-verification = false
-# ------
-
-# > SSID 组策略
-# 当 Wi-Fi 不是首选网络时 SSID 组策略使用默认策略（仅 macOS 版）
-use-default-policy-if-wifi-not-primary = false
-# ------
-
-# > 其它
-# show-primary-interface-changed-notification = true
-# proxy-settings-interface = Primary Interface (Auto)
-# menu-bar-show-speed = false
-# ------
-
-# --- 高级 ---
-# 高级设置
-
-# > 日志级别
-# 日志等级: warning, notify, info, verbose (默认值: notify)
-loglevel = notify
-
-# > 当遇到 REJECT 策略时返回错误页
-show-error-page-for-reject = true
-
-# > Always Real IP Hosts
-# 当 Surge VIF 处理 DNS 问题时，此选项要求 Surge 返回一个真正的 IP 地址，而不是一个假 IP 地址。
-# DNS 数据包将被转发到上游 DNS 服务器。
-always-real-ip = *.lan,*.id.ui.direct,cable.auth.com,*.msftconnecttest.com,*.msftncsi.com,network-test.debian.org,detectportal.firefox.com,resolver1.opendns.com,*.srv.nintendo.net,*.stun.playstation.net,xbox.*.microsoft.com,*.xboxlive.com,stun.*,global.turn.twilio.com,global.stun.twilio.com,app.yinxiang.com,injections.adguard.org,local.adguard.org,localhost.*.qq.com,localhost.*.weixin.qq.com,*.logon.battlenet.com.cn,*.logon.battle.net,*.blzstatic.cn,*.music.163.com,*.126.net,musicapi.taihe.com,music.taihe.com,trackercdn.kugou.com,*.kuwo.cn,api.joox.com,joox.com,*.y.qq.com,*.music.tc.qq.com,*.xiami.com,*.music.migu.cn,proxy.golang.org,*.mcdn.bilivideo.cn,*.cmpassport.com,id6.me,open.e.189.cn,opencloud.wostore.cn,auth.wosms.cn,id.mail.wo.cn,mdn.open.wo.cn,hmrz.wo.cn,*.jegotrip.com.cn,*.icitymobile.mobi,*.ccb.com,*.icbc.com.cn,*.cmbchina.com,*.bankofchina.com,*.abchina.com.cn,*.psbc.com,*.bankcomm.com,*.cmbc.com.cn,*.citicbank.com,*.spdb.com.cn,*.cib.com.cn,*.cebbank.com,*.hxb.com.cn,*.cgbchina.com.cn,*.pingan.com.cn,pool.ntp.org,*.pool.ntp.org,time.*.com,time.*.gov,time.*.edu.cn,*.ntp.org.cn,PDC._msDCS.*.*,DC._msDCS.*.*,GC._msDCS.*.*
-
-# Hijack DNS
-# 默认情况下，Surge 只返回发送到 Surge DNS 地址的 DNS 查询的假 IP 地址(198.18.0.2)。
-# 有些设备或软件总是使用硬编码的 DNS 服务器。 (例如 Google Speakers 总是使用 8.8.8.8)。 您可以使用此选项劫持查询，以获得一个假地址。
 hijack-dns = *:53
-
-# > Always Raw TCP Hosts
-# 注：always-raw-tcp-hosts 参数的优先级高于force-http-engine-hosts参数与 MITM 配置。
-always-raw-tcp-hosts = www.google.com, 5.28.195.*, 91.105.1*, 91.108.*, 149.154.1*, 185.76.151.*
-
-# > TCP Force HTTP Hosts
-# 让 Surge 把 TCP 连接当作 HTTP 请求来处理。Surge HTTP 引擎将处理这些请求，所有的高级功能，如捕获、重写和脚本等都可以使用。
-# KOOWO - 123.59.31.1,119.18.193.135, 122.14.246.33, 175.102.178.52
-# TencentVideo - 116.253.24.*, 175.6.26.*, 220.169.153.*
-force-http-engine-hosts = *.ott.cibntv.net, 123.59.31.1, 119.18.193.135, 122.14.246.33, 175.102.178.52
-
-# VIF Excluded Routes
-# Surge VIF 只能处理 TCP 和 UDP 协议。使用此选项可以绕过特定的 IP 范围，允许所有流量通过。
-# tun-excluded-routes = 255.255.255.255/32 (默认)
-# tun-excluded-routes = 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 203.0.113.0/24, 224.0.0.0/4, 255.255.255.255/32
-tun-excluded-routes = 198.51.100.0/24, 203.0.113.0/24, 224.0.0.0/4, 239.255.255.250/32, 240.0.0.0/4, 255.255.255.255/32
-
-# VIF Included Routes
-# 默认情况下，Surge VIF 接口会声明自己是默认路由。但是，由于 Wi-Fi 接口的路由较小，有些流量可能不会通过 Surge VIF 接口。使用此选项可以添加一条较小的路由。
-# tun-included-routes = 172.20.10.0/24, 198.18.1.0/20
-
-# > 路由防火墙
-# 包含所有的网络请求
-include-all-networks = false
-
-# 包含本地网络请求
-include-local-networks = true
-
-# 包含APNS
-include-apns = true
-
-# 包含蜂窝服务
-include-cellular-services = true
-
-# > 游戏优化模式
-# 游戏优化:开启后会提高处理 UDP 流量的优先级，当系统负载高时会有比较明显的作用 (如高性能联机游戏)
-udp-priority = false
-
-# udp-policy-not-supported-behaviour 参数用于控制当 UDP 流量被匹配到一个不支持 UDP 转发的策略时的行为
-# DIRECT：回退到 DIRECT 策略（默认）
-# REJECT：回退到 REJECT 策略（建议)
-# 如一些海外游戏和语音使用 UDP 协议，而所使用的服务器不支持 UDP Relay 时，设置为 reject 将无法连接，但如果需要调整该参数的值为 direct，请务必清楚了解同一目标主机名 TCP 请求与 UDP 请求的源地址不同所造成的隐私及安全风险。
-# 推荐用 REJECT，防止 UDP 流量被直连漏出去。
 udp-policy-not-supported-behaviour = REJECT
-# ------
+internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
+proxy-test-url = http://networkcheck.kde.org
+test-timeout = 5
+geoip-maxmind-url = https://gitlab.com/Loon0x00/loon_data/-/raw/main/geo/GeoLite2-Country.mmdb?inline=false
 
 [Proxy Group]
-# --- External Proxy Group ---
-# > Sub-Store订阅
-# 去重订阅（需要配合Sub-Store脚本https://raw.githubusercontent.com/Keywos/rule/main/cname.js#bs=10&cd=2000&flag=使用）
-De-Surge = select, policy-path=[输入你的机场订阅链接], update-interval=10800, no-alert=0, hidden=true, include-all-proxies=0 // De-Surge
-
-# 重命名订阅（需要配合Sub-Store脚本https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Resource/Script/Sub-Store/NodeRename.js使用）
-Rename = select, policy-path=[输入你的机场订阅链接], update-interval=10800, no-alert=0, hidden=true, include-all-proxies=0 // Rename
-
-# > 机场订阅
-[机场名字] = select, policy-path=[输入你的机场订阅链接], update-interval=10800, no-alert=0, hidden=true, include-all-proxies=0
-# ------
-
-# --- Internal Proxy Group ---
-# > 配置分流
-自选节点 = select, SmartGroup, 香港, 台湾, 狮城, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, 🥡节点选择, no-alert=0, hidden=0, include-all-proxies=0, icon-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Surge_01.png
-
-# IP归属地更改
-归属地更改 = select, DIRECT, 香港, 台湾, 狮城, 日本, 美国, 韩国, icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Periscope.png
-
-# Apple
-Apple Services = select, DIRECT, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png
-
-# Telegram
-Telegram = select, 🎲自动选择, 🔯故障转移, 🔮负载均衡, DIRECT, icon-url=https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/telegram(blue1).png
-
-# Netflix
-Netflix = select, 狮城, 香港, 台湾, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/Netflix.png
-# YouTube
-YouTube = select, 香港, 台湾, 狮城, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png
-# Disney+
-Disney+ = select, 狮城, 香港, 台湾, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/disney(blue).png
-# Spotify
-Spotify = select, 香港, 台湾, 狮城, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/spotify.svg
-# HBO GO ASIA
-HBO GO = select, 香港, 台湾, 狮城, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HBO_2.png
-# Emby
-Emby = select, 香港, 台湾, 狮城, 日本, 美国, 韩国, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/emby.png
-# 游戏
-游戏 = select, DIRECT, 自选节点, 🎲自动选择, 🔯故障转移, 🔮负载均衡, 🥡节点选择, icon-url=https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/switch.png
-
-# 国际流媒体服务
-国外网站 = select, 🎲自动选择, 香港, 台湾, 狮城, 日本, 美国, 韩国, 🔯故障转移, 🔮负载均衡, DIRECT, icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png
-
-# 中国流媒体服务（面向海外版本）
-国內流媒体 = select, DIRECT, 香港, 台湾, 狮城, 🎲自动选择, 🔯故障转移, 🔮负载均衡, icon-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili_3.png
-
-# 白名单模式 PROXY，黑名单模式 DIRECT
-漏网之鱼 = select, DIRECT, 自选节点, 🎲自动选择, 🔯故障转移, 🔮负载均衡, 🥡节点选择, icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png
-# ------
-
-# > 节点分流
-SmartGroup = smart, policy-regex-filter=^(?=.*\S)(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|(?:\d{4}-\d{2}-\d{2}|\dG))).*$, no-alert=0, hidden=0, include-all-proxies=0, include-other-group=Rename, icon-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/group/GetSomeFries.png
-
-🥡节点选择 = select, policy-regex-filter=^(?=.*\S)(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|(?:\d{4}-\d{2}-\d{2}|\dG))).*$, no-alert=0, hidden=0, include-all-proxies=0, include-other-group=Rename, icon-url=https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/ip.png
-
-🎲自动选择 = url-test, policy-regex-filter=^(?=.*\S)(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|(?:\d{4}-\d{2}-\d{2}|\dG))).*$, hidden=0, interval=3000, tolerance=50, evaluate-before-use=1, no-alert=0, include-all-proxies=0, include-other-group=De-Surge, icon-url=https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(3).png
-
-🔯故障转移 = fallback, policy-regex-filter=^(?=.*\S)(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|(?:\d{4}-\d{2}-\d{2}|\dG))).*$, hidden=0, interval=3000, evaluate-before-use=1, no-alert=0, include-all-proxies=0, include-other-group=De-Surge, icon-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png
-
-🔮负载均衡 = load-balance, policy-regex-filter=^(?=.*\S)(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|(?:\d{4}-\d{2}-\d{2}|\dG))).*$, hidden=0, interval=3000, tolerance=50, evaluate-before-use=1, no-alert=0, include-all-proxies=0, persistent=1, include-other-group=De-Surge, icon-url=https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png
-
-# 地区分流
-香港 = load-balance, policy-regex-filter=^(?=.*((?i)🇭🇰|香港|(\b(HK|Hong)\b))).*$, no-alert=0, hidden=1, include-all-proxies=0, persistent=1, include-other-group=Rename
-
-台湾 = load-balance, policy-regex-filter=^(?=.*((?i)🇼🇸|台湾|(\b(TW|Tai|Taiwan|TWN)\b))).*$, no-alert=0, hidden=1, include-all-proxies=0, persistent=1, include-other-group=Rename
-
-狮城 = load-balance, policy-regex-filter=^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|Singapore|SGP)\b))).*$, no-alert=0, hidden=1, include-all-proxies=0, persistent=1, include-other-group=Rename
-
-日本 = load-balance, policy-regex-filter=^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|Japan|JPN)\b))).*$, no-alert=0, hidden=1, include-all-proxies=0, persistent=1, include-other-group=Rename
-
-美国 = load-balance, policy-regex-filter=^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\b(US|United States|USA)\b))).*$, no-alert=0, hidden=1, include-all-proxies=0, persistent=1, include-other-group=Rename
-
-韩国 = load-balance, policy-regex-filter=^(?=.*((?i)🇰🇷|韩|韓|首尔|(/b(KR|Korea)/b))).*$, no-alert=0, hidden=1, include-all-proxies=0, persistent=1, include-other-group=Rename
-# ------
-
-# 兼容性修复
-PROXY = select, 自选节点, hidden=true
-# ------
+机场订阅 = select, policy-path=[输入你的机场订阅链接], update-interval=10800, no-alert=0, hidden=true, include-all-proxies=0
+🥡 节点选择 = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,no-alert=0,hidden=0,include-all-proxies=0,icon-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png
+国外网站 = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,no-alert=0,hidden=0,include-all-proxies=0,icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png
+Telegram = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,no-alert=0,hidden=0,include-all-proxies=0,icon-url=https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/telegram.png
+Apple Service = select,DIRECT,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,no-alert=0,hidden=0,include-all-proxies=0,icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png
+AI = select,美国节点,日本节点,狮城节点,韩国节点,台湾节点,香港节点,no-alert=0,hidden=0,include-all-proxies=0,icon-url=https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/AutoClaw-108.png
+Netflix = select,狮城节点,香港节点,台湾节点,日本节点,美国节点,韩国节点,DIRECT,no-alert=0,hidden=0,include-all-proxies=0,icon-url=https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/netflix.png
+YouTube = select,香港节点,台湾节点,狮城节点,日本节点,美国节点,韩国节点,DIRECT,no-alert=0,hidden=0,include-all-proxies=0,icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png
+Disney+ = select,狮城节点,香港节点,台湾节点,日本节点,美国节点,韩国节点,DIRECT,no-alert=0,hidden=0,include-all-proxies=0,icon-url=https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/disney.png
+Spotify = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,no-alert=0,hidden=0,include-all-proxies=0,icon-url=https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/spotify.png
+Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,no-alert=0,hidden=0,include-all-proxies=0,icon-url=https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/emby.png
+游戏 = select,DIRECT,Game,🎲 自动选择,🔯 故障转移,🔮 负载均衡,no-alert=0,hidden=0,include-all-proxies=0,icon-url=https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/nintendoswitch.png
+漏网之鱼 = select,🔯 故障转移,🎲 自动选择,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,no-alert=0,hidden=0,include-all-proxies=0,icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png
+🎲 自动选择 = url-test,policy-regex-filter=^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$,include-other-group=机场订阅,include-all-proxies=0,no-alert=0,hidden=0,url=http://networkcheck.kde.org,interval=600,tolerance=50,icon-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/group/GetSomeFries.png
+🔯 故障转移 = fallback,policy-regex-filter=^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$,include-other-group=机场订阅,include-all-proxies=0,no-alert=0,hidden=0,url=http://networkcheck.kde.org,interval=600,icon-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png
+🔮 负载均衡 = load-balance,policy-regex-filter=^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$,include-other-group=机场订阅,include-all-proxies=0,no-alert=0,hidden=0,url=http://networkcheck.kde.org,interval=600,icon-url=https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png
+香港节点 = url-test,policy-regex-filter=^(?=.*((?i)🇭🇰|香港|((?<![A-Za-z])(HKG|HK|Hong ?Kong|HongKong|Hong)(?![A-Za-z]))))(?!.*((?i)回国|校园|游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z])))).*$,include-other-group=机场订阅,include-all-proxies=0,no-alert=0,hidden=0,url=http://networkcheck.kde.org,interval=600,icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png
+美国节点 = url-test,policy-regex-filter=^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|((?<![A-Za-z])(USA|US|United ?States)(?![A-Za-z]))))(?!.*((?i)回国|校园|游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z])))).*$,include-other-group=机场订阅,include-all-proxies=0,no-alert=0,hidden=0,url=http://networkcheck.kde.org,interval=600,icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png
+狮城节点 = url-test,policy-regex-filter=^(?=.*((?i)🇸🇬|新加坡|狮|((?<![A-Za-z])(SGP|SG|Singapore)(?![A-Za-z]))))(?!.*((?i)回国|校园|游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z])))).*$,include-other-group=机场订阅,include-all-proxies=0,no-alert=0,hidden=0,url=http://networkcheck.kde.org,interval=600,icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png
+日本节点 = url-test,policy-regex-filter=^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|((?<![A-Za-z])(JPN|JP|Japan)(?![A-Za-z]))))(?!.*((?i)回国|校园|游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z])))).*$,include-other-group=机场订阅,include-all-proxies=0,no-alert=0,hidden=0,url=http://networkcheck.kde.org,interval=600,icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png
+韩国节点 = url-test,policy-regex-filter=^(?=.*((?i)🇰🇷|韩国|韓|首尔|((?<![A-Za-z])(KOR|KR|Korea)(?![A-Za-z]))))(?!.*((?i)回国|校园|游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z])))).*$,include-other-group=机场订阅,include-all-proxies=0,no-alert=0,hidden=0,url=http://networkcheck.kde.org,interval=600,icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png
+台湾节点 = url-test,policy-regex-filter=^(?=.*((?i)🇹🇼|台湾|台灣|((?<![A-Za-z])(TWN|TW|Taiwan|Tai)(?![A-Za-z]))))(?!.*((?i)回国|校园|游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z])))).*$,include-other-group=机场订阅,include-all-proxies=0,no-alert=0,hidden=0,url=http://networkcheck.kde.org,interval=600,icon-url=https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png
+Game = url-test,policy-regex-filter=^(?=.*((?i)游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z]))))(?!.*((?i)回国|校园)).*$,include-other-group=机场订阅,include-all-proxies=0,no-alert=0,hidden=0,url=http://networkcheck.kde.org,interval=600
 
 [Rule]
-# --- CUSTOM RULES ---
-# 自定义规则
-# # 您可以在此处插入自定义规则
-# 阻止海外 QUIC
-AND,((NETWORK,UDP),(DST-PORT,443),(NOT,((GEOSITE,cn))),(NOT,((GEOIP,CN)))),REJECT
-# Zoom
 DOMAIN-SUFFIX,zoom.us,国外网站
-# Todesk
 DOMAIN-KEYWORD,todesk,DIRECT
-# AnyViewer
 DOMAIN-KEYWORD,anyviewer,DIRECT
-# 环球慧思
 DOMAIN-SUFFIX,globalwits.cn,DIRECT
-
-# 新增内置策略 NO-HYBRID，等价为 NO-HYBRID = direct, hybrid=off
-DOMAIN-SUFFIX,cmbchina.com,NO-HYBRID // 部分服务会校验请求的来源 IP，在开启 hybrid 时有可能因为请求IP变化导致无法正常登录和使用（如招商银行），可使用 NO-HYBRID 对特定请求单独关闭 All Hybrid
-
-# Process 程序规则
-# > AdGuard
-DOMAIN,injections.adguard.org,DIRECT
-DOMAIN,local.adguard.org,DIRECT
-
-# Web Controller 网页控制器规则
-# > Surge
 DOMAIN,yasd.royli.dev,DIRECT
-# > Clash
 DOMAIN,clash.razord.top,DIRECT
 DOMAIN,yacd.haishan.me,DIRECT
-# > BoxJs
 DOMAIN,boxjs.com,DIRECT
 DOMAIN,boxjs.net,DIRECT
-# > Sub-Store
-DOMAIN-SUFFIX,vercel.app,PROXY
-
-# Rulesets，规则集（每 24 小时后台自动更新）
-# 规则集包含多条子规则，可以是另一个本地 list 文件，或者是一个 URL
-# 内置了两个规则集：SYSTEM 和 LAN
-# 内置规则集的具体内容可在 Surge Mac 设置界面查看
-
-# 搜狗输入法
-RULE-SET,https://ruleset.skk.moe/List/non_ip/sogouinput.conf,REJECT // 搜狗输入法
-
-# Advertising 广告拦截 / Privacy 隐私保护 / Malware 拦截 / Phiishing 拦截
-RULE-SET,https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list,REJECT,extended-matching,pre-matching // 广告拦截
-# DOMAIN-SET,https://ruleset.skk.moe/List/domainset/reject.conf,REJECT,extended-matching // 广告拦截
-# RULE-SET,https://ruleset.skk.moe/List/non_ip/reject.conf,REJECT,extended-matching // 广告拦截
-RULE-SET,https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf,REJECT-NO-DROP,extended-matching // 防止 PCDN
-RULE-SET,https://ruleset.skk.moe/List/non_ip/reject-drop.conf,REJECT-DROP,extended-matching // Adobe 系列软件内部的跟踪
-# RULE-SET,https://ruleset.skk.moe/List/ip/reject.conf,REJECT-DROP // 广告拦截 IP
-
-# SpeedTest 测速
-DOMAIN-SET,https://ruleset.skk.moe/List/domainset/speedtest.conf,PROXY,extended-matching // SpeedTest
-
-# > Apple & Microsoft 国内CDN域名
-RULE-SET,https://ruleset.skk.moe/List/non_ip/apple_cdn.conf,DIRECT // Apple国内CDN域名
-RULE-SET,https://ruleset.skk.moe/List/non_ip/microsoft_cdn.conf,DIRECT // Microsoft =国内CDN域名
-# 静态CDN域名(強烈建議)
-DOMAIN-SET,https://ruleset.skk.moe/List/domainset/cdn.conf,PROXY,extended-matching // SukkaW静态CDN域名
-RULE-SET,https://ruleset.skk.moe/List/non_ip/cdn.conf,PROXY,extended-matching // SukkaW静态CDN域名
-
-# > Apple Service
-RULE-SET,https://ruleset.skk.moe/List/non_ip/apple_cn.conf,DIRECT // Apple CN 域名
-RULE-SET,https://ruleset.skk.moe/List/non_ip/apple_services.conf,Apple Services,extended-matching // 苹果服务域名
-
-# 苹果服务规则列表
-RULE-SET,https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Surge/Surge%203/Provider/Apple.list,Apple Services,extended-matching //  Apple Services
-
-# TV+
-PROCESS-NAME,/System/Applications/TV.app/Contents/MacOS/TV,国外网站 // TV+
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleTV/AppleTV.list,国外网站,extended-matching // TV+
-# Disney+
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Disney/Disney.list,Disney+,extended-matching // Disney+
-# Emby
-RULE-SET,https://github.com/Repcz/Tool/raw/X/Surge/Rules/Emby.list,Emby,extended-matching // Emby
-# Netflix
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Netflix/Netflix.list,Netflix,extended-matching // Netflix
-# YouTube
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list,国外网站,extended-matching
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTubeMusic/YouTubeMusic.list,国外网站,extended-matching // YouTube Music
-# Spotify
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list,国外网站,extended-matching // Spotify
-# Now E
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/NowE/NowE.list,香港,extended-matching // Now E
-# 巴哈姆特
-RULE-SET,https://raw.githubusercontent.com/ConnersHua/RuleGo/master/Surge/Ruleset/Extra/Streaming/Video/Bahamut.list,台湾,extended-matching // 巴哈姆特
-# Hami Video
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/HamiVideo/HamiVideo.list,台湾,extended-matching // Hami Video
-# Niconico
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Niconico/Niconico.list,日本,extended-matching // Niconico
-# HBO
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/HBOUSA/HBOUSA.list,美国,extended-matching // HBO MAX
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/HBOHK/HBOHK.list,香港,extended-matching // HBO GO ASIA
-# Hulu
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/HuluUSA/HuluUSA.list,美国,extended-matching // Hulu🇺🇸
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/HuluJP/HuluJP.list,日本,extended-matching // Hulu🇯🇵
-# BiliBili
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/BiliBiliIntl/BiliBiliIntl.list,国外网站,extended-matching // Bilibili🇺🇳
-
-# Streaming 国际流媒体服务
-RULE-SET,https://ruleset.skk.moe/List/non_ip/stream.conf,国外网站,extended-matching // Streaming 国际流媒体服务
-RULE-SET,https://ruleset.skk.moe/List/ip/stream.conf,国外网站 // Streaming 国际流媒体服务(IP)
-
-# 国外网站
-RULE-SET,https://ruleset.skk.moe/List/non_ip/global.conf,自选节点,extended-matching // 国外网站
-
-# Telegram 电报
-RULE-SET,https://github.com/LucaLin233/Proxy/blob/main/surge/rules/telegram.list?raw=true,Telegram,extended-matching // Telegram 电报
-
-# > 👾Game 游戏(不仅限于UDP, 包括相关CDN)
-# GameList
-# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Game/Game.list,游戏 // GameList
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Blizzard/Blizzard.list,游戏 // 暴雪娱乐 Blizzard
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Classic/Classic.list,游戏 // Classic
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/DiabloIII/DiabloIII.list,游戏 // 暗黑破坏神III DiabloIII
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Hearthstone/Hearthstone.list,游戏 // 炉石传说 Hearthstone
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/HeroesoftheStorm/HeroesoftheStorm.list,游戏 // 风暴英雄 HeroesoftheStorm
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Rockstar/Rockstar.list,游戏 // 侠盗猎车手 Rockstar
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Overwatch/Overwatch.list,游戏 // 守望先锋 Overwatch
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/StarCraftII/StarCraftII.list,游戏 // 星海爭霸II StarCraftII
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WildRift/WildRift.list,游戏 // 英雄联盟手游 WildRift
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/WorldofWarcraft/WorldofWarcraft.list,游戏 // 魔兽世界WorldofWarcraft
-
-# Game Publisher
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Discord/Discord.list,游戏 // Discord
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/EA/EA.list,游戏 // EA
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Epic/Epic.list,游戏 // Epic
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/HoYoverse/HoYoverse.list,游戏 // 米哈游
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Nintendo/Nintendo.list,游戏 // 任天堂 Nintendo
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Origin/Origin.list,游戏 // Origin
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/PlayStation/PlayStation.list,游戏 // PlayStation
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Steam/Steam.list,游戏 // Steam
-# RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/SteamCN/SteamCN.list,游戏 // SteamCN
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Supercell/Supercell.list,游戏 // 部落冲突 Supercell
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/UBI/UBI.list,游戏 // UBI
-RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Xbox/Xbox.list,游戏 // Xbox
-
-# > 局域网
-RULE-SET,https://ruleset.skk.moe/List/non_ip/lan.conf,DIRECT,extended-matching // 局域网
-# China 中国直连
-RULE-SET,https://ruleset.skk.moe/List/non_ip/domestic.conf,DIRECT,extended-matching // 国內直连
-RULE-SET,https://ruleset.skk.moe/List/non_ip/direct.conf,DIRECT,extended-matching // 国內直连
-# > 局域网 IP
-RULE-SET,https://ruleset.skk.moe/List/ip/lan.conf,DIRECT // 局域网 IP
-# China 中国直连 (IP)
-RULE-SET,https://ruleset.skk.moe/List/ip/domestic.conf,DIRECT // China 中国直连 (IP)
-RULE-SET,https://ruleset.skk.moe/List/ip/china_ip.conf,DIRECT,no-resolve // China 中国直连 (IP)
-
-# Surge 的自动 REJECT 保护丢包，防止应用循环请求
-IP-CIDR,0.0.0.0/32,REJECT,no-resolve
-
-# Local Area Network 本地局域网
-RULE-SET,LAN,DIRECT // Local Area Network 本地局域网
-
-# ASN China 基于ASN 数据库判断域名和 IP 的归属地
-# RULE-SET,https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.China.list,DIRECT // ASN CHINA
-
-# DEST-PORT 端口规则
-OR,((DEST-PORT,25), (DEST-PORT,110), (DEST-PORT,143), (DEST-PORT,465), (DEST-PORT,587)),DIRECT // 邮件服务默认端口
-AND,((OR,((DOMAIN,time-ios.apple.com), (DOMAIN,time.apple.com), (DOMAIN-SUFFIX,pool.ntp.org))), (DEST-PORT,123)),DIRECT // NTP服务默认端口
-
-# GEOIP
-GEOIP,CN,DIRECT,no-resolve // IPinfo
-
-# Final DNS 查询失败走 Final 规则
-FINAL,漏网之鱼,notification-text="漏网之鱼",always-capture=Debug,dns-failed
+DOMAIN-SUFFIX,vercel.app,国外网站
+RULE-SET,https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list,REJECT
+RULE-SET,https://ruleset.skk.moe/List/non_ip/reject.conf,REJECT
+RULE-SET,https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf,REJECT
+RULE-SET,https://ruleset.skk.moe/List/non_ip/reject-drop.conf,REJECT-DROP
+RULE-SET,https://ruleset.skk.moe/List/non_ip/reject-url-regex.conf,REJECT
+RULE-SET,https://ruleset.skk.moe/List/non_ip/apple_cn.conf,DIRECT
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/AppleTV/AppleTV.list,国外网站
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Disney/Disney.list,Disney+
+RULE-SET,https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Rules/Emby.list,Emby
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Netflix/Netflix.list,Netflix
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTube/YouTube.list,YouTube
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTubeMusic/YouTubeMusic.list,YouTube
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Spotify/Spotify.list,Spotify
+RULE-SET,https://ruleset.skk.moe/List/non_ip/stream.conf,国外网站
+RULE-SET,https://ruleset.skk.moe/List/ip/stream.conf,国外网站
+RULE-SET,https://ruleset.skk.moe/List/non_ip/ai.conf,AI
+RULE-SET,https://raw.githubusercontent.com/LucaLin233/Proxy/main/surge/rules/telegram.list,Telegram
+RULE-SET,https://ruleset.skk.moe/List/non_ip/apple_services.conf,Apple Service
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Blizzard/Blizzard.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Classic/Classic.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/DiabloIII/DiabloIII.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Hearthstone/Hearthstone.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/HeroesoftheStorm/HeroesoftheStorm.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Rockstar/Rockstar.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Overwatch/Overwatch.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/StarCraftII/StarCraftII.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/WildRift/WildRift.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/WorldofWarcraft/WorldofWarcraft.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Discord/Discord.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/EA/EA.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Epic/Epic.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/HoYoverse/HoYoverse.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Nintendo/Nintendo.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Origin/Origin.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/PlayStation/PlayStation.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Steam/Steam.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Supercell/Supercell.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/UBI/UBI.list,游戏
+RULE-SET,https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Xbox/Xbox.list,游戏
+RULE-SET,https://ruleset.skk.moe/List/non_ip/domestic.conf,DIRECT
+RULE-SET,https://ruleset.skk.moe/List/non_ip/direct.conf,DIRECT
+RULE-SET,https://ruleset.skk.moe/List/ip/china_ip.conf,DIRECT
+RULE-SET,https://ruleset.skk.moe/List/non_ip/cdn.conf,国外网站
+RULE-SET,https://ruleset.skk.moe/List/non_ip/global.conf,🥡 节点选择
+AND,((PROTOCOL,QUIC),(NOT,((GEOIP,CN)))),REJECT
+OR,((DEST-PORT,25),(DEST-PORT,110),(DEST-PORT,143),(DEST-PORT,465),(DEST-PORT,587)),DIRECT
+AND,((OR,((DOMAIN,time-ios.apple.com),(DOMAIN,time.apple.com))),(DEST-PORT,123)),DIRECT
+GEOIP,CN,DIRECT
+FINAL,漏网之鱼
 
 [Host]
-# --- CUSTOM HOSTS ---
-# > IPv6
-ip6-localhost = ::1 // IPv6 Localhost
-ip6-loopback = ::1 // IPv6 Loopback
-ip6-localnet = fe00::0 // IPv6 Link-Local
-ip6-mcastprefix = ff00::0 // IPv6 Multicast
-ip6-allnodes = ff02::1 // IPv6 All Nodes
-ip6-allrouters = ff02::2 // IPv6 All Routers
-ip6-allhosts = ff02::3 // IPv6 All Hosts
-
-# > Encrypted DNS
-dns.google = 8.8.8.8, 8.8.4.4, 2001:4860:4860::8888, 2001:4860:4860::8844 // https://dns.google/dns-query
-dns64.dns.google = 2001:4860:4860::6464, 2001:4860:4860::64 // https://dns64.dns.google/dns-query
-cloudflare-dns.com = 104.16.249.249, 104.16.248.249, 2606:4700::6810:f8f9, 2606:4700::6810:f9f9 // https://cloudflare-dns.com/dns-query
-1dot1dot1dot1.cloudflare-dns.com = 1.1.1.1, 1.0.0.1, 2606:4700:4700::1001, 2606:4700:4700::1111 // 1dot1dot1dot1.cloudflare-dns.com:853
-one.one.one.one = 1.1.1.1, 1.0.0.1, 2606:4700:4700::1001, 2606:4700:4700::1111 // one.one.one.one:853
-dns.alidns.com = 223.5.5.5, 223.6.6.6, 2400:3200:baba::1, 2400:3200::1 // https://dns.alidns.com/dns-query
-doh.pub = 1.12.12.12, 120.53.53.53 // https://doh.pub/dns-query
-dot.pub = 1.12.12.12, 120.53.53.53 // dot.pub:853
-doh.360.cn = 23.6.48.18, 112.65.69.15 // https://doh.360.cn/dns-query
-dot.360.cn = 101.198.198.198, 101.198.199.200, 101.198.192.33, 112.65.69.15 // dot.360.cn:853
-dns.twnic.tw = 101.101.101.101, 2001:de4::101, 2001:de4::102 // https://dns.twnic.tw/dns-query
-ordns.he.net = 74.82.42.42, 2001:470:20::2 // https://ordns.he.net/dns-query
-
-# > Modify Contents
-# services.googleapis.cn = 74.125.193.94 // Google API Services China
-talk.google.com = 108.177.125.188 // Firebase Cloud Messaging
-mtalk.google.com = 108.177.125.188, 2404:6800:4008:c07::bc, 142.250.31.188 // Firebase Cloud Messaging
-alt1-mtalk.google.com = 3.3.3.3, 2607:f8b0:4023:c0b::bc, 64.233.171.188 // Firebase Cloud Messaging
-alt2-mtalk.google.com = 3.3.3.3, 142.250.115.188 // Firebase Cloud Messaging
-alt3-mtalk.google.com = 74.125.200.188, 173.194.77.188 // Firebase Cloud Messaging
-alt4-mtalk.google.com = 74.125.200.188, 173.194.219.188 // Firebase Cloud Messaging
-alt5-mtalk.google.com = 3.3.3.3, 2607:f8b0:4023:1::bc, 142.250.112.188 // Firebase Cloud Messaging
-alt6-mtalk.google.com = 3.3.3.3, 172.217.197.188 // Firebase Cloud Messaging
-alt7-mtalk.google.com = 74.125.200.188, 2607:f8b0:4002:c03::bc, 108.177.12.188 // Firebase Cloud Messaging
-alt8-mtalk.google.com = 3.3.3.3 // Firebase Cloud Messaging
-# dl.google.com = 180.163.151.161 // Google CDN
-# dl.l.google.com = 180.163.151.161 // Google CDN
-
-# --- CUSTOM DNS ---
-# > Modify Contents
-blog.google = server:119.29.29.29 // Google Blog
-googletraveladservices.com = server:119.29.29.29 // Google Flights
-dl.google.com = server:119.29.29.29 // Google Download
-dl.l.google.com = server:119.29.29.29 // Google Download
-clientservices.googleapis.com = server:119.29.29.29 // Google Chrome
-update.googleapis.com = server:119.29.29.29 // Google Update
-translate.googleapis.com = server:119.29.29.29 // Google Translate
-fonts.googleapis.com = server:119.29.29.29 // Google Fonts
-fonts.gstatic.com = server:119.29.29.29 // Google Fonts
-stun.l.google.com = server:syslib // Google STUN
-stun?.l.google.com = server:syslib // Google STUN
-
-# > Router Admin Panel
-*.id.ui.direct = server:syslib // Ubiquiti Unifi Network App
-# unifi.ui.com = server:syslib // Ubiquiti Unifi Portal
-unifi.local = server:syslib // Ubiquiti Unifi OS
-# network.unifi.ui.com = server:syslib // Ubiquiti Unifi Controller
-amplifi.lan = server:syslib // Ubiquiti Amplifi Router
-router.synology.com = server:syslib // Synology Router
-sila.razer.com = server:syslib // Razer Sila Router
-router.asus.com = server:syslib // Asus Router
-routerlogin.net = server:syslib // Netgear Router
-orbilogin.com = server:syslib // Netgear Obri Router
-www.LinksysSmartWiFi.com = server:syslib // Linksys Router
-LinksysSmartWiFi.com = server:syslib // Linksys Router
-myrouter.local = server:syslib // Linksys Router
-instant.arubanetworks.com = server:syslib // Aurba Router
-setmeup.arubanetworks.com = server:syslib // Aurba Router
-www.miwifi.com = server:syslib // 小米 Mi WiFi Router
-miwifi.com = server:syslib // 小米 Mi WiFi Router
-mediarouter.home = server:syslib // 华为 Huawei Router
-tplogin.cn = server:syslib // TP-Link Router
-tplinklogin.net = server:syslib // TP-Link Router
-tplinkwifi.net = server:syslib // TP-Link Router
-melogin.cn = server:syslib // 水星 MERCURY Router
-falogin.cn = server:syslib // 迅捷 FAST Router
-tendawifi.com = server:syslib // 腾达 Tenda Router
-leike.cc = server:syslib // 磊科 Netcore Router
-zte.home = server:syslib // 中兴 ZTE Router
-p.to = server:syslib // 斐讯 PHICOMM Router
-phicomm.me = server:syslib // 斐讯 PHICOMM Router
-hiwifi.com = server:syslib // 极路由 HiWiFi Router
-peiluyou.com = server:syslib // 迅雷路由
-_hotspot_.m2m = server:syslib // M2M routers at MiFi Hotspot
-hotspot.cslwifi.com = server:syslib // csl Wi-Fi
-
-# > Apple
-# refer: https://support.apple.com/zh-cn/HT210060
-networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
-# *.apple.com = server:https://doh.dns.apple.com/dns-query // Apple.com
-*.icloud.com = server:https://doh.dns.apple.com/dns-query // iCloud.com
-
-# > Alphabet
-# refer: https://developers.google.com/speed/public-dns/docs/doh?hl=zh-cn
-# *.google = server:https://dns.google/dns-query // Google
-*.google.com = server:https://dns.google/dns-query // Google
-*.google.com.?? = server:https://dns.google/dns-query // Google
-# *.goog = server:https://dns.google/dns-query // Google sites
-*.gstatic.com = server:https://dns.google/dns-query // Google 静态资源
-*.ggpht.com = server:https://dns.google/dns-query // Google Photos
-*.googleusercontent.com = server:https://dns.google/dns-query // Google 用户上传数据
-*.googleapis.com = server:https://dns.google/dns-query // Google APIs
-*.1e100.net = server:https://dns.google/dns-query // Google backbone
-*.youtube = server:https://dns.google/dns-query // Youtube sites
-*.youtube.com = server:https://dns.google/dns-query // Youtube
-*.ytimg.com = server:https://dns.google/dns-query // Youtube 图片
-*.googlevideo.com = server:https://dns.google/dns-query // Youtube Video
-*.gvt?.com = server:https://dns.google/dns-query // Google Video Thumbnails
-*.recaptcha.net = server:https://dns.google/dns-query // reCaptcha
-*.gmail.com = server:https://dns.google/dns-query // Gmail
-*.googlesource.com = server:https://dns.google/dns-query // Google Source
-*.googleadservices.com = server:https://dns.google/dns-query // Google AD Services
-*.doubleclick.net = server:https://dns.google/dns-query // DoubleClick
-*.adsense.com = server:https://dns.google/dns-query // AdSense
-*.adsensecustomsearchads.com = server:https://dns.google/dns-query // AdSense Custom Search Ads
-*.adsenseformobileapps.com = server:https://dns.google/dns-query // AdSense for mobile apps
-*.gle = server:https://dns.google/dns-query // Google shortened URLs
-goo.gl = server:https://dns.google/dns-query // Google URL Shortener
-
-# > Cloudflare
-# refer: https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/
-*.cloudflare.com = server:https://cloudflare-dns.com/dns-query // Cloudflare
-*.cloudflarestream.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Stream
-*.cloudflareclient.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Client
-*.cloudflareinsights.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Web Analytics
-*.every1dns.net = server:https://cloudflare-dns.com/dns-query // Cloudflare 1.1.1.1
-# *.cloudflaressl.com = server:https://cloudflare-dns.com/dns-query // Cloudflare SSL Certificate
-# *.cloudflare-dns.com = server:https://cloudflare-dns.com/dns-query // Cloudflare DNS
-*.workers.dev = server:https://cloudflare-dns.com/dns-query // CloudFlare Workers
-
-# > 阿里巴巴
-# refer: https://www.alidns.com
-*.alibaba.cn = server:https://dns.alidns.com/dns-query // 阿里巴巴
-*.alibaba.com.cn = server:https://dns.alidns.com/dns-query // 阿里巴巴
-*.china.alibaba.com = server:https://dns.alidns.com/dns-query // Alibaba 中国
-*.1688.com = server:https://dns.alidns.com/dns-query // 1688
-*.taobao.com = server:https://dns.alidns.com/dns-query // 淘宝
-*.tbcache.com = server:https://dns.alidns.com/dns-query // 淘宝 缓存
-*.tmall.com = server:https://dns.alidns.com/dns-query // 天猫
-*.alicdn.com = server:https://dns.alidns.com/dns-query // 阿里 CDN
-*.alikunlun.com = server:https://dns.alidns.com/dns-query // 阿里昆仑
-*.aliapp.com = server:https://dns.alidns.com/dns-query // 云引擎应用平台
-*.aliapp.org = server:https://dns.alidns.com/dns-query // 上云平台
-*.alibabausercontent.com = server:https://dns.alidns.com/dns-query // 阿里用户上传资料
-*.mmstat.com = server:https://dns.alidns.com/dns-query // mmstat 数据统计 广告追踪
-tb.cn = server:https://dns.alidns.com/dns-query // 淘宝短网址
-
-# > 阿里云
-# refer: https://www.alidns.com
-*.aliyun.* = server:https://dns.alidns.com/dns-query // 阿里云
-*.aliyuncdn.* = server:https://dns.alidns.com/dns-query // 阿里云 CDN
-*.aliyuncs.com = server:https://dns.alidns.com/dns-query // 阿里云 API 服务
-*.aliyunddos????.com = server:https://dns.alidns.com/dns-query // 阿里云 DDoS防护
-*.aliyundrive.com = server:https://dns.alidns.com/dns-query // 阿里云盘
-*.aliyundun.com = server:https://dns.alidns.com/dns-query // 阿里云盾
-*.aliyundunwaf.com = server:https://dns.alidns.com/dns-query // 阿里云盾 Web 应用防火墙
-*.aliyun-inc.com = server:https://dns.alidns.com/dns-query // 阿里云 内部
-
-# > 蚂蚁集团
-# refer: https://www.alidns.com
-*.antgroup.com = server:https://dns.alidns.com/dns-query // 蚂蚁集团
-*.antfin.com = server:https://dns.alidns.com/dns-query // 蚂蚁金服
-*.antfinancial.com = server:https://dns.alidns.com/dns-query // 蚂蚁金服
-*.alipay.com = server:https://dns.alidns.com/dns-query // 支付宝
-*.alipay.com.cn = server:https://dns.alidns.com/dns-query // 支付宝
-*.alipaydns.com = server:https://dns.alidns.com/dns-query // 支付宝 HTTP DNS
-*.alipayeshop.com = server:https://dns.alidns.com/dns-query // 支付宝 商家资源
-*.alipaylog.com = server:https://dns.alidns.com/dns-query // 支付宝 Mdap
-*.alipayobjects.com = server:https://dns.alidns.com/dns-query // 支付宝 静态资源
-*.alipay-eco.com = server:https://dns.alidns.com/dns-query // 支付宝 开放技术生态体系
-
-# > 腾讯
-# refer: https://www.dnspod.cn/products/publicdns
-*.tencent.com = server:https://doh.pub/dns-query // 腾讯
-*.qcloud.com = server:https://doh.pub/dns-query // 腾讯云
-*.qcloudcdn.cn = server:https://doh.pub/dns-query // 腾讯云CDN
-*.qcloudcdn.com = server:https://doh.pub/dns-query // 腾讯云CDN
-*.qcloudcos.com = server:https://doh.pub/dns-query // 腾讯云对象储存
-*.qcloudimg.com = server:https://doh.pub/dns-query // 腾讯云静态资源
-*.qcloudcjgj.com = server:https://doh.pub/dns-query // 腾讯云超级管家
-*.qcloudwzgj.com = server:https://doh.pub/dns-query // 腾讯云网站管家
-*.qcloudzygj.com = server:https://doh.pub/dns-query // 腾讯云主页管家
-*.myqcloud.com = server:https://doh.pub/dns-query // 腾讯开放云
-*.tencent-cloud.net = server:https://doh.pub/dns-query // 腾讯云
-*.tencentcloud-aiot.com = server:https://doh.pub/dns-query // 腾讯云aiot解决方案
-*.tencentcloudapi.com = server:https://doh.pub/dns-query // 腾讯云API
-*.tencentcloudcr.com = server:https://doh.pub/dns-query // 腾讯云容器镜像服务TCR
-*.tencentcloudmarket.com = server:https://doh.pub/dns-query // 腾讯云云市场
-*.qq.com = server:https://doh.pub/dns-query // QQ
-*.qlogo.cn = server:https://doh.pub/dns-query // 腾讯头像
-*.qpic.cn = server:https://doh.pub/dns-query // 腾讯图片
-*.weixin.qq.com = server:https://doh.pub/dns-query // 微信
-*.wx.qq.com = server:https://doh.pub/dns-query // 微信
-*.weixin.com = server:https://doh.pub/dns-query // 微信
-*.weixinbridge.com = server:https://doh.pub/dns-query // 微信公众平台
-*.wechat.com = server:https://doh.pub/dns-query // WeChat
-*.servicewechat.com = server:https://doh.pub/dns-query // 微信小程序
-*.weiyun.com = server:https://doh.pub/dns-query // 微云
-*.gtimg.cn = server:https://doh.pub/dns-query // 腾讯 图片 静态资源
-*.idqqimg.com = server:https://doh.pub/dns-query // 腾讯 图片 静态资源
-*.cdn-go.cn = server:https://doh.pub/dns-query // 腾讯 静态资源 CDN
-*.smtcdns.com = server:https://doh.pub/dns-query // 腾讯云 智能云解析DNS
-*.smtcdns.net = server:https://doh.pub/dns-query // 腾讯云 智能云解析DNS
-url.cn = server:https://doh.pub/dns-query // 腾讯短网址
-
-# > 百度
-# refer: https://dudns.baidu.com/support/localdns/Address/index.html
-*.baidu = server:180.76.76.76 // 百度
-*.baidu.com = server:180.76.76.76 // 百度
-*.bdimg.com = server:180.76.76.76 // 百度 静态资源
-*.bdstatic.com = server:180.76.76.76 // 百度 静态资源
-*.baidupcs.* = server:180.76.76.76 // 百度网盘
-*.baiduyuncdn.* = server:180.76.76.76 // 百度云CDN
-*.baiduyundns.* = server:180.76.76.76 // 百度云DNS
-*.bdydns.* = server:180.76.76.76 // 百度云 DNS
-*.bdycdn.* = server:180.76.76.76 // 百度云 CDN
-*.bdysite.com = server:180.76.76.76 // 百度云 域名
-*.bdysites.com = server:180.76.76.76 // 百度云 域名
-*.baidubce.* = server:180.76.76.76 // 百度智能云
-*.bcedns.* = server:180.76.76.76 // 百度智能云 DNS
-*.bcebos.com = server:180.76.76.76 // 百度智能云 对象存储BOS
-*.bcevod.com = server:180.76.76.76 // 百度智能云 播放器服务
-*.bceimg.com = server:180.76.76.76 // 百度智能云 图片服务
-*.bcehost.com = server:180.76.76.76 // 百度智能云 主机
-*.bcehosts.com = server:180.76.76.76 // 百度智能云 主机
-dwz.cn = server:180.76.76.76 // 百度短网址
-
-# > 360
-# refer: https://sdns.360.net/dnsPublic.html#course
-*.360.cn = server:https://doh.360.cn/dns-query // 360安全中心
-*.360safe.com = server:https://doh.360.cn/dns-query // 360安全卫士
-*.360kuai.com = server:https://doh.360.cn/dns-query // 360快资讯
-*.so.com = server:https://doh.360.cn/dns-query // 360搜索
-*.360webcache.com = server:https://doh.360.cn/dns-query // 360网页快照服务
-*.qihuapi.com = server:https://doh.360.cn/dns-query // 奇虎api
-*.qhimg.com = server:https://doh.360.cn/dns-query // 360图床
-*.qhimgs.com = server:https://doh.360.cn/dns-query // 360图床
-*.qhimgs?.com = server:https://doh.360.cn/dns-query // 360图床
-*.qhmsg.com = server:https://doh.360.cn/dns-query // 360
-*.qhres.com = server:https://doh.360.cn/dns-query // 奇虎静态资源
-*.qhres?.com = server:https://doh.360.cn/dns-query // 奇虎静态资源
-*.dhrest.com = server:https://doh.360.cn/dns-query // 导航静态文件
-*.qhupdate.com = server:https://doh.360.cn/dns-query // 360
-*.yunpan.cn = server:https://doh.360.cn/dns-query // 360安全云盘
-*.yunpan.com.cn = server:https://doh.360.cn/dns-query // 360安全云盘
-*.yunpan.com = server:https://doh.360.cn/dns-query // 360安全云盘
-urlqh.cn = server:https://doh.360.cn/dns-query // 360短网址
-
-# > Bytedance
-# refer: https://www.volcengine.com/docs/6758/179060
-*.amemv.com = server:180.184.1.1 // 艾特迷
-*.bdxiguaimg.com = server:180.184.1.1 // 西瓜 图片服务
-*.bdxiguastatic.com = server:180.184.1.1 // 西瓜 静态资源
-*.byted-static.com = server:180.184.1.1 // 字节跳动 UNPKG
-*.bytedance.* = server:180.184.1.1 // 字节跳动
-*.bytedns.net = server:180.184.1.1 // 字节跳动 DNS
-*.bytednsdoc.com = server:180.184.1.1 // 字节跳动 CDN 文件存储
-*.bytegoofy.com = server:180.184.1.1 // 字节跳动 Goofy
-*.byteimg.com = server:180.184.1.1 // 字节跳动 图片服务
-*.bytescm.com = server:180.184.1.1 // 字节跳动 SCM
-*.bytetos.com = server:180.184.1.1 // 字节跳动 TOS
-*.bytexservice.com = server:180.184.1.1 // 飞书企业服务平台
-*.douyin.com = server:180.184.1.1 // 抖音
-*.douyinpic.com = server:180.184.1.1 // 抖音 静态资源
-*.douyinstatic.com = server:180.184.1.1 // 抖音 静态资源
-*.douyinvod.com = server:180.184.1.1 // 抖音 静态资源
-*.feelgood.cn = server:180.184.1.1 // FeelGood平台
-*.feiliao.com = server:180.184.1.1 // 飞聊官网
-*.gifshow.com = server:180.184.1.1 // 快手
-*.huoshan.com = server:180.184.1.1 // 火山网
-*.huoshanzhibo.com = server:180.184.1.1 // 火山直播
-*.ibytedapm.com = server:180.184.1.1 // 抖音 dapm
-*.iesdouyin.com = server:180.184.1.1 // 抖音 CDN
-*.ixigua.com = server:180.184.1.1 // 西瓜视频
-*.kspkg.com = server:180.184.1.1 // 快手
-*.pstatp.com = server:180.184.1.1 // 抖音 静态资源
-*.snssdk.com = server:180.184.1.1 // 今日头条
-*.toutiao.com = server:180.184.1.1 // 今日头条
-*.toutiao13.com = server:180.184.1.1 // 今日头条
-*.toutiao???.??? = server:180.184.1.1 // 今日头条 静态资源
-*.toutiaocloud.cn = server:180.184.1.1 // 头条云
-*.toutiaocloud.com = server:180.184.1.1 // 头条云
-*.toutiaopage.com = server:180.184.1.1 // 今日头条 建站
-*.wukong.com = server:180.184.1.1 // 悟空
-*.zijieapi.com = server:180.184.1.1 // 字节跳动 API
-*.zijieimg.com = server:180.184.1.1 // 字节跳动 图片服务
-*.zjbyte.com = server:180.184.1.1 // 今日头条 网页版
-*.zjcdn.com = server:180.184.1.1 // 字节跳动 CDN
-
-# > BiliBili
-# *.bilibili.com = server:syslib // BiliBili
-# *.biliapi.com = server:syslib // BiliBili API
-# *.biliapi.net = server:syslib // BiliBili API
-# *.bilicdn?.com = server:syslib // BiliBili CDN
-# *.hdslb.com = server:syslib // BiliBili 静态资源
-# *.hdslb.net = server:syslib // BiliBili 静态资源
-# cn-hk-eq-bcache-??.bilivideo.com = server:syslib // BiliBili 视频服务器（unknown）
-# upos-hz-mirrorakam.akamaized.net = server:syslib // BiliBili upos视频服务器（akamai）
-# upos-sz-mirrorasiaov.bilibilivideo.com = server:syslib // BiliBili upos视频服务器（asia-abroad.com）
-upos-sz-mirrorali.bilivideo.com = server:https://dns.alidns.com/dns-query // BiliBili upos视频服务器（阿里云）
-upos-sz-mirrorali?.bilivideo.com = server:https://dns.alidns.com/dns-query // BiliBili upos视频服务器（阿里云）
-upos-sz-mirrorali??.bilivideo.com = server:https://dns.alidns.com/dns-query // BiliBili upos视频服务器（阿里云）
-upos-sz-mirrorbos.bilivideo.com = server:180.76.76.76 // BiliBili upos视频服务器（百度云）
-upos-sz-mirrorcos.bilivideo.com = server:https://doh.pub/dns-query // BiliBili upos视频服务器（腾讯云）
-upos-sz-mirrorcos?.bilivideo.com = server:https://doh.pub/dns-query // BiliBili upos视频服务器（腾讯云）
-upos-sz-mirrorcos??.bilivideo.com = server:https://doh.pub/dns-query // BiliBili upos视频服务器（腾讯云）
-# upos-sz-mirrorhw.bilivideo.com = server:syslib // BiliBili upos视频服务器（华为云）
-# upos-sz-mirrorhw?.bilivideo.com = server:syslib // BiliBili upos视频服务器（华为云）
-# upos-sz-mirrorhwo?.bilivideo.com = server:syslib // BiliBili upos视频服务器（华为云）
-# upos-sz-mirrorks3.bilivideo.com = server:syslib // BiliBili upos视频服务器（金山云）
-# upos-sz-mirrorks3?.bilivideo.com = server:syslib // BiliBili upos视频服务器（金山云）
-# upos-sz-mirrorkodo.bilivideo.com = server:syslib // BiliBili upos视频服务器（七牛云）
-# upos-sz-mirrorkodo?.bilivideo.com = server:syslib // BiliBili upos视频服务器（七牛云）
-# upos-sz-mirrorwcs.bilivideo.com = server:syslib // BiliBili upos视频服务器（网宿）
-# upos-sz-mirrorwcs?.bilivideo.com = server:syslib // BiliBili upos视频服务器（网宿）
-# upos-sz-mirrorxycdn.bilivideo.com = server:syslib // BiliBili upos视频服务器（迅雷）
-upos-sz-upcdnbd??.bilivideo.com = server:180.76.76.76 // BiliBili upos视频服务器（百度云）
-# upos-sz-upcdnhw.bilivideo.com = server:syslib // BiliBili uupos视频服务器（华为云）
-upos-sz-upcdntx.bilivideo.com = server:https://doh.pub/dns-query // BiliBili upos视频服务器（腾讯云）
-# upos-sz-upcdnws.bilivideo.com = server:syslib // BiliBili upos视频服务器（网宿）
-# upos-tf-all-js.bilivideo.com = server:syslib // BiliBili upos视频服务器（unknown）
-# *.mcdn.bilivideo.com = server:syslib // BiliBili mCDN视频服务器
-# *.bilivideo.com = server:syslib // BiliBili 视频
-# *.bilivideo.cn = server:syslib // BiliBili 视频
-# acg.tv = server:syslib // BiliBili短网址
-
-# > 京东
-# *.jd.com = server:syslib // 京东
-# *.360buyimg.com = server:syslib // 京东 静态资源
-# *.jdcloud.com = server:syslib // 京东云
-# *.jcloudstatic.com = server:syslib // 京东云 缓存和存储
-# *.jcloudstatic.net = server:syslib // 京东云 静态资源
-# *.jdgslb.com = server:syslib // 京东云 全局负载均衡
-# 3.cn = server:syslib // 京东短网址
-
-# > 🇨🇳 CHN
-# CNNIC SDNS
-# *.gov.cn = server:1.2.4.8 // 中国政府网
-# *.政务 = server:1.2.4.8 // 中国政府网
-
-# > 🇭🇰 HKG
-# PCCW Enterprises Limited
-# *.pccw.com = server:dns1.pccw.com // 电讯盈科
-# *.1010.com.hk = server:dns1.pccw.com // 1O1O
-# *.hkcsl.com = server:dns1.pccw.com // csl.
-# *.theclub.com.hk = server:dns1.pccw.com // The CLUB by HKT
-# *.now.com = server:dns2.pccw.com // now.com
-# *.nowe.com = server:dns2.pccw.com // Now E
-# *.now-tv.com = server:dns2.pccw.com // Now TV
-# *.moov.hk = server:dns3.pccw.com // MOOV
-# *.viu.com = server:dns3.pccw.com // viu
-# *.viu.tv = server:dns3.pccw.com // viu tv
-# Hong Kong Cable Television Limited
-# *.hkcable.com.hk = server:dns1.hkcable.com.hk // Hong Kong Cable Television Limited
-# *.i-cable.com = server:dns2.hkcable.com.hk // i-CABLE
-# *.cabletv.com.hk = server:dns2.hkcable.com.hk // CABLE TV Service
-# KDDI Hong Kong Limited
-# *.hk.kddi.com = server:apple.kdd.net.hk // KDDI Hong Kong
-
-# > 🇹🇼 TWN
-# 中华电信
-*.cht.com.tw = server:https://dns.hinet.net/dns-query // 中华电信
-*.hinet.net = server:https://dns.hinet.net/dns-query // 中华电信HiNet
-*.emome.net = server:https://dns.hinet.net/dns-query // 中华电信emome
-# So-net
-# so-net.net.tw = server:ns1.so-net.net.tw // So-net Entertainment Taiwan
-# so-net.tw = server:ns1.so-net.net.tw // So-net Entertainment Taiwan
-# Taiwan Network Information Center
-*.tw = server:https://dns.twnic.tw/dns-query // TWNIC DNS
-*.taipei = server:https://dns.twnic.tw/dns-query // TWNIC DNS
-
-# > 🇺🇸 USA
-# Hurricane Electric
-*.he.net = server:https://ordns.he.net/dns-query // HE.net
+ip6-localhost = ::1
+ip6-loopback = ::1
+ip6-localnet = fe00::0
+ip6-mcastprefix = ff00::0
+ip6-allnodes = ff02::1
+ip6-allrouters = ff02::2
+ip6-allhosts = ff02::3
+dns.google = 8.8.8.8
+dns64.dns.google = 2001:4860:4860::6464
+cloudflare-dns.com = 104.16.249.249
+1dot1dot1dot1.cloudflare-dns.com = 1.1.1.1
+one.one.one.one = 1.1.1.1
+dns.alidns.com = 223.5.5.5
+doh.pub = 1.12.12.12
+dot.pub = 1.12.12.12
+ordns.he.net = 46.82.174.68
+blog.google = server:119.29.29.29
+googletraveladservices.com = server:119.29.29.29
+dl.google.com = server:119.29.29.29
+dl.l.google.com = server:119.29.29.29
+clientservices.googleapis.com = server:119.29.29.29
+update.googleapis.com = server:119.29.29.29
+translate.googleapis.com = server:119.29.29.29
+fonts.googleapis.com = server:119.29.29.29
+fonts.gstatic.com = server:119.29.29.29
+stun.l.google.com = server:system
+stun?.l.google.com = server:system
+*.id.ui.direct = server:system
+unifi.local = server:system
+amplifi.lan = server:system
+router.synology.com = server:system
+sila.razer.com = server:system
+router.asus.com = server:system
+routerlogin.net = server:system
+orbilogin.com = server:system
+www.LinksysSmartWiFi.com = server:system
+LinksysSmartWiFi.com = server:system
+myrouter.local = server:system
+instant.arubanetworks.com = server:system
+setmeup.arubanetworks.com = server:system
+www.miwifi.com = server:system
+miwifi.com = server:system
+mediarouter.home = server:system
+tplogin.cn = server:system
+tplinklogin.net = server:system
+tplinkwifi.net = server:system
+melogin.cn = server:system
+falogin.cn = server:system
+tendawifi.com = server:system
+leike.cc = server:system
+zte.home = server:system
+p.to = server:system
+phicomm.me = server:system
+hiwifi.com = server:system
+peiluyou.com = server:system
+_hotspot_.m2m = server:system
+hotspot.cslwifi.com = server:system
+networking.apple = server:https://doh.dns.apple.com/dns-query
+*.icloud.com = server:https://doh.dns.apple.com/dns-query
+*.alibaba.cn = server:https://dns.alidns.com/dns-query
+*.alibaba.com.cn = server:https://dns.alidns.com/dns-query
+*.china.alibaba.com = server:https://dns.alidns.com/dns-query
+*.1688.com = server:https://dns.alidns.com/dns-query
+*.taobao.com = server:https://dns.alidns.com/dns-query
+*.tbcache.com = server:https://dns.alidns.com/dns-query
+*.tmall.com = server:https://dns.alidns.com/dns-query
+*.alicdn.com = server:https://dns.alidns.com/dns-query
+*.alikunlun.com = server:https://dns.alidns.com/dns-query
+*.aliapp.com = server:https://dns.alidns.com/dns-query
+*.aliapp.org = server:https://dns.alidns.com/dns-query
+*.alibabausercontent.com = server:https://dns.alidns.com/dns-query
+*.mmstat.com = server:https://dns.alidns.com/dns-query
+tb.cn = server:https://dns.alidns.com/dns-query
+*.aliyun.* = server:https://dns.alidns.com/dns-query
+*.aliyuncdn.* = server:https://dns.alidns.com/dns-query
+*.aliyuncs.com = server:https://dns.alidns.com/dns-query
+*.aliyunddos????.com = server:https://dns.alidns.com/dns-query
+*.aliyundrive.com = server:https://dns.alidns.com/dns-query
+*.aliyundun.com = server:https://dns.alidns.com/dns-query
+*.aliyundunwaf.com = server:https://dns.alidns.com/dns-query
+*.aliyun-inc.com = server:https://dns.alidns.com/dns-query
+*.antgroup.com = server:https://dns.alidns.com/dns-query
+*.antfin.com = server:https://dns.alidns.com/dns-query
+*.antfinancial.com = server:https://dns.alidns.com/dns-query
+*.alipay.com = server:https://dns.alidns.com/dns-query
+*.alipay.com.cn = server:https://dns.alidns.com/dns-query
+*.alipaydns.com = server:https://dns.alidns.com/dns-query
+*.alipayeshop.com = server:https://dns.alidns.com/dns-query
+*.alipaylog.com = server:https://dns.alidns.com/dns-query
+*.alipayobjects.com = server:https://dns.alidns.com/dns-query
+*.alipay-eco.com = server:https://dns.alidns.com/dns-query
+*.tencent.com = server:https://doh.pub/dns-query
+*.qcloud.com = server:https://doh.pub/dns-query
+*.qcloudcdn.cn = server:https://doh.pub/dns-query
+*.qcloudcdn.com = server:https://doh.pub/dns-query
+*.qcloudcos.com = server:https://doh.pub/dns-query
+*.qcloudimg.com = server:https://doh.pub/dns-query
+*.qcloudcjgj.com = server:https://doh.pub/dns-query
+*.qcloudwzgj.com = server:https://doh.pub/dns-query
+*.qcloudzygj.com = server:https://doh.pub/dns-query
+*.myqcloud.com = server:https://doh.pub/dns-query
+*.tencent-cloud.net = server:https://doh.pub/dns-query
+*.tencentcloud-aiot.com = server:https://doh.pub/dns-query
+*.tencentcloudapi.com = server:https://doh.pub/dns-query
+*.tencentcloudcr.com = server:https://doh.pub/dns-query
+*.tencentcloudmarket.com = server:https://doh.pub/dns-query
+*.qq.com = server:https://doh.pub/dns-query
+*.qlogo.cn = server:https://doh.pub/dns-query
+*.qpic.cn = server:https://doh.pub/dns-query
+*.weixin.qq.com = server:https://doh.pub/dns-query
+*.wx.qq.com = server:https://doh.pub/dns-query
+*.weixin.com = server:https://doh.pub/dns-query
+*.weixinbridge.com = server:https://doh.pub/dns-query
+*.wechat.com = server:https://doh.pub/dns-query
+*.servicewechat.com = server:https://doh.pub/dns-query
+*.weiyun.com = server:https://doh.pub/dns-query
+*.gtimg.cn = server:https://doh.pub/dns-query
+*.idqqimg.com = server:https://doh.pub/dns-query
+*.cdn-go.cn = server:https://doh.pub/dns-query
+*.smtcdns.com = server:https://doh.pub/dns-query
+*.smtcdns.net = server:https://doh.pub/dns-query
+url.cn = server:https://doh.pub/dns-query
+*.baidu = server:180.76.76.76
+*.baidu.com = server:180.76.76.76
+*.bdimg.com = server:180.76.76.76
+*.bdstatic.com = server:180.76.76.76
+*.baidupcs.* = server:180.76.76.76
+*.baiduyuncdn.* = server:180.76.76.76
+*.baiduyundns.* = server:180.76.76.76
+*.bdydns.* = server:180.76.76.76
+*.bdycdn.* = server:180.76.76.76
+*.bdysite.com = server:180.76.76.76
+*.bdysites.com = server:180.76.76.76
+*.baidubce.* = server:180.76.76.76
+*.bcedns.* = server:180.76.76.76
+*.bcebos.com = server:180.76.76.76
+*.bcevod.com = server:180.76.76.76
+*.bceimg.com = server:180.76.76.76
+*.bcehost.com = server:180.76.76.76
+*.bcehosts.com = server:180.76.76.76
+dwz.cn = server:180.76.76.76
+*.360.cn = server:https://doh.360.cn/dns-query
+*.360safe.com = server:https://doh.360.cn/dns-query
+*.360kuai.com = server:https://doh.360.cn/dns-query
+*.so.com = server:https://doh.360.cn/dns-query
+*.360webcache.com = server:https://doh.360.cn/dns-query
+*.qihuapi.com = server:https://doh.360.cn/dns-query
+*.qhimg.com = server:https://doh.360.cn/dns-query
+*.qhimgs.com = server:https://doh.360.cn/dns-query
+*.qhimgs?.com = server:https://doh.360.cn/dns-query
+*.qhmsg.com = server:https://doh.360.cn/dns-query
+*.qhres.com = server:https://doh.360.cn/dns-query
+*.qhres?.com = server:https://doh.360.cn/dns-query
+*.dhrest.com = server:https://doh.360.cn/dns-query
+*.qhupdate.com = server:https://doh.360.cn/dns-query
+*.yunpan.cn = server:https://doh.360.cn/dns-query
+*.yunpan.com.cn = server:https://doh.360.cn/dns-query
+*.yunpan.com = server:https://doh.360.cn/dns-query
+urlqh.cn = server:https://doh.360.cn/dns-query
+*.amemv.com = server:180.184.1.1
+*.bdxiguaimg.com = server:180.184.1.1
+*.bdxiguastatic.com = server:180.184.1.1
+*.byted-static.com = server:180.184.1.1
+*.bytedance.* = server:180.184.1.1
+*.bytedns.net = server:180.184.1.1
+*.bytednsdoc.com = server:180.184.1.1
+*.bytegoofy.com = server:180.184.1.1
+*.byteimg.com = server:180.184.1.1
+*.bytescm.com = server:180.184.1.1
+*.bytetos.com = server:180.184.1.1
+*.bytexservice.com = server:180.184.1.1
+*.douyin.com = server:180.184.1.1
+*.douyinpic.com = server:180.184.1.1
+*.douyinstatic.com = server:180.184.1.1
+*.douyinvod.com = server:180.184.1.1
+*.feelgood.cn = server:180.184.1.1
+*.feiliao.com = server:180.184.1.1
+*.gifshow.com = server:180.184.1.1
+*.huoshan.com = server:180.184.1.1
+*.huoshanzhibo.com = server:180.184.1.1
+*.ibytedapm.com = server:180.184.1.1
+*.iesdouyin.com = server:180.184.1.1
+*.ixigua.com = server:180.184.1.1
+*.kspkg.com = server:180.184.1.1
+*.pstatp.com = server:180.184.1.1
+*.snssdk.com = server:180.184.1.1
+*.toutiao.com = server:180.184.1.1
+*.toutiao13.com = server:180.184.1.1
+*.toutiao???.??? = server:180.184.1.1
+*.toutiaocloud.cn = server:180.184.1.1
+*.toutiaocloud.com = server:180.184.1.1
+*.toutiaopage.com = server:180.184.1.1
+*.wukong.com = server:180.184.1.1
+*.zijieapi.com = server:180.184.1.1
+*.zijieimg.com = server:180.184.1.1
+*.zjbyte.com = server:180.184.1.1
+*.zjcdn.com = server:180.184.1.1
+upos-sz-mirrorali.bilivideo.com = server:https://dns.alidns.com/dns-query
+upos-sz-mirrorbos.bilivideo.com = server:180.76.76.76
+upos-sz-mirrorcos.bilivideo.com = server:https://doh.pub/dns-query
+*.cht.com.tw = server:https://dns.hinet.net/dns-query
+*.hinet.net = server:https://dns.hinet.net/dns-query
+*.emome.net = server:https://dns.hinet.net/dns-query
+*.he.net = server:https://ordns.he.net/dns-query
 
 [URL Rewrite]
-^https?://(www.)?g.cn https://www.google.com 302
-^https?://(www.)?google.cn https://www.google.com 302
-
-[Header Rewrite]
-# 重定向 HTTP 请求或者篡改请求 Header
-# Surge 可以在请求被发往目标服务器之前篡改请求的 Header
-
-# 该段定义针对 HTTP 请求的 URL 重定向规则
-# 有两种重定向方式: "header" 和 "302"
-
-[SSID Setting]
-# 该段仅在 iOS 版本下生效。 
-# 你可以为某些特定的 WiFi 网络设置设置参数
-# 参数:
-# suspend: "true" 或 "false"
-# 在该网络下 Surge 将暂停工作。 请注意，如果你在该网络下直接启动 Surge，那么 
-# Surge 依然会工作。只有当从其他网络切换到该网络时，Surge 才会暂停。
-#
-# SSID Setting 段表达式（适用 SUBNET 规则）
-# 可使用 MCCMNC:100-200 匹配特定数据网络
-# 可使用 SSID:value 特定匹配 SSID，支持通配符
-# 可使用 BSSID:value 特定匹配 BSSID，支持通配符
-# 可使用 ROUTER:value 特定匹配路由地址
-# 可使用 TYPE:WIFI 匹配所有 WiFi 网络
-# 可使用 TYPE:CELLULAR 匹配所有数据网络
-# 可使用 TYPE:WIRED 匹配所有有线网络（iOS 上支持 USB 网络适配
-# 参数 cellular-fallback 可单独控制一些 Wi-Fi 下的 all-hybrid 和 wifi-assist 行为
-# cellular-fallback=default 使用 [General] 中的 all-hybrid 和 wifi-assist 配置
-# cellular-fallback=off 关闭 all-hybrid 和 wifi-assist
-# cellular-fallback=hybrid 开启 all-hybrid 
-# cellular-fallback=wifi-assist 开启 wifi-assist
-# 如无前缀则按照旧版规则匹配 SSID、BSSID、路由地址
-# SSID Setting 段内容从上至下依次匹配，匹配到第一个结果后立刻终止
-#
-# 中国用户若使用 TFO 建议强制关闭数据网络上的 TFO，避免产生问题，然后在已测试过的网络上强制开启。只有这样配置后方可充分享受 TFO 的优势。
-#
-# 连接到 Apple Store 的 Wi-Fi网络时 Surge 暂停工作
-SSID:"Apple Store" suspend=true
-# 需要 Web 验证登录的 Wi-Fi 网络以及路由器已经科学上网的 Surge 挂起
+^https?://(.*?[.])?(?:g|google)\.cn https://$1google.com 302
+^(http|https):\/\/(ditu|maps)\.google\.cn https://maps.google.com 302
 
 [MITM]
-skip-server-cert-verify = true
-tcp-connection = true
-h2 = true
-hostname = -gateway.icloud.com, -weather-data.apple.com, -buy.itunes.apple.com, -pan.baidu.com, www.google.cn
+hostname = -gateway.icloud.com,-weather-data.apple.com,-buy.itunes.apple.com,-pan.baidu.com,www.google.cn,google.cn,*.google.cn,g.cn
 
 [Script]
-京东_开屏去广告 = type=http-response,requires-body=1,max-size=0,pattern=^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=start,script-path=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/startup/startup.js
+油价提醒 = type=cron,cronexp="7 7 7 * * *",script-path=https://raw.githubusercontent.com/deezertidal/private/main/oil.js,timeout=10,argument="重庆"
