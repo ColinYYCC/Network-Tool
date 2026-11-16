@@ -278,7 +278,7 @@ PROXY = select, 自选节点, hidden=true
 # 自定义规则
 # # 您可以在此处插入自定义规则
 # 阻止海外 QUIC
-AND,((NOT,((GEOIP,CN))),(PROTOCOL,UDP),(DEST-PORT,443)),REJECT
+AND,((NETWORK,UDP),(DST-PORT,443),(NOT,((GEOSITE,cn))),(NOT,((GEOIP,CN)))),REJECT
 # Zoom
 DOMAIN-SUFFIX,zoom.us,国外网站
 # Todesk
