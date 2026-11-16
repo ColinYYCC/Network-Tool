@@ -1,6 +1,7 @@
 # Loon 配置
 # 配置作者：Colin(@ColinYYCC)
-# 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
+# 以 '#' 或 '//' 开头的配置行是注释（Loon 语法）
+# 最近修订：2026-11-16（Loon 3.5.3 / 中国大陆网络；DNS、Remote Rule、Host、Rewrite 已逐项复核）
 
 [General]
 # skip-proxy则和HTTP Proxy有关, 如果配置了该参数, 那么所配置的这些IP段、域名将不会转发到Loon, 而是由系统处理
@@ -13,11 +14,11 @@ bypass-tun = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/
 real-ip = dns.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.turn.twilio.com, *.stun.twilio.com, stun.syncthing.net, stun.*, 127.*.*.*.sslip.io, 127-*-*-*.sslip.io, *.127.*.*.*.sslip.io, *-127-*-*-*.sslip.io, 127.*.*.*.nip.io, 127-*-*-*.nip.io, *.127.*.*.*.nip.io, *-127-*-*-*.nip.io
 
 # ---(DNS 服务器)---
-# DNS 服务器 (如无必要不建议使用 DNS over HTTPS)
-# 传统 DNS 服务器设置
-dns-server = 9.9.9.9, 2620:fe::fe, 223.5.5.5, 119.29.29.29
-# 加密 DNS 服务器设置
-doh-server = https://dns.quad9.net/dns-query, https://dns.alidns.com/dns-query, https://doh.360.cn/dns-query
+# DNS 服务器：优先使用国内可用的加密 DNS，失败时回落普通 DNS
+# 传统 DNS 服务器设置（国内可用优先，system 作为最终兜底）
+dns-server = system, 223.5.5.5, 119.29.29.29
+# 加密 DNS 服务器设置（Loon 会并发查询并取最快；失败回落上面的普通 DNS）
+doh-server = https://dns.alidns.com/dns-query, https://doh.pub/dns-query
 doq-server = quic://223.5.5.5:853, quic://223.6.6.6:853
 # ip-mode 支持（默认dual: IPv4&IPv6）
 ip-mode = dual
@@ -27,7 +28,7 @@ dns-reject-mode = LOOPBACKIP
 # 域名拒绝规则执行的阶段
 domain-reject-mode = DNS
 
-# 当UDP的流量规则匹配到相关节点, 但该节点不支持UDP或未未开启UDP转发时使用的策略, 可选DIRECT、REJECT
+# 当 UDP 流量匹配到不支持 UDP 或未开启 UDP 转发的节点时使用的策略, 可选DIRECT、REJECT
 udp-fallback-mode = REJECT
 
 # ---(Wi-Fi 访问)---
@@ -37,15 +38,15 @@ allow-wifi-access = true
 wifi-access-http-port = 7222
 # wifi共享开启时socks5服务的端口
 wifi-access-socks5-port = 7221
-# wifi共享开启时socks5服务的端口
-mitm-on-wifi-access = off
+# 是否允许通过局域网代理使用 MITM
+mitm-on-wifi-access = false
 
 # > 节点延迟测试
 proxy-test-url = http://networkcheck.kde.org
 # > 互联网联通性测试
 internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
 # > 节点测速时的超时秒数
-test-timeout = 3
+test-timeout = 5
 # ------
 
 # ---(高级)---
@@ -58,12 +59,12 @@ disconnect-on-policy-change = true
 sni-sniffing = true
 
 # > 资源解析器
-resource-parser = https://raw.githubusercontent.com/sub-store-org/Sub-Store/release/sub-store-parser.loon.min.js
+resource-parser = https://github.com/sub-store-org/Sub-Store/releases/latest/download/sub-store-parser.loon.min.js
 
 # > interface-mode 指定流量使用哪个网络接口进行转发, 目前包含三种模式:
 # Auto: 系统自动分配
 # Cellular: 在WiFi和蜂窝数据都开启的情况下指定使用蜂窝网络
-# Performace: 在WiFi和蜂窝数据都开启的情况下使用最优的网络接口
+# performance: 在WiFi和蜂窝数据都开启的情况下使用最优的网络接口
 # Balance: 在WiFi和蜂窝数据都开启的情况下, 均衡使用网络接口
 interface-mode = auto
 
@@ -75,11 +76,10 @@ hijack-dns = *:53
 # 禁用stun是否禁用stun协议的udp数据, 禁用后可以有效解决webrtc的ip泄露
 disable-stun = true
 
-# > 自定义geoip数据库的url
-geoip-url = https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb
-# > 自定义ASN数据库的url
-ipasn-url = https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb
-# ipasn-url = https://raw.githubusercontent.com/P3TERX/GeoLite.mmdb/download/GeoLite2-ASN.mmdb
+# > 自定义 GeoIP 数据库的 url（Loon 官方 GeoLite2，字段与 GEOIP 规则匹配）
+geoip-url = https://gitlab.com/Loon0x00/loon_data/-/raw/main/geo/GeoLite2-Country.mmdb?inline=false
+# 本配置没有 IP-ASN 规则，无需下发 ipasn 数据库；如以后要加 IP-ASN 规则再启用：
+# ipasn-url = https://gitlab.com/Loon0x00/loon_data/-/raw/main/geo/GeoLite2-ASN.mmdb?inline=false
 # ------
 
 [Proxy]
@@ -90,13 +90,13 @@ ipasn-url = https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.m
 
 [Remote Filter]
 All = NameRegex, FilterKey = "^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$"
-HK = NameRegex, FilterKey = "^(?=.*((?i)🇭🇰|香港|(\b(HK|Hong)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
-TW = NameRegex, FilterKey = "^(?=.*((?i)🇹🇼|台湾|(\b(TW|Tai|Taiwan)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
-JP = NameRegex, FilterKey = "^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|Japan)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
-KR = NameRegex, FilterKey = "^(?=.*((?i)🇰🇷|韩国|韓|首尔|(\b(KR|Korea)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
-SG = NameRegex, FilterKey = "^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|Singapore)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
-US = NameRegex, FilterKey = "^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\b(US|United States)\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
-Game = NameRegex, FilterKey = "^(?=.*((?i)游戏|🎮|(\b(GAME)\b)))(?!.*((?i)回国|校园)).*$"
+HK = NameRegex, FilterKey = "^(?=.*((?i)🇭🇰|香港|((?<![A-Za-z])(HK|Hong)(?![A-Za-z]))))(?!.*((?i)回国|校园|游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z])))).*$"
+TW = NameRegex, FilterKey = "^(?=.*((?i)🇹🇼|台湾|((?<![A-Za-z])(TW|Tai|Taiwan)(?![A-Za-z]))))(?!.*((?i)回国|校园|游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z])))).*$"
+JP = NameRegex, FilterKey = "^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|((?<![A-Za-z])(JP|Japan)(?![A-Za-z]))))(?!.*((?i)回国|校园|游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z])))).*$"
+KR = NameRegex, FilterKey = "^(?=.*((?i)🇰🇷|韩国|韓|首尔|((?<![A-Za-z])(KR|Korea)(?![A-Za-z]))))(?!.*((?i)回国|校园|游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z])))).*$"
+SG = NameRegex, FilterKey = "^(?=.*((?i)🇸🇬|新加坡|狮|((?<![A-Za-z])(SG|Singapore)(?![A-Za-z]))))(?!.*((?i)回国|校园|游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z])))).*$"
+US = NameRegex, FilterKey = "^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|((?<![A-Za-z])(US|United States)(?![A-Za-z]))))(?!.*((?i)回国|校园|游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z])))).*$"
+Game = NameRegex, FilterKey = "^(?=.*((?i)游戏|🎮|((?<![A-Za-z])GAME(?![A-Za-z]))))(?!.*((?i)回国|校园)).*$"
 # ------
 
 [Proxy Group]
@@ -111,7 +111,7 @@ Telegram = select,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港�
 # Apple
 Apple Service = select,DIRECT,🎲 自动选择,🔯 故障转移,🔮 负载均衡,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png
 # Ai
-AI = select,韩国节点,香港节点,美国节点,狮城节点,日本节点,台湾节点,DIRECT,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/AutoClaw-108.png
+AI = select,美国节点,日本节点,狮城节点,韩国节点,台湾节点,香港节点,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/AutoClaw-108.png
 # Netflix
 Netflix = select,狮城节点,香港节点,台湾节点,日本节点,美国节点,韩国节点,DIRECT,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/netflix.png
 # YouTube
@@ -122,7 +122,7 @@ Disney+ = select,狮城节点,香港节点,台湾节点,日本节点,美国节�
 Spotify = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/spotify.png
 # Emby
 Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,台湾节点,DIRECT,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/emby.png
-游戏 = select,DIRECT,🎲 自动选择,🔯 故障转移,🔮 负载均衡,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/nintendoswitch.png
+游戏 = select,DIRECT,Game,🎲 自动选择,🔯 故障转移,🔮 负载均衡,img-url = https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/nintendoswitch.png
 # ------
 
 # > 白名单模式 PROXY, 黑名单模式 DIRECT
@@ -136,12 +136,12 @@ Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,�
 # ------
 
 # 地区策略组
-香港节点 = url-test,HK,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png
-美国节点 = url-test,US,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png
-狮城节点 = url-test,SG,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png
-日本节点 = url-test,JP,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png
-韩国节点 = url-test,KR,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png
-台湾节点 = url-test,TW,url = http://networkcheck.kde.org,interval = 600,max-timeout = 3000,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png
+香港节点 = url-test,HK,url = http://networkcheck.kde.org,interval = 600,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png
+美国节点 = url-test,US,url = http://networkcheck.kde.org,interval = 600,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png
+狮城节点 = url-test,SG,url = http://networkcheck.kde.org,interval = 600,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png
+日本节点 = url-test,JP,url = http://networkcheck.kde.org,interval = 600,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png
+韩国节点 = url-test,KR,url = http://networkcheck.kde.org,interval = 600,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png
+台湾节点 = url-test,TW,url = http://networkcheck.kde.org,interval = 600,img-url = https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png
 # ------
 
 [Rule]
@@ -149,7 +149,7 @@ Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,�
 # 自定义规则
 ## 您可以在此处插入自定义规则
 # 阻止海外 QUIC
-AND,((NETWORK,UDP),(DST-PORT,443),(NOT,((GEOSITE,cn))),(NOT,((GEOIP,CN)))),REJECT
+AND,((NOT,((GEOIP,CN))),(PROTOCOL,UDP),(DEST-PORT,443)),REJECT
 # DEST-PORT 端口规则
 # 邮件服务默认端口
 OR,((DEST-PORT,25),(DEST-PORT,110),(DEST-PORT,143),(DEST-PORT,465),(DEST-PORT,587)),DIRECT
@@ -164,7 +164,6 @@ DOMAIN-KEYWORD,anyviewer,DIRECT
 # 环球慧思
 DOMAIN-SUFFIX,globalwits.cn,DIRECT
 
-# 新增内置策略 NO-HYBRID, 等价为 NO-HYBRID = direct, hybrid=off
 DOMAIN-SUFFIX,cmbchina.com,DIRECT
 
 # Web Controller 网页控制器规则
@@ -179,59 +178,44 @@ DOMAIN,boxjs.net,DIRECT
 # > Sub-Store
 DOMAIN-SUFFIX,vercel.app,国外网站
 
-# 自动 REJECT 保护丢包，防止应用循环请求
-IP-CIDR,0.0.0.0/32,REJECT 
-
 GEOIP,CN,DIRECT
 FINAL,漏网之鱼
 # ------
 
 [Remote Rule]
-# > ADs
-https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge.list, policy=REJECT, tag=秋风广告规则, enabled=true
-https://ruleset.skk.moe/List/domainset/reject_phishing.conf, policy=REJECT, tag=Phiishing 拦截, enabled=true
+# > ADs（必须是第一批规则）
+https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list, policy=REJECT, tag=秋风广告规则, enabled=true
+https://ruleset.skk.moe/List/non_ip/reject.conf, policy=REJECT, tag=广告/钓鱼拦截, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf, policy=REJECT, tag=防止PCDN, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject-drop.conf, policy=REJECT-DROP, tag=Adobe 系列软件内部的跟踪, enabled=true
-#https://ruleset.skk.moe/List/ip/reject.conf, policy = REJECT-DROP, tag = 广告拦截 IP, enabled = false
+https://ruleset.skk.moe/List/non_ip/reject-url-regex.conf, policy=REJECT, tag=Sukka 广告 URL 规则, enabled=true
 
-# > CDN
-https://ruleset.skk.moe/List/domainset/cdn.conf, policy=国外网站, tag=SukkaW静态CDN域名, enabled=true
-https://ruleset.skk.moe/List/non_ip/cdn.conf, policy=国外网站, tag=SukkaW静态CDN规则, enabled=true
-https://ruleset.skk.moe/List/non_ip/apple_cdn.conf, policy=DIRECT, tag=Apple 国內CDN, enabled=true
-
-# > Apple CN 域名
+# > Apple CN 域名（先直连）
 https://ruleset.skk.moe/List/non_ip/apple_cn.conf, policy=DIRECT, tag=Apple CN 域名, enabled=true
-# > 苹果服务域名
-https://ruleset.skk.moe/List/non_ip/apple_services.conf, policy=Apple Service, tag=🍎 苹果服务, enabled=true
 
-# > 海外媒体
-# TV+
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/AppleTV/AppleTV.list, policy=国外网站, tag=TV+, enabled=true
-# Disney+
+# > 海外媒体（专用策略组优先，必须放在 stream / apple_services 之前）
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/AppleTV/AppleTV.list, policy=国外网站, tag=AppleTV+, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Disney/Disney.list, policy=Disney+, tag=Disney+, enabled=true
-# Emby
-https://github.com/Repcz/Tool/raw/X/Surge/Rules/Emby.list, policy=Emby, tag=Emby, enabled=true
-# Netflix
+https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Rules/Emby.list, policy=Emby, tag=Emby, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Netflix/Netflix.list, policy=Netflix, tag=Netflix, enabled=true
-# YouTube
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTube/YouTube.list, policy=YouTube, tag=YouTube, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTubeMusic/YouTubeMusic.list, policy=YouTube, tag=YouTube Music, enabled=true
-# Spotify
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Spotify/Spotify.list, policy=Spotify, tag=Spotify, enabled=true
-# Streaming 国际流媒体服务
+
+# > Streaming 国际流媒体服务（放在专用组之后）
 https://ruleset.skk.moe/List/non_ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体, enabled=true
 https://ruleset.skk.moe/List/ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体(IP), enabled=true
 
-# > AI（原来 AI 策略组没有任何规则指向，等于没用）
+# > AI
 https://ruleset.skk.moe/List/non_ip/ai.conf, policy=AI, tag=AI, enabled=true
 
-# > 国外网站
-https://ruleset.skk.moe/List/non_ip/global.conf, policy=🥡 节点选择, tag=国外网站, enabled=true
-# Telegram 电报
-https://github.com/LucaLin233/Proxy/blob/main/surge/rules/telegram.list?raw=true, policy=Telegram, tag=Telegram 电报, enabled=true
+# > Telegram 电报
+https://raw.githubusercontent.com/LucaLin233/Proxy/main/surge/rules/telegram.list, policy=Telegram, tag=Telegram 电报, enabled=true
 
-# > 👾Game 游戏(不仅限于UDP, 包括相关CDN)
-# GameList
+# > Apple 服务（默认 DIRECT；放在 AppleTV/流媒体之后，避免抢 tv.apple.com）
+https://ruleset.skk.moe/List/non_ip/apple_services.conf, policy=Apple Service, tag=🍎 苹果服务, enabled=true
+
+# > 👾Game 游戏（先于国内直连/CDN/global，避免被后面的宽泛规则抢走）
 # https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Game/Game.list, policy = 游戏, tag = GameList, enabled = true // GameList
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Blizzard/Blizzard.list, policy=游戏, tag=暴雪娱乐 Blizzard, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Classic/Classic.list, policy=游戏, tag=Classic, enabled=true
@@ -243,8 +227,6 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/StarCraftII/StarCraftII.list, policy=游戏, tag=星海爭霸II StarCraftII, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/WildRift/WildRift.list, policy=游戏, tag=英雄联盟手游 WildRift, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/WorldofWarcraft/WorldofWarcraft.list, policy=游戏, tag=魔兽世界WorldofWarcraft, enabled=true
-
-# Game Publisher
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Discord/Discord.list, policy=游戏, tag=Discord, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/EA/EA.list, policy=游戏, tag=EA, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Epic/Epic.list, policy=游戏, tag=Epic, enabled=true
@@ -259,30 +241,29 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Xbox/Xbox.list, policy=游戏, tag=Xbox, enabled=true
 
 # > 中国直连
-https://ruleset.skk.moe/List/non_ip/domestic.conf, policy=DIRECT, tag=国內直连, enabled=true
-https://ruleset.skk.moe/List/non_ip/direct.conf, policy=DIRECT, tag=国內直连 (域名), enabled=true
+https://ruleset.skk.moe/List/non_ip/domestic.conf, policy=DIRECT, tag=国内直连, enabled=true
+https://ruleset.skk.moe/List/non_ip/direct.conf, policy=DIRECT, tag=国内直连 (域名), enabled=true
 https://ruleset.skk.moe/List/ip/china_ip.conf, policy=DIRECT, tag=China 中国直连 (IP), enabled=true
-# ------
+
+# > CDN 静态资源（放在国内直连之后，避免影响国内 CDN 直连）
+https://ruleset.skk.moe/List/non_ip/cdn.conf, policy=国外网站, tag=SukkaW 静态 CDN 规则, enabled=true
+
+# > 国外网站兜底（必须是最后一条：global 含 .us/.hk/.fm 等整段 TLD 规则，放前面会抢走上面的规则）
+https://ruleset.skk.moe/List/non_ip/global.conf, policy=🥡 节点选择, tag=国外网站, enabled=true
 
 [Rewrite]
+# 说明：旧版 Rewrite 只对 HTTP 和经 MITM 解密的 HTTPS 生效，且源域名必须在 [Mitm] hostname 中。
+# 2026-11 起只保留仍有效的 Google 跳转；t.cn→sinaurl（目标已失效）、wikipedia→wikiwand（不可用）、
+# NGA（域名自身已 301）、京东广告 header（已过时）等旧规则已移除。
 # > Redirect Google Search Service
-# ^(http|https):\/\/(www.)?(g|google)\.cn https://www.google.com 302
-^https?://(.*?[.])?(?:g|google).cn 302 https://$1google.com
+^https?://(.*?[.])?(?:g|google)\.cn 302 https://$1google.com
 # > Redirect Google Maps Service
-^(http|https):\/\/(ditu|maps).google\.cn 302 https://maps.google.com
-# > Weibo Short URL
-^http:\/\/t\.cn 302 http://sinaurl.cn
-# > NGACN BBS header
-^(http|https):\/\/nga\.178\.com 302 https://ngabbs.com
-^(http|https):\/\/bbs\.nga\.cn 302 https://ngabbs.com
-# > wiki → wikiwand
-^https:\/\/zh.(m.)?wikipedia.org/zh(-\w*)?(?=/) 302 https://www.wikiwand.com/zh$2
-^https:\/\/(\w*).(m.)?wikipedia.org/wiki 302 https://www.wikiwand.com/$1
-# > JD
-^https?://union.click.jd.com/jda? header http://union.click.jd.com/jda?adblock=
+^(http|https):\/\/(ditu|maps)\.google\.cn 302 https://maps.google.com
 # ------
 
 [Plugin]
+# 注意：kelee.one 目前对非浏览器客户端返回 Cloudflare 挑战（403）；若插件下载/更新失败，
+# 可先用浏览器打开一次插件页，或在 Loon 中改用本地导入。远程 REJECT 规则不受影响。
 https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/JD_Price.lpx, enabled=true
@@ -329,7 +310,7 @@ https://kelee.one/Tool/Loon/Lpx/Script-Hub.lpx, policy=漏网之鱼, enabled=tru
 # ------
 
 [Mitm]
-hostname = -gateway.icloud.com,-weather-data.apple.com,-buy.itunes.apple.com,-pan.baidu.com,www.google.cn
+hostname = -gateway.icloud.com,-weather-data.apple.com,-buy.itunes.apple.com,-pan.baidu.com,www.google.cn,google.cn,*.google.cn,g.cn
 ca-p12 = 
 ca-passphrase = 
 skip-server-cert-verify = false
@@ -359,25 +340,11 @@ one.one.one.one = 1.1.1.1
 dns.alidns.com = 223.5.5.5
 doh.pub = 1.12.12.12
 dot.pub = 1.12.12.12
-doh.360.cn = 23.6.48.18
-dot.360.cn = 101.198.198.198
-dns.twnic.tw = 101.101.101.101
-ordns.he.net = 74.82.42.42
+ordns.he.net = 46.82.174.68
 
 # > Modify Contents
 # Google API Services China
 # services.googleapis.cn = 74.125.193.94
-# Firebase Cloud Messaging
-talk.google.com = 108.177.125.188
-mtalk.google.com = 108.177.125.188
-alt1-mtalk.google.com = 3.3.3.3
-alt2-mtalk.google.com = 3.3.3.3
-alt3-mtalk.google.com = 74.125.200.188
-alt4-mtalk.google.com = 74.125.200.188
-alt5-mtalk.google.com = 3.3.3.3
-alt6-mtalk.google.com = 3.3.3.3
-alt7-mtalk.google.com = 74.125.200.188
-alt8-mtalk.google.com = 3.3.3.3
 # Google CDN
 # dl.google.com = 180.163.151.161
 # dl.l.google.com = 180.163.151.161
@@ -810,18 +777,10 @@ urlqh.cn = server:https://doh.360.cn/dns-query
 # > BiliBili
 # BiliBili upos视频服务器（阿里云）
 upos-sz-mirrorali.bilivideo.com = server:https://dns.alidns.com/dns-query
-upos-sz-mirrorali?.bilivideo.com = server:https://dns.alidns.com/dns-query
-upos-sz-mirrorali??.bilivideo.com = server:https://dns.alidns.com/dns-query
 # BiliBili upos视频服务器（百度云）
 upos-sz-mirrorbos.bilivideo.com = server:180.76.76.76
 # BiliBili upos视频服务器（腾讯云）
 upos-sz-mirrorcos.bilivideo.com = server:https://doh.pub/dns-query
-upos-sz-mirrorcos?.bilivideo.com = server:https://doh.pub/dns-query
-upos-sz-mirrorcos??.bilivideo.com = server:https://doh.pub/dns-query
-# BiliBili upos视频服务器（百度云）
-upos-sz-upcdnbd??.bilivideo.com = server:180.76.76.76
-# BiliBili upos视频服务器（腾讯云）
-upos-sz-upcdntx.bilivideo.com = server:https://doh.pub/dns-query
 
 # > 🇨🇳 CHN
 # CNNIC SDNS
@@ -869,13 +828,7 @@ upos-sz-upcdntx.bilivideo.com = server:https://doh.pub/dns-query
 # So-net Entertainment Taiwan
 # so-net.net.tw = server:ns1.so-net.net.tw
 # so-net.tw = server:ns1.so-net.net.tw
-# Taiwan Network Information Center
-*.tw = server:https://dns.twnic.tw/dns-query
-*.taipei = server:https://dns.twnic.tw/dns-query
 
 # > 🇺🇸 USA
 # Hurricane Electric
 *.he.net = server:https://ordns.he.net/dns-query
-
-
-[Host]
