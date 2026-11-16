@@ -256,7 +256,6 @@ https://ruleset.skk.moe/List/non_ip/global.conf, policy=🥡 节点选择, tag=�
 # ------
 
 [Plugin]
-# 可先用浏览器打开一次插件页，或在 Loon 中改用本地导入。远程 REJECT 规则不受影响。
 https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/JD_Price.lpx, enabled=true
