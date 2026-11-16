@@ -1,7 +1,7 @@
 # Loon 配置
 # 配置作者：Colin(@ColinYYCC)
 # 以 '#' 或 '//' 开头的配置行是注释（Loon 语法）
-# 最近修订：2026-11-16（Loon 3.5.3 / 中国大陆网络；DNS、Remote Rule、Host、Rewrite 已逐项复核）
+# 最近修订：2026-11-16
 
 [General]
 # skip-proxy则和HTTP Proxy有关, 如果配置了该参数, 那么所配置的这些IP段、域名将不会转发到Loon, 而是由系统处理
@@ -10,12 +10,12 @@ skip-proxy = localhost, *.local, e.crashlytics.com, *.gov.cn, *.12306.cn, *.psbc
 # bypass-tun则和TUN有关, 如果配置了该参数, 那么所配置的这些IP段、域名就会不交给Loon来处理, 系统直接处理
 bypass-tun = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, 224.0.0.0/4, 255.255.255.255/32
 
-# > 以下配置的域名不会使用fakeip进行映射 
+# 以下配置的域名不会使用fakeip进行映射 
 real-ip = dns.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.turn.twilio.com, *.stun.twilio.com, stun.syncthing.net, stun.*, 127.*.*.*.sslip.io, 127-*-*-*.sslip.io, *.127.*.*.*.sslip.io, *-127-*-*-*.sslip.io, 127.*.*.*.nip.io, 127-*-*-*.nip.io, *.127.*.*.*.nip.io, *-127-*-*-*.nip.io
 
 # ---(DNS 服务器)---
 # DNS 服务器：优先使用国内可用的加密 DNS，失败时回落普通 DNS
-# 传统 DNS 服务器设置（国内可用优先，system 作为最终兜底）
+# 传统 DNS 服务器设置
 dns-server = system, 223.5.5.5, 119.29.29.29
 # 加密 DNS 服务器设置（Loon 会并发查询并取最快；失败回落上面的普通 DNS）
 doh-server = https://dns.alidns.com/dns-query, https://doh.pub/dns-query
@@ -41,18 +41,16 @@ wifi-access-socks5-port = 7221
 # 是否允许通过局域网代理使用 MITM
 mitm-on-wifi-access = false
 
-# > 节点延迟测试
+# ---(延迟测试)---
+# 节点延迟测试
 proxy-test-url = http://networkcheck.kde.org
-# > 互联网联通性测试
+# 互联网联通性测试
 internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
-# > 节点测速时的超时秒数
+# 节点测速时的超时秒数
 test-timeout = 5
 # ------
 
 # ---(高级)---
-# 高级设置
-
-# 节点切换由 Loon 自动检测（switch-node-after-failure-times 已弃用，已删除）
 # 策略切换时关闭连接
 disconnect-on-policy-change = true
 # SNI辅助规则匹配
@@ -70,15 +68,14 @@ interface-mode = auto
 
 # > hijack-dns
 # 有些app会自己使用自定义的DNS over UDP来解析IP, 可以配置相关IP:端口来劫持这些查询, 并返回fakeip的响应
-# 劫持所有目标 53 端口的 UDP DNS（Loon 3.2.5+），只写 9.9.9.9:53 会漏掉用 8.8.8.8/1.1.1.1 的 App
 hijack-dns = *:53
 # > disable-stun
 # 禁用stun是否禁用stun协议的udp数据, 禁用后可以有效解决webrtc的ip泄露
 disable-stun = true
 
-# > 自定义 GeoIP 数据库的 url（Loon 官方 GeoLite2，字段与 GEOIP 规则匹配）
+# > 自定义 GeoIP 数据库的 url
 geoip-url = https://gitlab.com/Loon0x00/loon_data/-/raw/main/geo/GeoLite2-Country.mmdb?inline=false
-# Telegram 等远程规则包含 IP-ASN 规则，需要 ASN 数据库（Loon 官方 GeoLite2-ASN）
+# Telegram 等远程规则包含 IP-ASN 规则，需要 ASN 数据库
 ipasn-url = https://gitlab.com/Loon0x00/loon_data/-/raw/main/geo/GeoLite2-ASN.mmdb?inline=false
 # ------
 
