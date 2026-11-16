@@ -148,8 +148,8 @@ Emby = select,香港节点,美国节点,狮城节点,日本节点,韩国节点,�
 # --- CUSTOM RULES ---
 # 自定义规则
 ## 您可以在此处插入自定义规则
-# 阻止海外 QUIC
-AND,((NOT,((GEOIP,CN))),(PROTOCOL,UDP),(DEST-PORT,443)),REJECT
+# 阻止海外 QUIC（Loon 3.1.7+ 的 PROTOCOL,QUIC；IP 规则阶段的 GEOIP,CN,DIRECT 已放行国内 QUIC，这里只兜底拒绝剩余）
+PROTOCOL,QUIC,REJECT
 # DEST-PORT 端口规则
 # 邮件服务默认端口
 OR,((DEST-PORT,25),(DEST-PORT,110),(DEST-PORT,143),(DEST-PORT,465),(DEST-PORT,587)),DIRECT
