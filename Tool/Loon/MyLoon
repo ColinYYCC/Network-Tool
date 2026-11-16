@@ -183,17 +183,17 @@ FINAL,漏网之鱼
 # ------
 
 [Remote Rule]
-# > ADs（必须是第一批规则）
+# > ADs
 https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-RULE-SET.list, policy=REJECT, tag=秋风广告规则, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject.conf, policy=REJECT, tag=广告/钓鱼拦截, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf, policy=REJECT, tag=防止PCDN, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject-drop.conf, policy=REJECT-DROP, tag=Adobe 系列软件内部的跟踪, enabled=true
 https://ruleset.skk.moe/List/non_ip/reject-url-regex.conf, policy=REJECT, tag=Sukka 广告 URL 规则, enabled=true
 
-# > Apple CN 域名（先直连）
+# > Apple CN 域名
 https://ruleset.skk.moe/List/non_ip/apple_cn.conf, policy=DIRECT, tag=Apple CN 域名, enabled=true
 
-# > 海外媒体（专用策略组优先，必须放在 stream / apple_services 之前）
+# > 海外媒体
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/AppleTV/AppleTV.list, policy=国外网站, tag=AppleTV+, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Disney/Disney.list, policy=Disney+, tag=Disney+, enabled=true
 https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Rules/Emby.list, policy=Emby, tag=Emby, enabled=true
@@ -202,7 +202,7 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/YouTubeMusic/YouTubeMusic.list, policy=YouTube, tag=YouTube Music, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Spotify/Spotify.list, policy=Spotify, tag=Spotify, enabled=true
 
-# > Streaming 国际流媒体服务（放在专用组之后）
+# > Streaming 国际流媒体服务
 https://ruleset.skk.moe/List/non_ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体, enabled=true
 https://ruleset.skk.moe/List/ip/stream.conf, policy=国外网站, tag=Streaming 国际流媒体(IP), enabled=true
 
@@ -215,7 +215,7 @@ https://raw.githubusercontent.com/LucaLin233/Proxy/main/surge/rules/telegram.lis
 # > Apple 服务（默认 DIRECT；放在 AppleTV/流媒体之后，避免抢 tv.apple.com）
 https://ruleset.skk.moe/List/non_ip/apple_services.conf, policy=Apple Service, tag=🍎 苹果服务, enabled=true
 
-# > 👾Game 游戏（先于国内直连/CDN/global，避免被后面的宽泛规则抢走）
+# > 👾Game 游戏
 # https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Game/Game.list, policy = 游戏, tag = GameList, enabled = true // GameList
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Blizzard/Blizzard.list, policy=游戏, tag=暴雪娱乐 Blizzard, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Classic/Classic.list, policy=游戏, tag=Classic, enabled=true
@@ -245,16 +245,13 @@ https://ruleset.skk.moe/List/non_ip/domestic.conf, policy=DIRECT, tag=国内直�
 https://ruleset.skk.moe/List/non_ip/direct.conf, policy=DIRECT, tag=国内直连 (域名), enabled=true
 https://ruleset.skk.moe/List/ip/china_ip.conf, policy=DIRECT, tag=China 中国直连 (IP), enabled=true
 
-# > CDN 静态资源（放在国内直连之后，避免影响国内 CDN 直连）
+# > CDN 静态资源
 https://ruleset.skk.moe/List/non_ip/cdn.conf, policy=国外网站, tag=SukkaW 静态 CDN 规则, enabled=true
 
-# > 国外网站兜底（必须是最后一条：global 含 .us/.hk/.fm 等整段 TLD 规则，放前面会抢走上面的规则）
+# > 国外网站
 https://ruleset.skk.moe/List/non_ip/global.conf, policy=🥡 节点选择, tag=国外网站, enabled=true
 
 [Rewrite]
-# 说明：旧版 Rewrite 只对 HTTP 和经 MITM 解密的 HTTPS 生效，且源域名必须在 [Mitm] hostname 中。
-# 2026-11 起只保留仍有效的 Google 跳转；t.cn→sinaurl（目标已失效）、wikipedia→wikiwand（不可用）、
-# NGA（域名自身已 301）、京东广告 header（已过时）等旧规则已移除。
 # > Redirect Google Search Service
 ^https?://(.*?[.])?(?:g|google)\.cn 302 https://$1google.com
 # > Redirect Google Maps Service
@@ -262,7 +259,6 @@ https://ruleset.skk.moe/List/non_ip/global.conf, policy=🥡 节点选择, tag=�
 # ------
 
 [Plugin]
-# 注意：kelee.one 目前对非浏览器客户端返回 Cloudflare 挑战（403）；若插件下载/更新失败，
 # 可先用浏览器打开一次插件页，或在 Loon 中改用本地导入。远程 REJECT 规则不受影响。
 https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx, enabled=true
 https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx, enabled=true
