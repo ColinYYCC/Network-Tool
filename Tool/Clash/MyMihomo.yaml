@@ -457,7 +457,7 @@ rules:
   - AND,((OR,((DST-PORT,25),(DST-PORT,110),(DST-PORT,143),(DST-PORT,465),(DST-PORT,587)))),DIRECT
   - AND,((OR,((DOMAIN,time-ios.apple.com),(DOMAIN,time.apple.com))),(DST-PORT,123)),DIRECT
   # 阻止海外 QUIC（对齐 Loon）
-  - AND,((NOT,((GEOIP,CN))),(NETWORK,UDP),(DST-PORT,443)),REJECT
+  - AND,((NETWORK,UDP),(DST-PORT,443),(NOT,((GEOSITE,cn))),(NOT,((GEOIP,CN)))),REJECT
   # 保护丢包
   - IP-CIDR,0.0.0.0/32,REJECT
 
