@@ -16,10 +16,10 @@ real-ip = dns.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.m
 # ---(DNS 服务器)---
 # DNS 服务器：优先使用国内可用的加密 DNS，失败时回落普通 DNS
 # 传统 DNS 服务器设置
-dns-server = system, 223.5.5.5, 119.29.29.29
+dns-server = system, https://223.6.6.6/dns-query, https://119.29.29.29/dns-query, https://9.9.9.9/dns-query
 # 加密 DNS 服务器设置（Loon 会并发查询并取最快；失败回落上面的普通 DNS）
-doh-server = https://dns.alidns.com/dns-query, https://doh.pub/dns-query
-doq-server = quic://223.5.5.5:853, quic://223.6.6.6:853
+doh-server = https://dns.alidns.com/dns-query, https://doh.360.cn/dns-query, https://dns.quad9.net/dns-query
+doq-server = quic://223.5.5.5:853, quic://9.9.9.9:853
 # ip-mode 支持（默认dual: IPv4&IPv6）
 ip-mode = dual
 ipv6-vif = auto
