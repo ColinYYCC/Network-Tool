@@ -495,12 +495,13 @@ rules:
   - "RULE-SET,CDN,国外网站"
   - "RULE-SET,Global,🥡 节点选择"
   # 阻止海外 QUIC
-  # 保护丢包
-### 其他
   - "AND,((NETWORK,UDP),(DST-PORT,443),(NOT,((GEOIP,CN)))),REJECT"
   # 邮件 / NTP
   - "OR,((DST-PORT,25),(DST-PORT,110),(DST-PORT,143),(DST-PORT,465),(DST-PORT,587)),DIRECT"
   - "AND,((OR,((DOMAIN,time-ios.apple.com),(DOMAIN,time.apple.com))),(DST-PORT,123)),DIRECT"
+  # 保护丢包
+  - "IP-CIDR,0.0.0.0/32,REJECT"
+### 其他
   - "GEOIP,CN,DIRECT"
   - "MATCH,漏网之鱼"
 # 规则配置锚点
