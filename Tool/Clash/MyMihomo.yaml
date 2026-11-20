@@ -488,7 +488,7 @@ rules:
   - "RULE-SET,Supercell,游戏"
   - "RULE-SET,UBI,游戏"
   - "RULE-SET,Xbox,游戏"
-  # 国内直连（精简版：去掉 LAN，保留 direct + domestic + china_ip）
+  # 国内直连
   - "RULE-SET,Domestic,DIRECT"
   - "RULE-SET,Direct,DIRECT"
   - "RULE-SET,ChinaIP,DIRECT,no-resolve"
@@ -558,7 +558,7 @@ rule-providers:
   Supercell: {<<: *ClassicalY, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Supercell/Supercell.yaml"}
   UBI: {<<: *ClassicalY, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/UBI/UBI.yaml"}
   Xbox: {<<: *ClassicalY, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Xbox/Xbox.yaml"}
-# 网络区域（精简：去掉 LAN）
+# 网络区域
   Domestic: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/domestic.txt"}
   Direct: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/direct.txt"}
   ChinaIP: {<<: *ipcidr, url: "https://ruleset.skk.moe/Clash/ip/china_ip.txt"}
