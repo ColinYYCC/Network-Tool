@@ -412,19 +412,19 @@ proxy-groups:
   - {name: "Telegram", type: select, proxies: ["🎲 自动选择", "🔯 故障转移", "🔮 负载均衡", "香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "DIRECT"], icon: "https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/telegram.png"}
   - {name: "Apple Service", type: select, proxies: ["DIRECT", "🎲 自动选择", "🔯 故障转移", "🔮 负载均衡", "香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点"], icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png"}
   - {name: "AI", type: select, proxies: ["美国节点", "日本节点", "狮城节点", "韩国节点", "台湾节点", "香港节点"], icon: "https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/AutoClaw-108.png"}
-# 媒体策略组（对齐 Loon 优先级）
+# 媒体策略组
   - {name: "Netflix", type: select, proxies: ["狮城节点", "香港节点", "台湾节点", "日本节点", "美国节点", "韩国节点", "DIRECT"], icon: "https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/netflix.png"}
   - {name: "YouTube", type: select, proxies: ["香港节点", "台湾节点", "狮城节点", "日本节点", "美国节点", "韩国节点", "DIRECT"], icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png"}
   - {name: "Disney+", type: select, proxies: ["狮城节点", "香港节点", "台湾节点", "日本节点", "美国节点", "韩国节点", "DIRECT"], icon: "https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/disney.png"}
   - {name: "Spotify", type: select, proxies: ["香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "DIRECT"], icon: "https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/spotify.png"}
   - {name: "Emby", type: select, proxies: ["香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "DIRECT"], icon: "https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/emby.png"}
-# 游戏（对齐 Loon：DIRECT 优先）
+# 游戏
   - {name: "游戏", type: select, proxies: ["DIRECT", "Game", "🎲 自动选择", "🔯 故障转移", "🔮 负载均衡"], icon: "https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/nintendoswitch.png"}
   - {name: "漏网之鱼", type: select, proxies: ["🔯 故障转移", "🎲 自动选择", "🔮 负载均衡", "香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "DIRECT"], icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png"}
   - {name: "🎲 自动选择", <<: *UrlTest, include-all: true, filter: *FilterAL, icon: "https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/group/GetSomeFries.png"}
   - {name: "🔯 故障转移", <<: *FallBack, include-all: true, filter: *FilterAL, icon: "https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png"}
   - {name: "🔮 负载均衡", <<: *LoadBalance, include-all: true, filter: *FilterAL, icon: "https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png"}
-# 地区节点（使用 fallback，与 Loon 一致）
+# 地区节点
   - {name: "香港节点", <<: *UrlTest, include-all: true, filter: *FilterHK, icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png"}
   - {name: "美国节点", <<: *UrlTest, include-all: true, filter: *FilterUS, icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/United_States.png"}
   - {name: "狮城节点", <<: *UrlTest, include-all: true, filter: *FilterSG, icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Singapore.png"}
@@ -434,7 +434,7 @@ proxy-groups:
   - {name: "Game", <<: *UrlTest, include-all: true, filter: *FilterGame, hidden: true}
 # 分流规则
 rules:
-# 自定义规则（对齐 Loon）
+# 自定义规则
   - "DOMAIN-SUFFIX,zoom.us,国外网站"
   - "DOMAIN-KEYWORD,todesk,DIRECT"
   - "DOMAIN-KEYWORD,anyviewer,DIRECT"
@@ -494,7 +494,7 @@ rules:
   - "RULE-SET,ChinaIP,DIRECT,no-resolve"
   - "RULE-SET,CDN,国外网站"
   - "RULE-SET,Global,🥡 节点选择"
-  # 阻止海外 QUIC（对齐 Loon）
+  # 阻止海外 QUIC
   # 保护丢包
 ### 其他
   - "AND,((NETWORK,UDP),(DST-PORT,443),(NOT,((GEOIP,CN)))),REJECT"
