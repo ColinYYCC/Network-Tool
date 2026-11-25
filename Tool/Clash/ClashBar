@@ -2,14 +2,15 @@
 # 配置作者：Colin(@ColinYYCC)
 # 适用版本：所有使用 mihomo 核心的程序
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
-
-### 节点配置
+# ---(节点)---
 NodeParam: &NodeParam {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: https://networkcheck.kde.org, interval: 300}, filter: '^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|COM|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$'}
-# 节点订阅
+
+# > 节点订阅
 proxy-providers: 
   MyMihomo: {<<: *NodeParam, url: '替换订阅链接'}
+# ------
 
-### 核心配置
+# ---(核心)---
 mode: rule
 mixed-port: 7897
 allow-lan: true
@@ -23,11 +24,11 @@ global-client-fingerprint: chrome
 keep-alive-interval: 15
 keep-alive-idle: 600
 
-# 实验性功能
+# > 实验性功能
 experimental:
   quic-go-disable-gso: true 
 
-# 认证配置
+# > 认证
 authentication:
   - mihomo:colinyycc
 skip-auth-prefixes:
@@ -35,19 +36,24 @@ skip-auth-prefixes:
   - 192.168.31.0/24
   - 192.168.100.0/24
   - 127.0.0.1/8
+# ------
 
-### 如果使用的是裸核，需要将下面的注释去掉，方便ui界面的使用
-# 管理面板配置
+# ---(管理面板，可选)---
+# 裸核部署时把下面三行的注释去掉，即可用 Web UI 管理
 external-ui-url: https://mirror.ghproxy.com/https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
 external-ui: ui
 external-controller: 0.0.0.0:9988
 secret: colinyycc
+# ------
 
-# 配置存储
+# ---(缓存)---
+# > 配置存储
 profile:
   store-selected: true
   store-fake-ip: true
+# ------
 
+# ---(GEOIP 数据模式)---
 geodata-mode: true
 geo-auto-update: true
 geo-update-interval: 24
@@ -55,8 +61,9 @@ geox-url:
   geoip: 'https://ghfast.top/https://github.com/xream/geoip/releases/latest/download/ipinfo.geoip.dat'
   mmdb: 'https://ghfast.top/https://github.com/xream/geoip/releases/latest/download/ipinfo.country.mmdb'
   asn: 'https://ghfast.top/https://github.com/xream/geoip/releases/latest/download/ipinfo.asn.mmdb'
+# ------
 
-### DNS配置
+# ---(DNS)---
 dns:
   enable: true
   ipv6: true
@@ -88,8 +95,9 @@ dns:
     - 127-*-*-*.nip.io
     - '*.127.*.*.*.nip.io'
     - '*-127-*-*-*.nip.io'
+# ------
 
-### 域名嗅探
+# ---(域名嗅探)---
 sniffer:
   enable: true
   sniff:
@@ -103,8 +111,9 @@ sniffer:
   skip-domain:
     - 'Mijia Cloud'
     - '+.push.apple.com'
+# ------
 
-### TUN配置
+# ---(TUN)---
 tun:
   enable: true
   stack: system
@@ -118,16 +127,22 @@ tun:
   mtu: 1500
   # 如果有使用zerotier或者headscale等，需要自己配置排除自己的网段
   # route-exclude-address: ['192.168.110.0/24']
+# ------
 
-#### 节点组参数锚点
-# 锚点 - 时延优选参数 [每 300 秒一次惰性健康检查，容差 50ms，时延超过 2 秒判定为失败，失败 3 次则自动触发健康检查]
+# ---(锚点)---
+# > 时延优选
+# 每 300 秒一次惰性健康检查，容差 50ms，时延超过 2 秒判定为失败，失败 3 次则自动触发健康检查
 UrlTest: &UrlTest {type: url-test, url: https://networkcheck.kde.org, interval: 300, lazy: true, tolerance: 50, timeout: 2000, disable-udp: false, max-failed-times: 3, hidden: true}
-# 锚点 - 故障转移参数 [每 300 秒一次惰性健康检查，时延超过 2 秒判定为失败，失败 2 次则自动触发健康检查]
+
+# > 故障转移
+# 每 300 秒一次惰性健康检查，时延超过 2 秒判定为失败，失败 2 次则自动触发健康检查
 FallBack: &FallBack {type: fallback, url: https://networkcheck.kde.org, interval: 300, lazy: true, tolerance: 50, timeout: 2000, disable-udp: false, max-failed-times: 2, hidden: true}
-# 锚点 - 负载均衡参数 [每 300 秒一次惰性健康检查，时延超过 2 秒判定为失败，失败 2 次则自动触发健康检查]
+
+# > 负载均衡
+# 每 300 秒一次惰性健康检查，时延超过 2 秒判定为失败，失败 2 次则自动触发健康检查
 LoadBalance: &LoadBalance {type: load-balance, url: https://networkcheck.kde.org, interval: 300, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 2000, max-failed-times: 2, hidden: true}
 
-# 节点筛选正则表达式 - 基于地理位置和关键词过滤
+# > 节点筛选正则
 FilterHK: &FilterHK '^(?=.*((?i)🇭🇰|香港|(HK|Hong)))(?!.*((?i)回国|校园|游戏|🎮|(GAME))).*$'
 FilterTW: &FilterTW '^(?=.*((?i)🇹🇼|台湾|(TW|Tai|Taiwan)))(?!.*((?i)回国|校园|游戏|🎮|(GAME))).*$'
 FilterJP: &FilterJP '^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(JP|Japan)))(?!.*((?i)回国|校园|游戏|🎮|(GAME))).*$'
@@ -141,37 +156,43 @@ FilterOthers: &FilterOT '^(?!.*(🇭🇰|HK|Hong|香港|🇹🇼|TW|Taiwan|Wan|�
 FilterAL: &FilterAL '^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$'
 FilterGame: &FilterGame '^(?=.*((?i)游戏|🎮|(GAME)))(?!.*((?i)回国|校园)).*$'
 
-# 策略组代理列表模板 - 预定义的代理节点优先级排序
+# > 策略组模板
 SelectBL: &SelectBL {type: select, proxies: [🔮 负载均衡, 🛰️ 自动选择, 🔯 故障转移, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点, DIRECT]}
 SelectFB: &SelectFB {type: select, proxies: [🔯 故障转移, 🛰️ 自动选择, 🔮 负载均衡, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点, DIRECT]}
 SelectUT: &SelectUT {type: select, proxies: [🛰️ 自动选择, 🔮 负载均衡, 🔯 故障转移, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点, DIRECT]}
 SelectDT: &SelectDT {type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔮 负载均衡, 🔯 故障转移, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点]}
+# ------
 
-# 节点组
+# ---(策略组)---
 proxy-groups:
-# 主要节点
+# > 主要节点
   - {name: 🛰️ 自动选择, <<: *UrlTest, include-all: true, filter: *FilterAL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/group/GetSomeFries.png}
   - {name: 🔯 故障转移, <<: *FallBack, include-all: true, filter: *FilterAL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png}
   - {name: 🔮 负载均衡, <<: *LoadBalance, include-all: true, filter: *FilterAL, icon: https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png}
   - {name: 🥡 节点选择, <<: *SelectBL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png}
   - {name: 手动切换, <<: *SelectBL, icon: https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png}
-# 兜底
+
+# > 兜底
   - {name: 漏网之鱼, <<: *SelectDT, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png}
-# 分流策略组
+
+# > 分流策略组
   - {name: 国外网站, <<: *SelectBL, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Twitter.png}
   - {name: Telegram, <<: *SelectBL, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/telegram.svg}
   - {name: Apple Service, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡, 香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Apple.png}
   - {name: AI, <<: *SelectUT, icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/qwen-color.svg}
-# 媒体策略组
+
+# > 媒体策略组
   - {name: Netflix, type: select, proxies: [狮城节点, 香港节点, 台湾节点, 日本节点, 美国节点, 韩国节点], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/netflix.svg}
   - {name: YouTube, type: select, proxies: [香港节点, 台湾节点, 狮城节点, 日本节点, 美国节点, 韩国节点], icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/YouTube.png}
   - {name: Disney+, type: select, proxies: [狮城节点, 香港节点, 台湾节点, 日本节点, 美国节点, 韩国节点], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/disney-plus.svg}
   - {name: Spotify, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/spotify.svg}
   - {name: 国际媒体, type: select, proxies: [狮城节点, 香港节点, 日本节点, 美国节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/disney-plus.svg}
   - {name: Emby, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/emby.svg}
-# 游戏
+
+# > 游戏
   - {name: 游戏, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/steam.svg}
-# 地区节点
+
+# > 地区节点
   - {name: 香港节点, <<: *UrlTest, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png, hidden: true}
   - {name: 日本节点, <<: *UrlTest, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png, hidden: true}
   - {name: 韩国节点, <<: *UrlTest, include-all: true, filter: *FilterKR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png, hidden: true}
@@ -183,22 +204,23 @@ proxy-groups:
   - {name: 台湾节点, <<: *UrlTest, include-all: true, filter: *FilterTW, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png, hidden: true}
 # ------
 
-# 分流规则
+# ---(规则)---
 rules:
-# 自定义规则
-## 您可以在此处插入自定义规则
+# > 自定义规则
+# 可在此处插入自定义规则
   - AND,((DST-PORT,443),(NETWORK,UDP),(NOT,((GEOIP,CN)))),REJECT
   - DOMAIN-SUFFIX,zoom.us,国外网站
   - DOMAIN-KEYWORD,todesk,DIRECT
   - DOMAIN-KEYWORD,anyviewer,DIRECT
   - DOMAIN-SUFFIX,cmbchina.com,DIRECT
-# Web Controller 网页控制器规则
-# > Surge
+
+# > Web Controller
+# Surge
   - DOMAIN,yasd.royli.dev,DIRECT
-# > Clash
+# Clash
   - DOMAIN,clash.razord.top,DIRECT
   - DOMAIN,yacd.haishan.me,DIRECT
-# > BoxJs
+# BoxJs
   - DOMAIN,boxjs.com,DIRECT
   - DOMAIN,boxjs.net,DIRECT
 # 自动 REJECT 保护丢包，防止应用循环请求
@@ -207,7 +229,7 @@ rules:
   - OR,((DST-PORT,25),(DST-PORT,110),(DST-PORT,143),(DST-PORT,465),(DST-PORT,587)),DIRECT
   - AND,((OR,((DOMAIN,time-ios.apple.com),(DOMAIN,time.apple.com))),(DST-PORT,123)),DIRECT
 
-### 拦截规则
+# > 拦截
   - RULE-SET,sogouinput,REJECT
   - RULE-SET,AWAvenue-Ads-Rule,REJECT
   - RULE-SET,Phishing,REJECT
@@ -215,7 +237,7 @@ rules:
   - RULE-SET,Adobe跟踪&SDK打点,REJECT
   - RULE-SET,视频QUIC&PCDN,REJECT
 
-### 非 IP 类规则
+# > 非 IP
   - RULE-SET,内网,DIRECT
   - RULE-SET,LinkedIn,手动切换
   - RULE-SET,国内域名,DIRECT
@@ -240,17 +262,19 @@ rules:
   - RULE-SET,下载,手动切换
   - RULE-SET,人工智能,AI
 
-### IP 类规则
+# > IP 类
   - RULE-SET,内网IP,DIRECT
   - RULE-SET,国内IP,DIRECT
   - RULE-SET,中国IP段,DIRECT
   - RULE-SET,流媒体IP,美国节点
 
-### 其他类规则
+# > 其他
   - GEOIP,CN,DIRECT
   - MATCH,漏网之鱼
+# ------
 
-# 规则配置
+# ---(规则集)---
+# > 规则集模板
 ClassicalT: &ClassicalT {type: http, behavior: classical, interval: 43200}
 ClassicalY: &ClassicalY {type: http, behavior: classical, interval: 43200}
 DomainT: &DomainT {type: http, behavior: domain, interval: 43200}
@@ -258,9 +282,8 @@ DomainY: &DomainY {type: http, behavior: domain, interval: 43200}
 DomainM: &DomainM {type: http, behavior: domain, interval: 43200}
 ipcidr: &ipcidr {type: http, behavior: ipcidr, interval: 43200}
 
-# 订阅规则
 rule-providers:
-# 拦截类规则
+# > 拦截类
   Adobe跟踪&SDK打点: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt, path: ./Rules/reject_non_ip_drop.txt}
   AWAvenue-Ads-Rule: {<<: *DomainY, url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml, path: ./Rules/AWAvenue-Ads-Rule/AWAvenue-Ads-Rule-Clash.yaml}
   Phishing: {<<: *ClassicalT, url: https://ruleset.skk.moe/List/domainset/reject_phishing.conf, path: ./Rules/reject_phishing.conf}
@@ -268,14 +291,14 @@ rule-providers:
   防止PCDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf, path: ./Rules/reject-no-drop.conf}
   视频QUIC&PCDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt, path: ./Rules/reject_non_ip_no_drop.txt}
 
-# 社交媒体
+# > 社交媒体
   LinkedIn: {<<: *ClassicalY, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/LinkedIn/LinkedIn.yaml, path: ./Rules/LinkedIn.yaml}
 
-# 常见静态 CDN
+# > 静态 CDN
   常见静态CDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/cdn.txt, path: ./Rules/cdn_non_ip.txt}
   常见静态CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/cdn.txt, path: ./Rules/cdn_domainset.txt}
 
-# 流媒体服务
+# > 流媒体服务
   TV+: {<<: *ClassicalY, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleTV/AppleTV.yaml, path: ./Rules/AppleTV.yaml}
   Disney+: {<<: *ClassicalY, url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.yaml, path: ./Rules/Disney.yaml}
   Emby: {<<: *ClassicalY, url: https://kelee.one/Tool/Clash/Rule/EmbyServer.yaml, path: ./Rules/Emby.yaml}
@@ -286,44 +309,45 @@ rule-providers:
   巴哈姆特: {<<: *ClassicalT, url: https://raw.githubusercontent.com/ConnersHua/RuleGo/master/Surge/Ruleset/Extra/Streaming/Video/Bahamut.list, path: ./Rules/Bahamut.list}
   流媒体: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/stream.txt, path: ./Rules/stream_non_ip.txt}
 
-# 即时通讯
+# > 即时通讯
   Telegram: {<<: *ClassicalT, url: https://github.com/LucaLin233/Luca_Conf/raw/main/Surge/Rule/Telegram.list, path: ./Rules/Telegram.txt}
 
-# 人工智能 
+# > 人工智能
   人工智能: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/ai.txt, path: ./Rules/ai_non_ip.txt}
 
-# 苹果服务
+# > 苹果服务
   苹果CDN域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt, path: ./Rules/apple_cdn.txt}
   苹果中国: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt, path: ./Rules/apple_cn_non_ip.txt}
   苹果服务: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/apple_services.txt, path: ./Rules/apple_services.txt}
 
-# 微软服务
+# > 微软服务
   微软CDN: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/microsoft_cdn.txt, path: ./Rules/microsoft_cdn_non_ip.txt}
   微软服务: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/microsoft.txt, path: ./Rules/microsoft_non_ip.txt}
 
-# 下载服务
+# > 下载服务
   下载: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/non_ip/download.txt, path: ./Rules/download_non_ip.txt}
   下载域名集: {<<: *DomainT, url: https://ruleset.skk.moe/Clash/domainset/download.txt, path: ./Rules/download_domainset.txt}
 
-# 网络区域
+# > 网络区域
   内网: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/lan.txt, path: ./Rules/lan_non_ip.txt}
   全球: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/global.txt, path: ./Rules/global_non_ip.txt}
   国内域名: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/domestic.txt, path: ./Rules/domestic_non_ip.txt}
   直连: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/non_ip/direct.txt, path: ./Rules/direct_non_ip.txt}
 
-# IP 类规则
+# > IP 类
   中国IP段: {<<: *ipcidr, url: https://ruleset.skk.moe/Clash/ip/china_ip.txt, path: ./Rules/china_ip.txt}
   内网IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/lan.txt, path: ./Rules/lan_ip.txt}
   国内IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/domestic.txt, path: ./Rules/domestic_ip.txt}
   流媒体IP: {<<: *ClassicalT, url: https://ruleset.skk.moe/Clash/ip/stream.txt, path: ./Rules/stream_ip.txt}
 
-# 中国直连
+# > 中国直连
   China 局域网 (IP): {<<: *ClassicalT, url: https://kelee.one/Tool/Loon/Lsr/LAN_SPLITTER, path: ./Rules/LAN_SPLITTER.lsr}
   China 中国直连 (IP-国内): {<<: *ClassicalT, url: https://ruleset.skk.moe/List/ip/domestic.conf, path: ./Rules/domestic_ip.conf}
   China 中国直连 (IP-中国): {<<: *ClassicalT, url: https://ruleset.skk.moe/List/ip/china_ip.conf, path: ./Rules/china_ip.conf}
   局域网: {<<: *ClassicalT, url: https://ruleset.skk.moe/List/non_ip/lan.conf, path: ./Rules/lan_non_ip.conf}
+# ------
 
-# 重写规则 (从 Loon [Rewrite] 转换)
+# ---(重写规则)---
 rewrites:
   - match: '^(http|https):\/\/(www.)?(g|google)\.cn'
     replace: 'https://www.google.com'
@@ -343,3 +367,4 @@ rewrites:
     replace: 'https://www.wikiwand.com/$1'
   - match: '^https?://union.click.jd.com/jda?'
     replace: 'http://union.click.jd.com/jda?adblock='
+# ------
