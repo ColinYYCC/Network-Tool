@@ -469,7 +469,9 @@ proxy-groups:
   - {name: "Emby", type: select, proxies: ["香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "DIRECT"], icon: "https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/emby.png"}
 # 游戏
   - {name: "游戏", type: select, proxies: ["DIRECT", "Game", "🎲 自动选择", "🔯 故障转移", "🔮 负载均衡"], icon: "https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/PNG/nintendoswitch.png"}
+# 兜底
   - {name: "漏网之鱼", type: select, proxies: ["🎲 自动选择", "🔯 故障转移", "🔮 负载均衡", "香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "DIRECT"], icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Social_Media/Snapfish.png"}
+# 节点选择器
   - {name: "🎲 自动选择", <<: *UrlTest, include-all: true, filter: *FilterAL, icon: "https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/group/GetSomeFries.png"}
   - {name: "🔯 故障转移", <<: *FallBack, include-all: true, filter: *FilterAL, icon: "https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/select.png"}
   - {name: "🔮 负载均衡", <<: *LoadBalance, include-all: true, filter: *FilterAL, icon: "https://github.com/shindgewongxj/WHATSINStash/raw/main/icon/loadbalance.png"}
@@ -480,6 +482,7 @@ proxy-groups:
   - {name: "日本节点", <<: *UrlTest, include-all: true, filter: *FilterJP, icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png"}
   - {name: "韩国节点", <<: *UrlTest, include-all: true, filter: *FilterKR, icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png"}
   - {name: "台湾节点", <<: *UrlTest, include-all: true, filter: *FilterTW, icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png"}
+# 游戏节点
   - {name: "Game", <<: *UrlTest, include-all: true, filter: *FilterGame, hidden: true}
 # 分流规则
 rules:
