@@ -431,7 +431,7 @@ sniffer:
     - +.icloud-content.com
     - gamecenter.apple.com
 
-#### 节点组参数锚点
+### 节点组参数锚点
 UrlTest: &UrlTest {type: url-test, url: https://networkcheck.kde.org, interval: 600, lazy: true, tolerance: 50, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
 FallBack: &FallBack {type: fallback, url: https://networkcheck.kde.org, interval: 600, lazy: true, tolerance: 50, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
 LoadBalance: &LoadBalance {type: load-balance, url: https://networkcheck.kde.org, interval: 600, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 3000, max-failed-times: 3, hidden: true}
@@ -452,7 +452,7 @@ SelectFB: &SelectFB {type: select, proxies: ["🔯 故障转移", "🔮 负载�
 SelectUT: &SelectUT {type: select, proxies: ["🎲 自动选择", "🔯 故障转移", "🔮 负载均衡", "香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "DIRECT"]}
 SelectDT: &SelectDT {type: select, proxies: ["DIRECT", "🎲 自动选择", "🔯 故障转移", "🔮 负载均衡", "香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点"]}
 
-#### 节点组
+### 节点组
 proxy-groups:
 # 主要节点
   - {name: "🥡 节点选择", <<: *SelectUT, icon: "https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png"}
@@ -484,12 +484,12 @@ proxy-groups:
   - {name: "台湾节点", <<: *UrlTest, include-all: true, filter: *FilterTW, icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png"}
 # 游戏节点
   - {name: "Game", <<: *UrlTest, include-all: true, filter: *FilterGame, hidden: true}
-# 分流规则
+### 分流规则
 rules:
-### 内网
+# 内网
   - "RULE-SET,LanDomain,DIRECT"
   - "RULE-SET,LanIP,DIRECT,no-resolve"
-### 自定义规则
+# 自定义规则
   - "DOMAIN-SUFFIX,zoom.us,国外网站"
   - "DOMAIN-KEYWORD,todesk,DIRECT"
   - "DOMAIN-KEYWORD,anyviewer,DIRECT"
@@ -500,15 +500,15 @@ rules:
   - "DOMAIN,boxjs.com,DIRECT"
   - "DOMAIN,boxjs.net,DIRECT"
   - "DOMAIN-SUFFIX,vercel.app,国外网站"
-### 拦截规则
+# 拦截规则
   - "RULE-SET,AWAvenue,REJECT"
   - "RULE-SET,Reject,REJECT"
   - "RULE-SET,RejectNoDrop,REJECT"
   - "RULE-SET,RejectDrop,REJECT-DROP"
-### 苹果 CN
+# 苹果 CN
   - "RULE-SET,AppleCdn,DIRECT"
   - "RULE-SET,AppleCN,DIRECT"
-### 流媒体
+# 流媒体
   - "RULE-SET,AppleTV,国外网站"
   - "RULE-SET,Disney,Disney+"
   - "RULE-SET,Emby,Emby"
@@ -517,15 +517,15 @@ rules:
   - "RULE-SET,YouTubeMusic,YouTube"
   - "RULE-SET,Spotify,Spotify"
   - "RULE-SET,Stream,国外网站"
-### 流媒体 IP
+# 流媒体 IP
   - "RULE-SET,StreamIP,国外网站,no-resolve"
-### 应用
+# 应用
   - "RULE-SET,AI,AI"
   - "RULE-SET,Telegram,Telegram"
   - "RULE-SET,TelegramIP,Telegram,no-resolve"
-### 服务
+# 服务
   - "RULE-SET,AppleServices,Apple Service"
-### 游戏
+# 游戏
   - "RULE-SET,Blizzard,游戏"
   - "RULE-SET,Classic,游戏"
   - "RULE-SET,DiabloIII,游戏"
@@ -547,24 +547,25 @@ rules:
   - "RULE-SET,Supercell,游戏"
   - "RULE-SET,UBI,游戏"
   - "RULE-SET,Xbox,游戏"
-### 社交媒体
+# 社交媒体
   - "RULE-SET,LinkedIn,国外网站"
-### 国内直连
+# 国内直连
   - "RULE-SET,Domestic,DIRECT"
   - "RULE-SET,Direct,DIRECT"
   - "RULE-SET,ChinaIP,DIRECT,no-resolve"
-### 静态 CDN / 国外网站
+# 静态 CDN / 国外网站
   - "RULE-SET,CDN,国外网站"
   - "RULE-SET,Global,🥡 节点选择"
-### 端口与协议
+# 端口与协议
   # 阻止海外 QUIC
   - "AND,((NETWORK,UDP),(DST-PORT,443),(NOT,((GEOIP,CN)))),REJECT"
   # 邮件 / NTP
   - "OR,((DST-PORT,25),(DST-PORT,110),(DST-PORT,143),(DST-PORT,465),(DST-PORT,587)),DIRECT"
   - "AND,((OR,((DOMAIN,time-ios.apple.com),(DOMAIN,time.apple.com))),(DST-PORT,123)),DIRECT"
-### 其他
+# 其他
   - "GEOIP,CN,DIRECT"
   - "MATCH,漏网之鱼"
+  
 # 规则配置锚点
 ClassicalT: &ClassicalT {type: http, behavior: classical, interval: 86400, format: text, proxy: DIRECT}
 ClassicalY: &ClassicalY {type: http, behavior: classical, interval: 86400, format: yaml, proxy: DIRECT}
@@ -572,7 +573,7 @@ DomainT: &DomainT {type: http, behavior: domain, interval: 86400, format: text, 
 DomainY: &DomainY {type: http, behavior: domain, interval: 86400, format: yaml, proxy: DIRECT}
 ipcidr: &ipcidr {type: http, behavior: ipcidr, interval: 86400, format: text, proxy: DIRECT}
 
-# 订阅规则
+### 订阅规则
 rule-providers:
 # 内网
   LanDomain: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/lan.txt"}
