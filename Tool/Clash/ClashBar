@@ -120,11 +120,11 @@ tun:
   # route-exclude-address: ['192.168.110.0/24']
 
 #### 节点组参数锚点
-# 锚点 - 时延优选参数 [每 300 秒一次惰性健康检查，容差 20ms，时延超过 2 秒判定为失败，失败 3 次则自动触发健康检查]
+# 锚点 - 时延优选参数 [每 300 秒一次惰性健康检查，容差 50ms，时延超过 2 秒判定为失败，失败 3 次则自动触发健康检查]
 UrlTest: &UrlTest {type: url-test, url: https://networkcheck.kde.org, interval: 300, lazy: true, tolerance: 50, timeout: 2000, disable-udp: false, max-failed-times: 3, hidden: true}
-# 锚点 - 故障转移参数 [每 300 秒一次惰性健康检查，时延超过 2 秒判定为失败，失败 3 次则自动触发健康检查]
+# 锚点 - 故障转移参数 [每 300 秒一次惰性健康检查，时延超过 2 秒判定为失败，失败 2 次则自动触发健康检查]
 FallBack: &FallBack {type: fallback, url: https://networkcheck.kde.org, interval: 300, lazy: true, tolerance: 50, timeout: 2000, disable-udp: false, max-failed-times: 2, hidden: true}
-# 锚点 - 负载均衡参数 [每 300 秒一次惰性健康检查，时延超过 2 秒判定为失败，失败 3 次则自动触发健康检查]
+# 锚点 - 负载均衡参数 [每 300 秒一次惰性健康检查，时延超过 2 秒判定为失败，失败 2 次则自动触发健康检查]
 LoadBalance: &LoadBalance {type: load-balance, url: https://networkcheck.kde.org, interval: 300, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 2000, max-failed-times: 2, hidden: true}
 
 # 节点筛选正则表达式 - 基于地理位置和关键词过滤
@@ -170,7 +170,7 @@ proxy-groups:
   - {name: Emby, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 韩国节点, 台湾节点, 🛰️ 自动选择, 🔯 故障转移, 🔮 负载均衡], icon: https://raw.githubusercontent.com/ColinYYCC/Network-Tool/refs/heads/main/Resource/Logo/SVG/emby.svg}
 # 游戏
   - {name: 游戏, type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔯 故障转移], icon: https://github.com/ColinYYCC/Network-Tool/raw/main/Resource/Logo/SVG/steam.svg}
-# 自动选择
+# 地区节点
   - {name: 香港节点, <<: *UrlTest, include-all: true, filter: *FilterHK, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Hong_Kong.png, hidden: true}
   - {name: 日本节点, <<: *UrlTest, include-all: true, filter: *FilterJP, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Japan.png, hidden: true}
   - {name: 韩国节点, <<: *UrlTest, include-all: true, filter: *FilterKR, icon: https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/South_Korea.png, hidden: true}

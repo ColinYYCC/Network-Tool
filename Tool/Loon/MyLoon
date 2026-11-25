@@ -14,10 +14,10 @@ bypass-tun = 10.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, 172.16.0.0/
 real-ip = dns.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.turn.twilio.com, *.stun.twilio.com, stun.syncthing.net, stun.*, 127.*.*.*.sslip.io, 127-*-*-*.sslip.io, *.127.*.*.*.sslip.io, *-127-*-*-*.sslip.io, 127.*.*.*.nip.io, 127-*-*-*.nip.io, *.127.*.*.*.nip.io, *-127-*-*-*.nip.io, icbc.com.cn, *.icbc.com.cn, abchina.com, *.abchina.com, boc.cn, *.boc.cn, ccb.com, *.ccb.com, bankcomm.com, *.bankcomm.com, psbc.com, *.psbc.com, cmbchina.com, *.cmbchina.com, citicbank.com, *.citicbank.com, cebbank.com, *.cebbank.com, cmbc.com.cn, *.cmbc.com.cn, hxb.com.cn, *.hxb.com.cn, cgbchina.com.cn, *.cgbchina.com.cn, cib.com.cn, *.cib.com.cn, spdb.com.cn, *.spdb.com.cn, pingan.com, *.pingan.com, unionpay.com, *.unionpay.com, chase.com, *.chase.com, bankofamerica.com, *.bankofamerica.com, citibank.com, *.citibank.com, goldmansachs.com, *.goldmansachs.com, morganstanley.com, *.morganstanley.com, wellsfargo.com, *.wellsfargo.com, hsbc.com, *.hsbc.com, sc.com, *.sc.com, barclays.com, *.barclays.com, db.com, *.db.com, ubs.com, *.ubs.com, bnpparibas.com, *.bnpparibas.com, santander.com, *.santander.com, mufg.jp, *.mufg.jp, mizuhogroup.com, *.mizuhogroup.com, dbs.com, *.dbs.com, ocbc.com, *.ocbc.com, uob.com, *.uob.com, dbs.com.hk, *.dbs.com.hk, ocbc.com.hk, *.ocbc.com.hk, uob.com.hk, *.uob.com.hk, citibank.com.hk, *.citibank.com.hk, hsbc.com.hk, *.hsbc.com.hk, bochk.com, *.bochk.com, hangseng.com, *.hangseng.com, hkbea.com, *.hkbea.com, dahsing.com, *.dahsing.com, shacombank.com.hk, *.shacombank.com.hk, ncb.com.hk, *.ncb.com.hk, chonghing.com, *.chonghing.com, cmbwinglungbank.com, *.cmbwinglungbank.com, icbcasia.com, *.icbcasia.com, cncb.com.hk, *.cncb.com.hk
 
 # ---(DNS 服务器)---
-# DNS 服务器：优先使用国内可用的加密 DNS，失败时回落普通 DNS
+# 传统 DNS 列表：system 为系统 DNS，https:// 形式按 DoH 处理
 # 传统 DNS 服务器设置
 dns-server = system, https://223.6.6.6/dns-query, https://119.29.29.29/dns-query, https://9.9.9.9/dns-query
-# 加密 DNS 服务器设置（Loon 会并发查询并取最快；失败回落上面的普通 DNS）
+# 加密 DNS 服务器设置（Loon 会并发查询并取最快；失败时回落上面的 dns-server）
 doh-server = https://dns.alidns.com/dns-query, https://doh.360.cn/dns-query, https://dns.quad9.net/dns-query
 doq-server = quic://223.5.5.5:853, quic://9.9.9.9:853
 # ip-mode 支持（默认dual: IPv4&IPv6）
@@ -59,7 +59,7 @@ sni-sniffing = true
 # > 资源解析器
 resource-parser = https://github.com/sub-store-org/Sub-Store/releases/latest/download/sub-store-parser.loon.min.js
 
-# > interface-mode 指定流量使用哪个网络接口进行转发, 目前包含三种模式:
+# > interface-mode 指定流量使用哪个网络接口进行转发, 目前包含四种模式:
 # Auto: 系统自动分配
 # Cellular: 在WiFi和蜂窝数据都开启的情况下指定使用蜂窝网络
 # performance: 在WiFi和蜂窝数据都开启的情况下使用最优的网络接口

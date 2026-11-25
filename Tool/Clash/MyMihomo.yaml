@@ -63,7 +63,7 @@ geox-url:
 #   直连最快：AliDNS 18ms > 360 35ms > DNSPod 42ms > Cloudflare 201ms > Quad9 207ms > Google 211ms
 # 说明：境外 DoH 的 200ms 是"经代理"的延迟；直连境外 DoH 在境内不可用，所以必须 respect-rules。
 # 分流原则：直连域名用国内 DoH（18ms），走代理的域名用境外 DoH（约 200ms，换来解析地不暴露）。
-# 全部条目均为加密 DoH（含 default-nameserver 的 IP 形式），配置里没有明文 DNS。
+# 四组上游 DNS 均为加密 DoH（default-nameserver 用 IP 形式）；nameserver-policy 里的 system 例外——路由器管理页、STUN 等必须交给系统解析。
 dns:
   enable: true
   ipv6: true
@@ -494,8 +494,6 @@ rules:
   - "DOMAIN,boxjs.com,DIRECT"
   - "DOMAIN,boxjs.net,DIRECT"
   - "DOMAIN-SUFFIX,vercel.app,国外网站"
-  # Trae IDE
-  # Web Controller
 ### 拦截规则
   - "RULE-SET,AWAvenue,REJECT"
   - "RULE-SET,Reject,REJECT"

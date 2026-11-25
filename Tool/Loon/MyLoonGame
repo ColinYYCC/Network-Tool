@@ -61,10 +61,10 @@ sni-sniffing = true
 # > 资源解析器
 resource-parser = https://raw.githubusercontent.com/sub-store-org/Sub-Store/release/sub-store-parser.loon.min.js
 
-# > interface-mode 指定流量使用哪个网络接口进行转发, 目前包含三种模式:
+# > interface-mode 指定流量使用哪个网络接口进行转发, 目前包含四种模式:
 # Auto: 系统自动分配
 # Cellular: 在WiFi和蜂窝数据都开启的情况下指定使用蜂窝网络
-# Performace: 在WiFi和蜂窝数据都开启的情况下使用最优的网络接口
+# Performance: 在WiFi和蜂窝数据都开启的情况下使用最优的网络接口
 # Balance: 在WiFi和蜂窝数据都开启的情况下, 均衡使用网络接口
 interface-mode = auto
 
