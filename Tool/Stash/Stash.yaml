@@ -465,7 +465,7 @@ rules:
   - MATCH,漏网之鱼
 
 ### 规则集合
-# Loon [Remote Rule] 的 44 条，behavior/format 按远程文件实际格式选择
+# Loon [Remote Rule] 的 45 条，behavior/format 按远程文件实际格式选择
 rule-providers:
 # ADs
   秋风广告规则: {behavior: classical, format: text, interval: 86400, url: 'https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge.list'}
@@ -494,6 +494,7 @@ rule-providers:
   Streaming 国际流媒体(IP): {behavior: classical, format: text, interval: 86400, url: 'https://ruleset.skk.moe/List/ip/stream.conf'}
 # 国外网站
   全球: {behavior: classical, format: text, interval: 86400, url: 'https://ruleset.skk.moe/List/non_ip/global.conf'}
+# Telegram
   Telegram 电报: {behavior: classical, format: text, interval: 86400, url: 'https://github.com/LucaLin233/Proxy/blob/main/surge/rules/telegram.list?raw=true'}
 # 👾Game 游戏(不仅限于UDP, 包括相关CDN)
   暴雪娱乐 Blizzard: {behavior: classical, format: text, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Blizzard/Blizzard.list'}
