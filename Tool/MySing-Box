@@ -77,6 +77,8 @@
             {"rule_set": ["Spotify"],"action": "route","outbound": "Spotify"},
             {"rule_set": ["Steam","Epic"],"action": "route","outbound": "Game"},
             {"rule_set": ["Bahamut","Netflix","Disney","PrimeVideo","HBO","TikTok"],"action": "route","outbound": "ProxyMedia"},
+            {"domain": ["e122475.dscg.akamaiedge.net", "licdn.cn.cdn20.com", "linkedin.sc.omtrdc.net"], "action": "route", "outbound": "Proxy"},
+            {"domain_suffix": ["bizographics.com", "l-0005.dc-msedge.net", "l-0005.l-msedge.net", "licdn.cn", "licdn.com", "linkedin.at", "linkedin.cn", "linkedin.com", "lnkd.in"], "action": "route", "outbound": "Proxy"},
             {"action": "resolve"},
             {"rule_set": ["ChinaDomain","ChinaIP"],"action": "route","outbound": "direct"},
             {"rule_set": ["AppleProxy"],"action": "route","outbound": "🇭🇰 HongKong"}
