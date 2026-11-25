@@ -431,12 +431,13 @@ sniffer:
     - +.icloud-content.com
     - gamecenter.apple.com
 
-### 节点组参数锚点
+### 节点锚点
+# 节点组锚点
 UrlTest: &UrlTest {type: url-test, url: https://networkcheck.kde.org, interval: 600, lazy: true, tolerance: 50, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
 FallBack: &FallBack {type: fallback, url: https://networkcheck.kde.org, interval: 600, lazy: true, tolerance: 50, timeout: 3000, disable-udp: false, max-failed-times: 3, hidden: true}
 LoadBalance: &LoadBalance {type: load-balance, url: https://networkcheck.kde.org, interval: 600, lazy: true, disable-udp: false, strategy: consistent-hashing, timeout: 3000, max-failed-times: 3, hidden: true}
 
-# 节点筛选正则
+# 节点筛选正则锚点
 FilterHK: &FilterHK '^(?=.*(香港|HK|HKG|Hong|🇭🇰))(?!.*(回国|校园|游戏|🎮|网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
 FilterJP: &FilterJP '^(?=.*(日本|JP|JPN|Japan|🇯🇵|川日|东京|大阪|泉日|埼玉))(?!.*(回国|校园|游戏|🎮|网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
 FilterKR: &FilterKR '^(?=.*(韩国|韓|KOR|KR|Korea|🇰🇷|首尔))(?!.*(回国|校园|游戏|🎮|网站|地址|剩余|过期|时间|有效|网址|禁止|邮箱|发布|客服|订阅|节点)).*$'
@@ -446,7 +447,7 @@ FilterTW: &FilterTW '^(?=.*(台湾|台灣|TWN|TW|Taiwan|Tai|🇹🇼))(?!.*(回�
 FilterAll: &FilterAL '^(?!.*(?:(?:群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持)|(?i:\b(?:USE|USED|TOTAL|EXPIRE|EMAIL|Panel)\b)|[\p{Han}]\.com)).*$'
 FilterGame: &FilterGame '^(?=.*(游戏|🎮|(?i:GAME)))(?!.*(回国|校园)).*$'
 
-# 策略组代理列表模板
+# 策略组锚点
 SelectBL: &SelectBL {type: select, proxies: ["🔮 负载均衡", "🎲 自动选择", "🔯 故障转移", "香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "DIRECT"]}
 SelectFB: &SelectFB {type: select, proxies: ["🔯 故障转移", "🔮 负载均衡", "🎲 自动选择", "🔯 故障转移", "香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "DIRECT"]}
 SelectUT: &SelectUT {type: select, proxies: ["🎲 自动选择", "🔯 故障转移", "🔮 负载均衡", "香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "DIRECT"]}
@@ -484,6 +485,8 @@ proxy-groups:
   - {name: "台湾节点", <<: *UrlTest, include-all: true, filter: *FilterTW, icon: "https://raw.githubusercontent.com/Semporia/Hand-Painted-icon/master/Rounded_Rectangle/Taiwan.png"}
 # 游戏节点
   - {name: "Game", <<: *UrlTest, include-all: true, filter: *FilterGame, hidden: true}
+
+  
 ### 分流规则
 rules:
 # 内网
