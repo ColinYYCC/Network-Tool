@@ -406,6 +406,8 @@ rules:
   - DOMAIN-SUFFIX,vercel.app,国外网站
   # 保护丢包，防止应用循环请求
   - IP-CIDR,0.0.0.0/32,REJECT
+  # LinkedIn
+  - RULE-SET,LinkedIn,国外网站
   # 国内直连
   - GEOIP,CN,DIRECT
 ### 拦截规则
@@ -470,6 +472,8 @@ rule-providers:
   Phiishing 拦截: {behavior: domain, format: text, interval: 86400, url: 'https://ruleset.skk.moe/List/domainset/reject_phishing.conf'}
   防止PCDN: {behavior: classical, format: text, interval: 86400, url: 'https://ruleset.skk.moe/List/non_ip/reject-no-drop.conf'}
   Adobe 系列软件内部的跟踪: {behavior: classical, format: text, interval: 86400, url: 'https://ruleset.skk.moe/List/non_ip/reject-drop.conf'}
+# LinkedIn
+  LinkedIn: {behavior: classical, format: text, interval: 86400, url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/LinkedIn/LinkedIn.list'}
 # CDN
   SukkaW静态CDN域名: {behavior: domain, format: text, interval: 86400, url: 'https://ruleset.skk.moe/List/domainset/cdn.conf'}
   SukkaW静态CDN域名-2: {behavior: classical, format: text, interval: 86400, url: 'https://ruleset.skk.moe/List/non_ip/cdn.conf'}
