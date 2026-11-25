@@ -513,6 +513,7 @@ rules:
   - "RULE-SET,Stream,国外网站"
 ### IP 类规则
   - "RULE-SET,StreamIP,国外网站,no-resolve"
+### 应用与游戏（非 IP）
   - "RULE-SET,AI,AI"
   - "RULE-SET,Telegram,Telegram"
   - "RULE-SET,AppleServices,Apple Service"
@@ -543,6 +544,7 @@ rules:
   - "RULE-SET,Domestic,DIRECT"
   - "RULE-SET,Direct,DIRECT"
   - "RULE-SET,ChinaIP,DIRECT,no-resolve"
+  # 静态 CDN / 国外网站
   - "RULE-SET,CDN,国外网站"
   - "RULE-SET,Global,🥡 节点选择"
   # 阻止海外 QUIC
