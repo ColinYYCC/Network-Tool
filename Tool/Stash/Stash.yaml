@@ -406,15 +406,15 @@ rules:
   - DOMAIN-SUFFIX,vercel.app,国外网站
   # 保护丢包，防止应用循环请求
   - IP-CIDR,0.0.0.0/32,REJECT
-  # LinkedIn
-  - RULE-SET,LinkedIn,国外网站
-  # 国内直连
-  - GEOIP,CN,DIRECT
 ### 拦截规则
   - RULE-SET,秋风广告规则,REJECT
   - RULE-SET,Phiishing 拦截,REJECT
   - RULE-SET,防止PCDN,REJECT
   - RULE-SET,Adobe 系列软件内部的跟踪,REJECT-DROP
+  # LinkedIn
+  - RULE-SET,LinkedIn,国外网站
+  # 国内直连
+  - GEOIP,CN,DIRECT
 ### 静态 CDN
   - RULE-SET,SukkaW静态CDN域名,国外网站
   - RULE-SET,SukkaW静态CDN域名-2,国外网站

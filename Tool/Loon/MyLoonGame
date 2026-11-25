@@ -156,7 +156,7 @@ DOMAIN-KEYWORD,todesk,DIRECT
 # AnyViewer
 DOMAIN-KEYWORD,anyviewer,DIRECT
 
-# 新增内置策略 NO-HYBRID, 等价为 NO-HYBRID = direct, hybrid=off
+# 招商银行：部分服务会校验来源 IP，Loon 无 NO-HYBRID 策略，直接直连
 DOMAIN-SUFFIX,cmbchina.com,DIRECT
 
 # Web Controller 网页控制器规则
@@ -239,7 +239,6 @@ https://github.com/LucaLin233/Luca_Conf/raw/main/Surge/Rule/Telegram.list?raw = 
 
 # > 👾Game 游戏(不仅限于UDP, 包括相关CDN)
 # GameList
-# https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Game/Game.list, policy = 游戏, tag = GameList, enabled = true // GameList
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Blizzard/Blizzard.list, policy=游戏, tag=暴雪娱乐 Blizzard, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Classic/Classic.list, policy=游戏, tag=Classic, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/DiabloIII/DiabloIII.list, policy=游戏, tag=暗黑破坏神III DiabloIII, enabled=true
@@ -264,6 +263,8 @@ https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Supercell/Supercell.list, policy=游戏, tag=部落冲突 Supercell, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/UBI/UBI.list, policy=游戏, tag=UBI, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Xbox/Xbox.list, policy=游戏, tag=Xbox, enabled=true
+# GameList 全集（默认不启用，与上面的分项重复）
+# https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/Game/Game.list, policy = 游戏, tag = GameList, enabled = true // GameList
 
 # > 社交媒体
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/LinkedIn/LinkedIn.list, policy=国外网站, tag=LinkedIn, enabled=true

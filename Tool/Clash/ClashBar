@@ -245,7 +245,7 @@ rules:
   - RULE-SET,中国IP段,DIRECT
   - RULE-SET,流媒体IP,美国节点
 
-### 其他 类规则
+### 其他类规则
   - GEOIP,CN,DIRECT
   - MATCH,漏网之鱼
 
