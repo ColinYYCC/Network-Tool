@@ -483,6 +483,9 @@ proxy-groups:
   - {name: "Game", <<: *UrlTest, include-all: true, filter: *FilterGame, hidden: true}
 # 分流规则
 rules:
+### 内网
+  - "RULE-SET,LanDomain,DIRECT"
+  - "RULE-SET,LanIP,DIRECT,no-resolve"
 ### 自定义规则
   - "DOMAIN-SUFFIX,zoom.us,国外网站"
   - "DOMAIN-KEYWORD,todesk,DIRECT"
@@ -500,7 +503,10 @@ rules:
   - "RULE-SET,RejectNoDrop,REJECT"
   - "RULE-SET,RejectDrop,REJECT-DROP"
 ### 苹果 CN
+  - "RULE-SET,AppleCdn,DIRECT"
   - "RULE-SET,AppleCN,DIRECT"
+### 微软 CDN
+  - "RULE-SET,MsCdn,DIRECT"
 ### 流媒体
   - "RULE-SET,AppleTV,国外网站"
   - "RULE-SET,Disney,Disney+"
@@ -515,6 +521,7 @@ rules:
 ### 应用
   - "RULE-SET,AI,AI"
   - "RULE-SET,Telegram,Telegram"
+  - "RULE-SET,TelegramIP,Telegram,no-resolve"
 ### 服务
   - "RULE-SET,AppleServices,Apple Service"
 ### 游戏
@@ -546,6 +553,7 @@ rules:
   - "RULE-SET,Direct,DIRECT"
   - "RULE-SET,ChinaIP,DIRECT,no-resolve"
 ### 静态 CDN / 国外网站
+  - "RULE-SET,CdnDomain,国外网站"
   - "RULE-SET,CDN,国外网站"
   - "RULE-SET,Global,🥡 节点选择"
 ### 端口与协议
@@ -566,13 +574,19 @@ ipcidr: &ipcidr {type: http, behavior: ipcidr, interval: 86400, format: text, pr
 
 # 订阅规则
 rule-providers:
+# 内网
+  LanDomain: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/lan.txt"}
+  LanIP: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/ip/lan.txt"}
 # 拦截类
   AWAvenue: {<<: *DomainY, url: "https://cdn.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.yaml"}
   Reject: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/reject.txt"}
   RejectNoDrop: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/reject-no-drop.txt"}
   RejectDrop: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/reject-drop.txt"}
 # 苹果
+  AppleCdn: {<<: *DomainT, url: "https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt"}
   AppleCN: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt"}
+# 微软
+  MsCdn: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/microsoft_cdn.txt"}
 # 流媒体
   AppleTV: {<<: *ClassicalY, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleTV/AppleTV.yaml"}
   Disney: {<<: *ClassicalY, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.yaml"}
@@ -588,6 +602,7 @@ rule-providers:
   AI: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/ai.txt"}
 # 即时通讯
   Telegram: {<<: *ClassicalY, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml"}
+  TelegramIP: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/ip/telegram.txt"}
 # 苹果服务
   AppleServices: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/apple_services.txt"}
 # 游戏
@@ -619,5 +634,6 @@ rule-providers:
   Direct: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/direct.txt"}
   ChinaIP: {<<: *ipcidr, url: "https://ruleset.skk.moe/Clash/ip/china_ip.txt"}
 # 静态 CDN
+  CdnDomain: {<<: *DomainT, url: "https://ruleset.skk.moe/Clash/domainset/cdn.txt"}
   CDN: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/cdn.txt"}
   Global: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/global.txt"}
