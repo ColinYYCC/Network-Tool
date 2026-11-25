@@ -505,8 +505,6 @@ rules:
 ### 苹果 CN
   - "RULE-SET,AppleCdn,DIRECT"
   - "RULE-SET,AppleCN,DIRECT"
-### 微软 CDN
-  - "RULE-SET,MsCdn,DIRECT"
 ### 流媒体
   - "RULE-SET,AppleTV,国外网站"
   - "RULE-SET,Disney,Disney+"
@@ -553,7 +551,6 @@ rules:
   - "RULE-SET,Direct,DIRECT"
   - "RULE-SET,ChinaIP,DIRECT,no-resolve"
 ### 静态 CDN / 国外网站
-  - "RULE-SET,CdnDomain,国外网站"
   - "RULE-SET,CDN,国外网站"
   - "RULE-SET,Global,🥡 节点选择"
 ### 端口与协议
@@ -585,8 +582,6 @@ rule-providers:
 # 苹果
   AppleCdn: {<<: *DomainT, url: "https://ruleset.skk.moe/Clash/domainset/apple_cdn.txt"}
   AppleCN: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/apple_cn.txt"}
-# 微软
-  MsCdn: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/microsoft_cdn.txt"}
 # 流媒体
   AppleTV: {<<: *ClassicalY, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/AppleTV/AppleTV.yaml"}
   Disney: {<<: *ClassicalY, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.yaml"}
@@ -634,6 +629,5 @@ rule-providers:
   Direct: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/direct.txt"}
   ChinaIP: {<<: *ipcidr, url: "https://ruleset.skk.moe/Clash/ip/china_ip.txt"}
 # 静态 CDN
-  CdnDomain: {<<: *DomainT, url: "https://ruleset.skk.moe/Clash/domainset/cdn.txt"}
   CDN: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/cdn.txt"}
   Global: {<<: *ClassicalT, url: "https://ruleset.skk.moe/Clash/non_ip/global.txt"}
