@@ -499,7 +499,7 @@ rules:
   - "RULE-SET,Reject,REJECT"
   - "RULE-SET,RejectNoDrop,REJECT"
   - "RULE-SET,RejectDrop,REJECT-DROP"
-### 非 IP 类规则
+### 非 IP 类规则（流媒体）
   - "RULE-SET,AppleCN,DIRECT"
   - "RULE-SET,AppleTV,国外网站"
   - "RULE-SET,Disney,Disney+"
@@ -509,6 +509,9 @@ rules:
   - "RULE-SET,YouTubeMusic,YouTube"
   - "RULE-SET,Spotify,Spotify"
   - "RULE-SET,Stream,国外网站"
+### IP 类规则（流媒体 IP）
+  - "RULE-SET,StreamIP,国外网站,no-resolve"
+### 非 IP 类规则（应用、服务与游戏）
   - "RULE-SET,AI,AI"
   - "RULE-SET,Telegram,Telegram"
   - "RULE-SET,AppleServices,Apple Service"
@@ -535,8 +538,6 @@ rules:
   - "RULE-SET,Xbox,游戏"
   # 社交媒体
   - "RULE-SET,LinkedIn,国外网站"
-### 流媒体 IP 规则
-  - "RULE-SET,StreamIP,国外网站,no-resolve"
 ### 国内直连
   - "RULE-SET,Domestic,DIRECT"
   - "RULE-SET,Direct,DIRECT"
