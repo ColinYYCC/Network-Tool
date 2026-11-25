@@ -216,7 +216,6 @@ rules:
 
 ### 非 IP 类规则
   - RULE-SET,内网,DIRECT
-  # LinkedIn
   - RULE-SET,LinkedIn,手动切换
   - RULE-SET,国内域名,DIRECT
   - RULE-SET,直连,DIRECT
