@@ -452,7 +452,7 @@ SelectFB: &SelectFB {type: select, proxies: [🔯 故障转移, 🛰️ 自动�
 SelectUT: &SelectUT {type: select, proxies: [🛰️ 自动选择, 🔮 负载均衡, 🔯 故障转移, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点, DIRECT]}
 SelectDT: &SelectDT {type: select, proxies: [DIRECT, 🛰️ 自动选择, 🔮 负载均衡, 🔯 故障转移, 香港节点, 台湾节点, 日本节点, 韩国节点, 狮城节点, 美国节点]}
 
-# 节点组
+#### 节点组
 proxy-groups:
 # 主要节点
   - {name: "🥡 节点选择", type: select, proxies: ["🎲 自动选择", "🔯 故障转移", "🔮 负载均衡", "香港节点", "美国节点", "狮城节点", "日本节点", "韩国节点", "台湾节点", "DIRECT"], icon: "https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/Loon_27.png"}
